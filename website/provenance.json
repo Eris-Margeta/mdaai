@@ -2,7 +2,7 @@
   "format": 1,
   "reviewedOn": "2026-10-04",
   "boundary": "Curated documentation; original sources are not distributed. A portable build verifies the reviewed content digest, source-reference coverage and public asset hashes, not availability of private source repositories.",
-  "contentSha256": "8e4e12f07428e0dafd3d6cc39537cd20a7ff57df0f9ee6ecad1b21b685e34225",
+  "contentSha256": "ed8d2742123630159de040e6e817e323a95ea5079fd28fc0f2420ef97325abbb",
   "sourceReferences": {
     "MDAAI 2.0: AGENTS.md": "f1a516f71d237ab741213a79997e3fc1edf98ce019d861dda92454934fd21374",
     "MDAAI 2.0: CLAUDE.md": "d830177eb8e9b6cb9d77ca23cc1457e03361ebee774988d3b1b554faa4e02553",

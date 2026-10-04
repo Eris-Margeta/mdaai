@@ -125,7 +125,7 @@ def build():
         pagination += '</nav>'
         source_note = '<details class="source-note"><summary>Source references</summary><p>Based on original contracts and templates. These are source locations, not installed-file claims. No private source archives are served.</p><ul>' + ''.join(f'<li><code>{E(s.replace('../MDAAI-2-0/', 'MDAAI 2.0: ').replace('../MDAAI-MONOREPO/repo-template/', 'First-generation template: '))}</code></li>' for s in page['sources']) + '</ul></details>'
         author = f'<p class="source-note">By <span>{AUTHOR}</span> · <a href="https://github.com/Eris-Margeta/mdaai">Repository</a></p>'
-        video = video_section() if url == '/' else ''
+        video = video_section(page['videoIntro']) if url == '/' else ''
         if video:
             toc += '<a href="#explainer">Video explainer</a>'
         body = f'<div class="docs-layout"><aside id="docs-nav"><nav aria-label="Documentation">{current_nav}</nav></aside><main id="main" class="article" tabindex="-1"><h1>{E(page["title"])}</h1><p class="lede">{E(page["description"])}</p>{author}{sections}{video}{source_note}{pagination}</main><aside class="toc"><nav aria-label="On this page"><p>On this page</p>{toc}</nav></aside></div>'

@@ -2,6 +2,10 @@
   {
     "slug": "mdaai",
     "route": "/",
+    "videoIntro": {
+      "heading": "Have Trouble Reading?",
+      "supportingLine": "Here's MDAAI in 91 seconds."
+    },
     "title": "MDAAI",
     "description": "MDAAI is a repository-based operating protocol for human-directed AI development. It puts instructions, project scope, tasks, decisions and verification evidence in files so an agent can know what it may change, what is current and what supports a result.",
     "group": "Documentation",

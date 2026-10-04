@@ -321,6 +321,22 @@ class WebsiteTests(unittest.TestCase):
         self.assertFalse(any(t == 'link' and a.get('rel') == 'canonical' for t, a in not_found.elements))
         self.assertNotIn('application/ld+json', not_found.text)
 
+    def test_owner_video_intro_immediately_precedes_video(self):
+        home = self.documents['/'].text
+        match = re.search(r'<section id="explainer">(.*?)</section>', home, re.S)
+        self.assertIsNotNone(match)
+        assert match is not None
+        section = match.group(1)
+        expected = '<h2><a class="heading-anchor" href="#explainer">Have Trouble Reading?</a></h2><p>Here&#x27;s MDAAI in 91 seconds.</p><video '
+        self.assertIn(expected, section)
+        explanation = 'A technical overview of the original template and MDAAI 2.0. The endpoint example is illustrative, not a product implementation claim.'
+        self.assertTrue(section.startswith('<p>' + explanation + '</p>'))
+        intro = next(p for p in self.pages if p['route'] == '/').get('videoIntro')
+        self.assertEqual(intro, {'heading': 'Have Trouble Reading?', 'supportingLine': "Here's MDAAI in 91 seconds."})
+        for route, doc in self.documents.items():
+            if route != '/':
+                self.assertNotIn('Have Trouble Reading?', doc.text)
+
     def test_images_video_captions_and_manifest(self):
         def png_size(path):
             data = path.read_bytes()
