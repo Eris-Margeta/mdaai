@@ -6,6 +6,8 @@ import json
 import re
 import base64
 from seo import metadata, video_section, graph, BASE, AUTHOR
+from templates_feed import load_catalog, read_cache, emit_payloads
+from templates_view import cycle, gallery
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'website'
@@ -18,7 +20,7 @@ def layer_diagram():
 
 
 def header():
-    return '<a class="skip" href="#main">Skip to content</a><header class="header"><a class="brand" href="/">MDAAI</a><span class="header-note">Repository documentation</span><div class="tools"><button class="search-open" type="button">Search <kbd>⌘ K</kbd></button><button class="theme" type="button" aria-label="Switch color theme">◐</button><button class="menu" type="button" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="docs-nav">☰</button></div></header>'
+    return '<a class="skip" href="#main">Skip to content</a><header class="header"><a class="brand" href="/">MDAAI</a><span class="header-note">Repository documentation</span><div class="tools"><a class="templates-repo" href="https://github.com/Eris-Margeta/mdaai-templates" aria-label="Templates repository on GitHub (external)">Templates <span aria-hidden="true">↗</span><span class="repo-label"> GitHub</span></a><button class="search-open" type="button">Search <kbd>⌘ K</kbd></button><button class="theme" type="button" aria-label="Switch color theme">◐</button><button class="menu" type="button" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="docs-nav">☰</button></div></header>'
 
 
 def footer():
@@ -55,8 +57,13 @@ def load_content():
     return pages
 
 
-def build():
+def build(include_templates=False):
     pages = load_content()
+    lock, catalog, catalog_files = load_catalog(SITE)
+    provenance = json.loads((SITE / 'provenance.json').read_text())
+    if provenance['sourceReferences']['Public template catalog: templates.json'] != lock['manifestSha256']:
+        raise ValueError('Reviewed catalog source-reference drift')
+    payloads = read_cache(SITE) if include_templates else None
     # Only owned disposable build output is replaced; source/history remain intact.
     if OUT.is_symlink():
         raise ValueError('output symlink refused')
@@ -94,6 +101,8 @@ def build():
                 raise ValueError('unsafe anchor')
             toc += f'<a href="#{anchor}">{E(section["title"])}</a>'
             sections += f'<section id="{anchor}"><h2><a class="heading-anchor" href="#{anchor}">{E(section["title"])}</a></h2><p>{E(section["text"])}</p>'
+            if anchor == 'catalog' and url == '/templates/':
+                sections += gallery(lock, catalog, page['catalogPresentation'], include_templates)
             if section.get('diagram'):
                 sections += layer_diagram()
             if anchor == 'file-map':
@@ -125,13 +134,16 @@ def build():
         pagination += '</nav>'
         source_note = '<details class="source-note"><summary>Source references</summary><p>Based on original contracts and templates. These are source locations, not installed-file claims. No private source archives are served.</p><ul>' + ''.join(f'<li><code>{E(s.replace('../MDAAI-2-0/', 'MDAAI 2.0: ').replace('../MDAAI-MONOREPO/repo-template/', 'First-generation template: '))}</code></li>' for s in page['sources']) + '</ul></details>'
         author = f'<p class="source-note">By <span>{AUTHOR}</span> · <a href="https://github.com/Eris-Margeta/mdaai">Repository</a></p>'
-        video = video_section(page['videoIntro']) if url == '/' else ''
+        video = video_section(page['videoIntro']) + cycle(page['templateCycle']) if url == '/' else ''
         if video:
-            toc += '<a href="#explainer">Video explainer</a>'
+            toc += '<a href="#explainer">Video explainer</a><a href="#template-cycle">Protocol and templates</a>'
         body = f'<div class="docs-layout"><aside id="docs-nav"><nav aria-label="Documentation">{current_nav}</nav></aside><main id="main" class="article" tabindex="-1"><h1>{E(page["title"])}</h1><p class="lede">{E(page["description"])}</p>{author}{sections}{video}{source_note}{pagination}</main><aside class="toc"><nav aria-label="On this page"><p>On this page</p>{toc}</nav></aside></div>'
         target = OUT / page['route'].strip('/')
         target.mkdir(parents=True, exist_ok=True)
         (target / 'index.html').write_text(shell(page['title'], page['description'], body, 'docs', url))
+    for entry in search:
+        if entry['url'] == '/templates/#catalog':
+            entry['text'] += ' ' + ' '.join(catalog_files)
     (assets / 'search.json').write_text(json.dumps(search, ensure_ascii=False))
     (OUT / '404.html').write_text(shell('Page not found', 'This route is not part of the documentation.', '<main id="main" class="not-found"><h1>Page not found</h1><p>The page may have moved, or the address may be incorrect.</p><a class="button primary" href="/">Go to documentation →</a></main>'))
     (OUT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {BASE}/sitemap.xml\n')
@@ -144,6 +156,8 @@ def build():
     csp = "default-src 'self'; script-src 'self' " + ' '.join(hashes) + "; style-src 'self'; img-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'"
     (SITE / 'csp-header.conf').write_text('add_header Content-Security-Policy "' + csp + '" always;\n')
     expected = {'index.html', '404.html', 'robots.txt', 'sitemap.xml', 'site.webmanifest', 'assets/search.json'} | {(p['route'].strip('/') + '/index.html').lstrip('/') for p in pages} | set(json.loads((SITE / 'provenance.json').read_text())['assets'])
+    if payloads is not None:
+        expected |= emit_payloads(OUT, payloads)
     for file in OUT.rglob('*'):
         if file.is_file() and str(file.relative_to(OUT)) not in expected:
             raise ValueError('Unexpected production output; inspect and remove explicitly: ' + str(file))
@@ -151,4 +165,7 @@ def build():
 
 
 if __name__ == '__main__':
-    build()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--include-templates', action='store_true', help='Include revalidated, explicitly synced template text; never downloads')
+    build(parser.parse_args().include_templates)

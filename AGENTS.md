@@ -1,6 +1,6 @@
 # MDAAI public documentation repository
 
-Read this file before editing. This repository publishes six curated documentation pages and an explanatory video; it is not the private product implementation or an automatic governance installer.
+Read this file before editing. This repository publishes seven curated documentation pages and an explanatory video; it is not the private product implementation or an automatic governance installer.
 
 ## Working contract
 - Preserve approved content and the existing design. Keep source packages read-only.

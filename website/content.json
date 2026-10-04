@@ -49,8 +49,8 @@
       },
       {
         "id": "generations",
-        "title": "Two repository workflows",
-        "text": "The first-generation template uses an elaborated project plan, Work Orders, a work-order registry, corrective records and architecture decisions. MDAAI 2.0 concentrates routine work in one task registry and adds separate records only when they carry necessary context. A migration reconciles contradictory instructions and preserves completed history; it does not simply add a second protocol on top.",
+        "title": "Two initial template families",
+        "text": "The first-generation template uses an elaborated project plan, Work Orders, a work-order registry, corrective records and architecture decisions. MDAAI 2.0 concentrates routine work in one task registry and adds separate records only when they carry necessary context. A migration reconciles contradictory instructions and preserves completed history; it does not simply add a second protocol on top. These are concrete template families implementing MDAAI, not the whole protocol. Template versions and protocol identities are distinct.",
         "links": [
           [
             "First-generation MDAAI",
@@ -86,7 +86,21 @@
       "AGENTS.md",
       "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
       "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/TASKS.json"
-    ]
+    ],
+    "templateCycle": {
+      "title": "A stable protocol. Templates that evolve.",
+      "text": "The protocol governs how work is authorized, reviewed and evidenced. A template gives that method a concrete home in project files. Improve those files through reviewed work; adopt a new version explicitly. The protocol can itself be revised through its own authorized process.",
+      "steps": [
+        "Stable protocol",
+        "Literal template files",
+        "Your project",
+        "Review and improve",
+        "Versioned template",
+        "Explicit adoption"
+      ],
+      "note": "Review may be manual or agent-assisted. Publication does not activate a template or update your project.",
+      "link": "Explore the template files"
+    }
   },
   {
     "slug": "structure",
@@ -680,7 +694,7 @@
     "slug": "mdaai-2",
     "route": "/mdaai-2/",
     "title": "MDAAI 2.0",
-    "description": "The portable revision reduces routine records while retaining explicit authority, engineering obligations, evidence and recoverable task history.",
+    "description": "The MDAAI 2.0 template family implements a portable operating contract with explicit authority, engineering obligations, evidence and recoverable task history.",
     "group": "Documentation",
     "sections": [
       {
@@ -779,5 +793,46 @@
       "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
       "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/TASKS.json"
     ]
+  },
+  {
+    "slug": "templates",
+    "route": "/templates/",
+    "group": "Templates",
+    "title": "Templates",
+    "description": "Explore 93 literal governance files in two versioned MDAAI template families. Inspect their sources, choose applicable files and review before explicit adoption.",
+    "sources": [
+      "Public template catalog: templates.json"
+    ],
+    "sections": [
+      {
+        "id": "choose",
+        "title": "Choose files with a known origin",
+        "text": "A template is a concrete implementation of the protocol in files. This reviewed catalog contains 84 first-generation files and 9 MDAAI 2.0 files. Required files belong to the selected contract; conditional files apply when their governing condition is met; optional files add compatibility or tooling. Selecting a role does not waive stronger project rules."
+      },
+      {
+        "id": "catalog",
+        "title": "The literal file gallery",
+        "text": "Inspect the pinned entry point and each file before use. Catalog 0.1.0, template version and protocol identity describe different things. Source references identify provenance; the public export can be read without access to the original source repositories."
+      },
+      {
+        "id": "source-versions",
+        "title": "Versions and export boundaries",
+        "text": "The first-generation family carries VERSION 1.0.0 while AI-INSTRUCTIONS.md identifies Version 1.7; supporting protocols have their own labels. It is not a pristine original 1.0 release. MDAAI 2.0 supplies six portable core files, an optional CLAUDE.md pointer and fresh project-owned Elaboration and TASKS.json scaffolds. Its root contract omits laboratory-specific commands. Original source repositories remain unchanged."
+      },
+      {
+        "id": "review",
+        "title": "Review before adoption",
+        "text": "Both bundles are marked review-before-adoption and complete: false. All 93 listed files are exported; this status describes uninitialized downstream scaffolds, adoption review and known literal link gaps, not missing export files. First-generation references to PROJECT-DEVELOPMENT-ELABORATION.md and GUIDES/CHECKPOINT-PROTOCOL.md need reconciliation with the supplied owners. Review the export manifest, license scopes and known link-gap inventory. Back up the target, choose one active profile, reconcile existing rules, fill project identity and actual commands, then exercise a real task and resumption. No installer, automatic activation or guaranteed self-improvement is provided."
+      },
+      {
+        "id": "evolution",
+        "title": "Improve, version, then adopt",
+        "text": "Project experience can inform template improvements, manually or with agent assistance under the applicable protocol. Review the change and its evidence, publish a versioned template, then explicitly decide whether and how each project adopts it. A stable protocol governs this loop and may itself be revised through authorized review."
+      }
+    ],
+    "catalogPresentation": {
+      "included": "Verified source previews and text downloads are included in this build.",
+      "remote": "Files are linked to the pinned public repository. This build does not include local source downloads."
+    }
   }
 ]

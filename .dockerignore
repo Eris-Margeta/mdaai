@@ -6,3 +6,5 @@
 website/dist/
 website/csp-header.conf
 website/__pycache__/
+
+website/.template-cache/

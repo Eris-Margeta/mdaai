@@ -1,0 +1,601 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "0.1.0",
+  "repository": "Eris-Margeta/mdaai-templates",
+  "templates": [
+    {
+      "id": "mdaai-1",
+      "title": "MDAAI 1.0 — first-generation family",
+      "description": "Work Orders, lifecycle protocols, checkpoints, schemas and blank project scaffolds.",
+      "templateVersion": "1.0.0+ec57688",
+      "protocol": {
+        "identity": "First-generation MDAAI; AI-INSTRUCTIONS subject 1.7"
+      },
+      "source": {
+        "repository": "Eris-Margeta/monorepo-template",
+        "revision": "ec57688e48f8ad12e60785173956d50386fee6b8"
+      },
+      "status": "review-before-adoption",
+      "complete": false,
+      "entrypoint": "templates/mdaai-1/AGENTS.md",
+      "files": [
+        {
+          "path": "templates/mdaai-1/.github/dependabot.example",
+          "sha256": "03fcb1e13a1ea57e84b4ebc76db876d1bf0a1cd7807e38200b1904cd9b36269a",
+          "size": 2119,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/.github/workflows/.ci.example",
+          "sha256": "a04802c934e5adcbe166318373b560085cc4a9d6c2cd7c66f0720c6bf31d62fd",
+          "size": 2033,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/.github/workflows/.release.example",
+          "sha256": "9cb0480ef82c335f85f51e9a77b018cca0de412f169ab7acab548165697ada25",
+          "size": 2496,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/.github/workflows/.sync-repo.example",
+          "sha256": "30a41eb23ef9c43a42644026fafe1d0abfc6f07b3d9fe1fbc3b2cf4cd2d5c2a9",
+          "size": 1808,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/.gitignore",
+          "sha256": "5e2d041572146c3983c96fa8426dbe7a1367025f0df53f32bf5616b3520c794e",
+          "size": 3442,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/.template/agent-rules.yaml",
+          "sha256": "a991fa542005132cb49ee0a6a4f2c4588881d0977b0c9f97197929843fcb59f5",
+          "size": 13945,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/.template/scripts/sync-downstream.sh",
+          "sha256": "77c36f4145c3a72bc0c3083d562de931c0613109c183e8db0ccc74b9f811272f",
+          "size": 6293,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/.template/scripts/sync-upstream.sh",
+          "sha256": "21bcbe960a08680b79de866dea6db734c70125bde3eb49ede7b90beca30d0691",
+          "size": 2483,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/.template/scripts/validate.sh",
+          "sha256": "26c691a363f5b64fdb877789b12e78b7788dad22a678d093aef1d4beddddf45a",
+          "size": 8084,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/.template/sync-manifest.yaml",
+          "sha256": "afb06ee6f171b01ebdeb057c8368743d6e903b559002e6594828db7aa93f8db5",
+          "size": 5504,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/AGENTS.md",
+          "sha256": "d9087e12d0f79ea8e87c2c147a1d0a5907579c1854e71ffc49f3533096801982",
+          "size": 8114,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/CLAUDE.md",
+          "sha256": "eba8f227df0b82c478ac75f0c22054d8ec9658108d6d907b025d64153eb4d8aa",
+          "size": 389,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/CODE_OF_CONDUCT.md",
+          "sha256": "99355d573d66ad348eaecb5fb2714fb303984349e544beae61ca9b1dec77500a",
+          "size": 1994,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/CONTRIBUTING.md",
+          "sha256": "522e364d883e132ab096088ac02c5ed7a6b3db226eb95426998830e19c2309ba",
+          "size": 2704,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/Justfile",
+          "sha256": "9cbe7fc7aaa282e3bcd8736ae1b26ff9e87848407ed1b8384737f903bc1e30ff",
+          "size": 4301,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/LICENSE",
+          "sha256": "dd02548f1066030908ac45ec7252de62ac84ceeb87f56ef677f6d5772a672a82",
+          "size": 1070,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/AGENTS.md",
+          "sha256": "ab8964b710c4adc549d6d5a3867522910c66878684f8a6585d894e038097478b",
+          "size": 3950,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/AI/AGENTS.md",
+          "sha256": "0281eb67bfce2f223f205e1c0cbd02a9a0d20a358bdf15f8bcfa0b2899cd1398",
+          "size": 2439,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/AI/functions/registry.json",
+          "sha256": "26f0830c540d90622037bb32e4a00ff80baa76e74064e065cd22c766c687c09b",
+          "size": 6005,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/AI/functions/reporting.json",
+          "sha256": "891e8b337dcf8d922e0ed6dafa5d9e6f6b204ef2e78386932cb4b57967e321ff",
+          "size": 7289,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/AI/functions/work-orders.json",
+          "sha256": "4584cc00e85c759be5e9f51fda8df8dbd573f4978ecf3cf61e7788eb8661ad26",
+          "size": 11445,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/ANALYSIS/AGENTS.md",
+          "sha256": "9cc1543cc50cca13ddadca7485de7a2c7a65c63d3639314fcc16a9fdc919b993",
+          "size": 2641,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/ANALYSIS/analysis-report-template.md",
+          "sha256": "9f902e4ba0bdae06df4d61a286f88c1fe829379561b662f596e5d6dfc4d16f4b",
+          "size": 1863,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/ARCHITECTURE/ADR-000-record-architecture-decisions.md",
+          "sha256": "df06ede84cdccf25750f70b815f8a66011627970f6bfef94f13b7df201411e80",
+          "size": 3185,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/ARCHITECTURE/AGENTS.md",
+          "sha256": "c2cfa9f3a2fc2cfeda3a3f1c404e3e58277816d9b5fc9701aff295dbc7175beb",
+          "size": 2335,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/ARCHITECTURE/adr-template.md",
+          "sha256": "5d6080a2629f946d9a933e6ec4c28c13c0eb64dfeb577eb83e792b89f70e6308",
+          "size": 3339,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/CHECKPOINTS/AGENTS.md",
+          "sha256": "bda6b6e9eecd5e17dd14f3d1cc8b503a1b058b26b7a5cab59d3d3873bfced142",
+          "size": 2554,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/CHECKPOINTS/checkpoint-template.md",
+          "sha256": "7923156d37cfee258e528eddd0d62c2eb24bb12126c359801fcaa2c5c67687dc",
+          "size": 4743,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/CLASSIFICATION-REGULATIONS.md",
+          "sha256": "64914e1ef46859747ab39616fee8ae1e2d472f2c14bdd726860c62f91b3d3b02",
+          "size": 4449,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/AGENTS.md",
+          "sha256": "c91e228fd0e3c7e1b7fa45a9d49f28678ea4e7a0636be28f783210576c78dad1",
+          "size": 2037,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/AI-INSTRUCTIONS.md",
+          "sha256": "f264ce505ec1e31c3f435b6f63164f6b2783dd3f97e254673e6086c97685aa86",
+          "size": 20854,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/BETA-PHASE-PROTOCOL.md",
+          "sha256": "507b1b1ad30d51b66de60da5e7924f4067b71fc75a206a14ac28a3b07ab8e0ea",
+          "size": 14577,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/CHECKPOINT-PROTOCOL.md",
+          "sha256": "714a8710af5897dcdbfa25d469a96a7e901f3c9c03fb8fa1debf1937d402ee1a",
+          "size": 7163,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/DOCUMENTATION-PROTOCOL.md",
+          "sha256": "8698ed0b9169dbe22bae5d4924ad93d99b6a76c97c2e4705a13d295798aa33f2",
+          "size": 11776,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/LIFECYCLE-PHASES-PROTOCOL.md",
+          "sha256": "68f2ad9e6994aa63e7de580da499940ec0a726da6e69494ba8310c64d11e4cc3",
+          "size": 12547,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/MULTI-AGENT-PROTOCOL.md",
+          "sha256": "585cf513bf8efdfd213664844eedde380d9412ce7618cfe402aa638da4be1657",
+          "size": 9854,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/WORK-ORDER-PROTOCOL.md",
+          "sha256": "125708f7c9851f030fc3ac8064e7ecca06b7bf025e8094f882826d1e0d00123b",
+          "size": 8908,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/AGENTS.md",
+          "sha256": "199285a4748ee8f294f6f2f1c236e99200911529f7244b3dbb5b658cf5468f4f",
+          "size": 2706,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/CI-CD-PIPELINE-DOCTRINE.md",
+          "sha256": "1ee817d72c1f3926f8b8e1de02b394ad8b29cbe322e25b2762601ebd767f5b31",
+          "size": 8715,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/CODE-PHILOSOPHY.md",
+          "sha256": "773c072fbd457b7c33b9a4ddf4ffe18daecc00b97c87459c5bcfc6f10aff12d8",
+          "size": 7149,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/GO-ENTERPRISE-CODE-DOCTRINE.md",
+          "sha256": "9b35ed1ab4e9849b1fba24dfeb64252708445238f5b8d20911b41e8baeb56765",
+          "size": 7693,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/HTML-CSS-ENTERPRISE-CODE-DOCTRINE.md",
+          "sha256": "0ffcf5c0172e8e0f4406dea8e2f25f7245e69b0028d4486039b0e842d812bcb7",
+          "size": 8493,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/HTML-CSS-STYLE-GUIDE.md",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size": 0,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/NODE-ENTERPRISE-CODE-DOCTRINE.md",
+          "sha256": "f7843dd3aea059a321036f3febaf899e86bff257a66dd7fc7613660938d505d6",
+          "size": 8307,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/PYTHON-ENTERPRISE-CODE-DOCTRINE.md",
+          "sha256": "b1a861cfada5dcdace5b5894f5d2f93ec6d1823a60edb558c1b794814577d75b",
+          "size": 7959,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/RUST-ENTERPRISE-CODE-DOCTRINE.md",
+          "sha256": "e31f04b163c4c4a551e0b71460aef53d5d86501bd4a4af64cd71b80cd6a879e7",
+          "size": 8556,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/TESTING-PHILOSOPHY.md",
+          "sha256": "742238053f804af3b93fdd76c6a68017f19a4f5682fb34441f29cc5731db6c8b",
+          "size": 8442,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/KNOWLEDGE/AGENTS.md",
+          "sha256": "31e783759b329d937759750d8ffeee26c25881aabf1376c427a1fa109e127284",
+          "size": 2763,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/KNOWLEDGE/DEVELOPER-GUIDE.md",
+          "sha256": "70e100c8b5240886810bde6eab8c9b2fe92fd97b0d250bf7d54ef9dac3dd9a46",
+          "size": 7020,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/KNOWLEDGE/DEVELOPMENT-PRACTICES.md",
+          "sha256": "570f66e3ec45517125c573892fc127a60205fa783441209344dcca145a7b3846",
+          "size": 2342,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/KNOWLEDGE/ERROR-CATALOG.md",
+          "sha256": "a6c114bbb1db3ca83ba0e937782a047e19c549d08a329b1a1f4e58e5d074128c",
+          "size": 2134,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/KNOWLEDGE/GOTCHAS.md",
+          "sha256": "e18f91b030c63bb43a2bebf867ec84252e26451f6c0aa21b2cb47fd30ed55a86",
+          "size": 2088,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/KNOWLEDGE/TOOL-NOTES.md",
+          "sha256": "059cc7754cff37ef285945dbf7cb2f19315097fb843fb386d2f2ce05b4f1a4ed",
+          "size": 1891,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/MANAGEMENT/AGENTS.md",
+          "sha256": "f693bade9e7b1713560e88b2ee72c5bcfe1fe46de0a3542be03b27c3685700a6",
+          "size": 2858,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/MANAGEMENT/ENVIRONMENT.md",
+          "sha256": "a2f83b31d5485c64ac9861eebd4a77c0081ae376af0faa3d72801b15635ae1f5",
+          "size": 3739,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
+          "sha256": "58b5476825e6013856bc33de6658c14473968443a5ab10374a603234b7f050e2",
+          "size": 3429,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/MANAGEMENT/PROJECT-RULES.md",
+          "sha256": "5c41193e32534e5479e4715ebc1430f7962e3cc5abec6fd2353d240bfd236dc4",
+          "size": 3218,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/MANAGEMENT/ROADMAP.md",
+          "sha256": "a0e1bc38a8bffe616ccaf1d23cd809be703e939fd91f516c54887ccb5d6e6bfe",
+          "size": 2329,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/MANAGEMENT/VISION.md",
+          "sha256": "b218eb5267a7d19299ac30c236019b7bde993f8a298099e02829edbcde14c74a",
+          "size": 2042,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/NOTES.md",
+          "sha256": "f40f5599bcfd945c50144c65aaf7095c1ad06b10152ed80f1afd42def582c10f",
+          "size": 559,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/SCRATCH/.gitkeep",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size": 0,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/SCRATCH/AGENTS.md",
+          "sha256": "244288cee69595ef9be7728a2c24b43f9df83268400e12260939b14e5dde3d20",
+          "size": 1235,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/SCRATCH/TASK-TEMPLATE.md",
+          "sha256": "64ca4edbcd69b5587e8ed3dabb3a9a648d68fabe38984f14e339e13e2c934080",
+          "size": 739,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/WORK-ORDERS/AGENTS.md",
+          "sha256": "4efbdb2094bb580fca1789380918e0de7b9af6ae77a22bff44c2dc8f12db9ebc",
+          "size": 2855,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/WORK-ORDERS/CORRECTIVE/corrective-work-order-template.md",
+          "sha256": "fa7c42ef251da7669cd0efdcc62bf29220ebd6d9cd6f48287be4e4dc25141f45",
+          "size": 2663,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/WORK-ORDERS/registry.json",
+          "sha256": "804174387aac441e81dfdf306ce2dde9a11fe29d5cc1f9017ca7eebada6447ec",
+          "size": 395,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/PROJECT-INTERNAL/WORK-ORDERS/work-order-template.md",
+          "sha256": "43112190393fe4bfb34592004d6cccbf1c18f79d278570fe8b2c769585bf9812",
+          "size": 10570,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/README.md",
+          "sha256": "91159c3f5d7b68929fc97e33be0a60210a2b20ab8c80c66e7b3b6268cbaa478a",
+          "size": 8504,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/SECURITY.md",
+          "sha256": "379360f59ae5ff03349f7e7008bddb07e9befc769e6290599b8d1427a3e77148",
+          "size": 2373,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/VERSION",
+          "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+          "size": 6,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/docs/.templates/api-endpoint.md",
+          "sha256": "528cdeb83a0af1a6ebd7b9652b910c7a825d397059534c5338ee9efe4806fc49",
+          "size": 3978,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/docs/.templates/architecture-overview.md",
+          "sha256": "192c30a89608b01879fc7e4d3ba6ba0ac97d58f346cc4a451666bc1edcf91f67",
+          "size": 7480,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/docs/.templates/readme-folder.md",
+          "sha256": "ea26b37415488a274197a970604dcde95255b9625e48ce796fb37916eded478d",
+          "size": 812,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/docs/.templates/readme-monorepo.md",
+          "sha256": "41e05df7b1f1567ffbeeccb488659176eef1cd47b6b8aa44cc2f576d78b54409",
+          "size": 5272,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/docs/.templates/readme.md",
+          "sha256": "d0a4151087f712af5c02afe6b3dee4b3ad00fe6110a477e387c6f55efae6272c",
+          "size": 3923,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/docs/.templates/tutorial.md",
+          "sha256": "305fe39c3f41b4568f0c7d9c68374840396aa5e3968a67db6304cff6c26449ea",
+          "size": 1875,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/docs/.templates/user-guide-page.md",
+          "sha256": "3616d4d104bd30d9aabf7fd227c134b09ee42b18fa240e1defd8084a1a9b2575",
+          "size": 1555,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-1/docs/AGENTS.md",
+          "sha256": "4b71e18342cbc05c25298c0dbbb70317220c116f4cc2f7de828011eb83fe983f",
+          "size": 3749,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/docs/assets/ai-workflow.svg",
+          "sha256": "7d0cba710b14c59e83716c797df331d7adac0774f456e1240075a4c0aa5f07f9",
+          "size": 49473,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/docs/diagrams/ai-workflow.mmd",
+          "sha256": "06fbdebbc4c62b9ff2f20c875c593378d65d57de259f7c4411a883ac636f0c86",
+          "size": 2131,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/docs/diagrams/mermaid-config.json",
+          "sha256": "a457dd9620ae3c17d75ce9f64ac6e07691b3526bda3efc85811bceaecb043ddb",
+          "size": 49,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/docs/index.md",
+          "sha256": "caa4cf46a913c76f3596efab47d886d5200ef4486626706b6092ec1b9abd10bc",
+          "size": 818,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/project-meta.yaml",
+          "sha256": "e39705526ca12d5ecf8cb70654840cfed739a69bd5d062dae3bdaf81535eb467",
+          "size": 1820,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-1/tools/sync-version.sh",
+          "sha256": "ce1e5f1591993e905ebf2ec0d02b2eac117d9045502f303e023b19b549f4551a",
+          "size": 1570,
+          "role": "optional"
+        }
+      ]
+    },
+    {
+      "id": "mdaai-2",
+      "title": "MDAAI 2.0",
+      "description": "Six-file operating contract, fresh task registry and uninitialized project scope.",
+      "templateVersion": "2.0.0+5395006",
+      "protocol": {
+        "identity": "MDAAI 2.0 portable operating contract"
+      },
+      "source": {
+        "repository": "Eris-Margeta/MDAAI-2-0",
+        "revision": "5395006954bf298db652679b934ea5755ec17b1c"
+      },
+      "status": "review-before-adoption",
+      "complete": false,
+      "entrypoint": "templates/mdaai-2/AGENTS.md",
+      "files": [
+        {
+          "path": "templates/mdaai-2/AGENTS.md",
+          "sha256": "bf75a08e55483da5c3bb517947daf219e6859ce6fd977c99139a4e4704bb6022",
+          "size": 3118,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-2/CLAUDE.md",
+          "sha256": "d830177eb8e9b6cb9d77ca23cc1457e03361ebee774988d3b1b554faa4e02553",
+          "size": 126,
+          "role": "optional"
+        },
+        {
+          "path": "templates/mdaai-2/PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
+          "sha256": "62dba9a830d92aa07afd3f407446342677e6857663027aa18aed6204fca6ef51",
+          "size": 2072,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-2/PROJECT-INTERNAL/GOVERNANCE/ENGINEERING.md",
+          "sha256": "b05de8a4e3839caf6f0fd15edfa5ba01a2ed49d42daa19e694dd437f39b02441",
+          "size": 3214,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-2/PROJECT-INTERNAL/GOVERNANCE/EVIDENCE.md",
+          "sha256": "049cc4643f8370f26f05e4ff0b8230f3b807811d3914b09c9120998819f0d976",
+          "size": 2292,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-2/PROJECT-INTERNAL/GOVERNANCE/REASONING.md",
+          "sha256": "d7c6a7d57aa06cdbf3b2da27985ea95836c14f421e15d03ab1812321ff0ba1d6",
+          "size": 2001,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-2/PROJECT-INTERNAL/GOVERNANCE/RECORDS.md",
+          "sha256": "d26a59da4613aaef1016673db1cf9b1a4407dcdefd9fef3629419242b19d8ed8",
+          "size": 3329,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-2/PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
+          "sha256": "70c02feb06c87f023865ecf3534a659297cd3daa3f122069dbacd0c356a2a171",
+          "size": 252,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-2/PROJECT-INTERNAL/MANAGEMENT/TASKS.json",
+          "sha256": "64c3825fee3bcbe33f7cffcd1e136ac77967a15947a2228c822bb0859cf4bc95",
+          "size": 63,
+          "role": "required"
+        }
+      ]
+    }
+  ]
+}

@@ -109,7 +109,7 @@ These are relationships, not invented registry states. Blocked and deferred are 
 
 ```text
 website/
-├── content.json              curated six-page documentation
+├── content.json              curated seven-page documentation
 ├── provenance.json           reviewed content/asset digests and logical source refs
 ├── build.py / seo.py          portable build and canonical metadata
 ├── check.py                  route, content, provenance and metadata regressions
@@ -129,6 +129,7 @@ Python 3.13+ and Node.js 22+; no Python/Node packages are needed for an ordinary
 ```sh
 python3 -B website/build.py
 python3 -B website/check.py
+python3 -B website/check_templates.py
 node website/check_clipboard.cjs
 node --check website/assets/app.js
 python3 -B website/serve.py --port 8771
@@ -142,6 +143,12 @@ docker run --rm -p 127.0.0.1:8771:8080 mdaai-docs
 ```
 
 Only generated output is served. The container has a real `/healthz`, genuine unknown-route 404s and video byte-range support. Host canonicalization belongs to the CDN edge, **not site code**.
+
+### Literal template catalog
+
+[Browse the templates](https://www.mdaai.internet.technology/templates/) · [Public template repository](https://github.com/Eris-Margeta/mdaai-templates). Two initial families, 93 literal files, reviewed before adoption. Template versions and protocol identities are distinct; updates require explicit downstream adoption.
+
+The default build stays offline. `just templates-sync` explicitly imports the immutable reviewed feed; `just build-with-templates` adds revalidated read-only text previews and downloads from that local cache without network access. `just build` restores the ordinary remote-link publication. [Pin, security bounds and review procedure](docs/publication/templates.md).
 
 ### Source boundary and rights
 

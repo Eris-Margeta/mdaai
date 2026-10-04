@@ -3,7 +3,6 @@
 /.template/
 /CLAUDE.md
 /project-meta.yaml
-/Justfile
 /CONTRIBUTING.md
 /CODE_OF_CONDUCT.md
 /SECURITY.md
@@ -32,3 +31,6 @@ node_modules/
 /packages/
 /tools/
 website/csp-header.conf
+
+# Optional verified public-template cache; never part of a release
+website/.template-cache/

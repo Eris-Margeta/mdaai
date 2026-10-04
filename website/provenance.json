@@ -2,7 +2,7 @@
   "format": 1,
   "reviewedOn": "2026-10-04",
   "boundary": "Curated documentation; original sources are not distributed. A portable build verifies the reviewed content digest, source-reference coverage and public asset hashes, not availability of private source repositories.",
-  "contentSha256": "ed8d2742123630159de040e6e817e323a95ea5079fd28fc0f2420ef97325abbb",
+  "contentSha256": "9484e90f41032743790cc2adf6f48dcd5e41444ccdf94f055db612558f52f398",
   "sourceReferences": {
     "MDAAI 2.0: AGENTS.md": "f1a516f71d237ab741213a79997e3fc1edf98ce019d861dda92454934fd21374",
     "MDAAI 2.0: CLAUDE.md": "d830177eb8e9b6cb9d77ca23cc1457e03361ebee774988d3b1b554faa4e02553",
@@ -55,7 +55,8 @@
     "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/DEVELOPMENT-PRACTICES.md": "570f66e3ec45517125c573892fc127a60205fa783441209344dcca145a7b3846",
     "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/GOTCHAS.md": "e18f91b030c63bb43a2bebf867ec84252e26451f6c0aa21b2cb47fd30ed55a86",
     "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/ERROR-CATALOG.md": "a6c114bbb1db3ca83ba0e937782a047e19c549d08a329b1a1f4e58e5d074128c",
-    "First-generation template: .template/agent-rules.yaml": "a991fa542005132cb49ee0a6a4f2c4588881d0977b0c9f97197929843fcb59f5"
+    "First-generation template: .template/agent-rules.yaml": "a991fa542005132cb49ee0a6a4f2c4588881d0977b0c9f97197929843fcb59f5",
+    "Public template catalog: templates.json": "f1e5b1426d00a9cc0192b644cde66a830b775bec3d0612f179cb3e693a3b17b4"
   },
   "assets": {
     "assets/icon-192.png": "f201bc2b313677469128145a4e165e9ba2f5ecdfe80de8988a911106ae0af804",
@@ -69,6 +70,6 @@
     "assets/media/mdaai-original-and-2.vtt": "e6ac7145d747870e627dfcb5036ee8d7f8cf5917437a174b162b6215bedc24a3",
     "assets/media/thumbnail.png": "72caeaaf23185d29ad0f159b3d1603f9dc00adbe990d0923c2d3472f1f5a3dab",
     "assets/media/mdaai-original-and-2.srt": "f2e871aa7399592c9dceecc08409f7eaa847162adfa06f51adb140cedd746b55",
-    "assets/publication.css": "2406df1854e718746592bdbb8b5e24a31e28bc4fa708f96ae21784a3d25ab54a"
+    "assets/publication.css": "1111cdeab342b27bea4cc9224f16f2eef3f9136a57b890bc3a3429d1781f875f"
   }
 }

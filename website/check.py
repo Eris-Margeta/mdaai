@@ -63,7 +63,7 @@ class WebsiteTests(unittest.TestCase):
         cls.temp = tempfile.TemporaryDirectory(prefix='mdaai-check-', dir=scratch)
         cls.addClassCleanup(cls.temp.cleanup)
         site = Path(cls.temp.name) / 'website'
-        shutil.copytree(HERE, site, ignore=shutil.ignore_patterns('dist', '__pycache__'))
+        shutil.copytree(HERE, site, ignore=shutil.ignore_patterns('dist', '__pycache__', '.template-cache'))
         cls.patches = [patch.object(build, 'SITE', site), patch.object(build, 'OUT', site / 'dist'), patch.object(serve, 'ROOT', site / 'dist')]
         for mock in cls.patches:
             mock.start()
@@ -144,6 +144,25 @@ class WebsiteTests(unittest.TestCase):
         for name in ('evidence', 'PROJECT-INTERNAL', 'provenance.json', 'source-pins.json'):
             self.assertFalse((build.OUT / name).exists())
 
+    def test_template_panel_order_and_header(self):
+        home = self.documents['/'].text
+        self.assertRegex(home, r'</video><p>English narration.*?</p></section><section id="template-cycle"')
+        self.assertIn('Have Trouble Reading?', home)
+        self.assertIn('Here&#x27;s MDAAI in 91 seconds.', home)
+        for doc in self.documents.values():
+            links = [a for t, a in doc.elements if t == 'a' and a.get('class') == 'templates-repo']
+            self.assertEqual(len(links), 1)
+            self.assertEqual(links[0]['href'], 'https://github.com/Eris-Margeta/mdaai-templates')
+            self.assertIn('external', links[0]['aria-label'])
+        gallery = self.documents['/templates/'].text
+        lock, catalog, files = build.load_catalog(build.SITE)
+        for path, file in files.items():
+            self.assertIn('/blob/' + lock['revision'] + '/' + path, gallery)
+            self.assertIn(file['role'], gallery)
+        self.assertNotIn('/template-files/', gallery)
+        self.assertIn('complete: false', gallery)
+        self.assertIn('not missing export files', gallery)
+
     def test_content_is_escaped(self):
         self.assertEqual(build.E('<script>"&'), '&lt;script&gt;&quot;&amp;')
         js = (build.OUT / 'assets/app.js').read_text()
@@ -152,8 +171,8 @@ class WebsiteTests(unittest.TestCase):
         self.assertIn('textContent', js)
 
     def test_homepage_is_mdaai_documentation(self):
-        self.assertEqual(len(self.pages), 6)
-        self.assertEqual({p['route'] for p in self.pages}, {'/', '/repository-structure/', '/how-files-work-together/', '/task-lifecycle/', '/mdaai-1/', '/mdaai-2/'})
+        self.assertEqual(len(self.pages), 7)
+        self.assertEqual({p['route'] for p in self.pages}, {'/', '/repository-structure/', '/how-files-work-together/', '/task-lifecycle/', '/mdaai-1/', '/mdaai-2/', '/templates/'})
         home = (build.OUT / 'index.html').read_text()
         self.assertIn('<h1>MDAAI</h1>', home)
         self.assertIn('repository-based operating protocol', home)
@@ -163,7 +182,7 @@ class WebsiteTests(unittest.TestCase):
         text = '\n'.join(f.read_text() for f in build.OUT.rglob('*') if f.is_file() and f.suffix not in ('.png', '.mp4'))
         for rejected in ('hermes --', 'HermesSol', 'Hermes Agent', 'native_p95_regression', '564 tests', 'Year-long governance', 'python3 -B website/', '/docs/quickstart/', '/evolution/', 'industry-first', 'self-declared breakthrough'):
             self.assertNotIn(rejected, text)
-        self.assertEqual(len(list(build.OUT.rglob('*.html'))), 7)
+        self.assertEqual(len(list(build.OUT.rglob('*.html'))), 8)
 
     def test_core_inventory_and_section_links(self):
         structure = next(p for p in self.pages if p['slug'] == 'structure')
@@ -314,8 +333,8 @@ class WebsiteTests(unittest.TestCase):
                         path = build.OUT / urlsplit(video[key]).path.lstrip('/')
                         self.assertEqual(path.suffix, suffix)
                         self.assertTrue(path.is_file())
-        self.assertEqual(len(set(titles)), 6)
-        self.assertEqual(len(set(descriptions)), 6)
+        self.assertEqual(len(set(titles)), 7)
+        self.assertEqual(len(set(descriptions)), 7)
         not_found = self.documents['/404.html']
         self.assertIn(('meta', {'name': 'robots', 'content': 'noindex,follow'}), not_found.elements)
         self.assertFalse(any(t == 'link' and a.get('rel') == 'canonical' for t, a in not_found.elements))
@@ -389,7 +408,7 @@ class WebsiteTests(unittest.TestCase):
         root = ET.fromstring((build.OUT / 'sitemap.xml').read_text())
         locations = [n.text for n in root.findall('{http://www.sitemaps.org/schemas/sitemap/0.9}url/{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
         self.assertEqual(set(locations), {base + p['route'] for p in self.pages})
-        self.assertEqual(len(locations), 6)
+        self.assertEqual(len(locations), 7)
         self.assertEqual((build.OUT / 'robots.txt').read_text(), 'User-agent: *\nAllow: /\nSitemap: ' + base + '/sitemap.xml\n')
         for html in ('<script>alert(1)</script>', '<button onclick="evil()">x</button>', '<img onerror="evil()">'):
             with self.assertRaises(AssertionError):
