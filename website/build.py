@@ -20,7 +20,7 @@ def layer_diagram():
 
 
 def header():
-    return '<a class="skip" href="#main">Skip to content</a><header class="header"><a class="brand" href="/">MDAAI</a><span class="header-note">Repository documentation</span><div class="tools"><a class="templates-repo" href="https://github.com/Eris-Margeta/mdaai-templates" aria-label="Templates repository on GitHub (external)">Templates <span aria-hidden="true">↗</span><span class="repo-label"> GitHub</span></a><button class="search-open" type="button">Search <kbd>⌘ K</kbd></button><button class="theme" type="button" aria-label="Switch color theme">◐</button><button class="menu" type="button" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="docs-nav">☰</button></div></header>'
+    return '<a class="skip" href="#main">Skip to content</a><header class="header"><a class="brand" href="/"><img class="brand-logo logo-light" src="/assets/brand/logo-black.svg" width="28" height="28" alt=""><img class="brand-logo logo-dark" src="/assets/brand/logo-white.svg" width="28" height="28" alt="">MDAAI</a><span class="header-note">Repository documentation</span><div class="tools"><a class="templates-repo" href="/templates/">TEMPLATES</a><a class="templates-repo github-repo" href="https://github.com/Eris-Margeta/mdaai" aria-label="MDAAI repository on GitHub (external)">GitHub <span aria-hidden="true">↗</span></a><button class="search-open" type="button">Search <kbd>⌘ K</kbd></button><button class="theme" type="button" aria-label="Switch color theme">◐</button><button class="menu" type="button" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="docs-nav">☰</button></div></header>'
 
 
 def footer():
@@ -137,7 +137,8 @@ def build(include_templates=False):
         video = video_section(page['videoIntro']) + cycle(page['templateCycle']) if url == '/' else ''
         if video:
             toc += '<a href="#explainer">Video explainer</a><a href="#template-cycle">Protocol and templates</a>'
-        body = f'<div class="docs-layout"><aside id="docs-nav"><nav aria-label="Documentation">{current_nav}</nav></aside><main id="main" class="article" tabindex="-1"><h1>{E(page["title"])}</h1><p class="lede">{E(page["description"])}</p>{author}{sections}{video}{source_note}{pagination}</main><aside class="toc"><nav aria-label="On this page"><p>On this page</p>{toc}</nav></aside></div>'
+        cover = '<figure class="documentation-cover"><img src="/assets/brand/mdaai-guardian-cover.webp" width="1000" height="1300" alt="MDAAI documentation cover with a coiled mythical guardian and E.M.K. credit." fetchpriority="high"><figcaption>Cover by E.M.K. · AI-generated mythical guardian, based on original MDAAI artwork.</figcaption></figure>' if url == '/' else ''
+        body = f'<div class="docs-layout"><aside id="docs-nav"><nav aria-label="Documentation">{current_nav}</nav></aside><main id="main" class="article" tabindex="-1">{cover}<h1>{E(page["title"])}</h1><p class="lede">{E(page["description"])}</p>{author}{sections}{video}{source_note}{pagination}</main><aside class="toc"><nav aria-label="On this page"><p>On this page</p>{toc}</nav></aside></div>'
         target = OUT / page['route'].strip('/')
         target.mkdir(parents=True, exist_ok=True)
         (target / 'index.html').write_text(shell(page['title'], page['description'], body, 'docs', url))

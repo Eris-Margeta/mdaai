@@ -74,6 +74,8 @@ def load_catalog(site=SITE):
             raise ValueError('Invalid source revision')
         for file in template['files']:
             path = safe_path(file['path'])
+            if Path(path).name.casefold() == 'claude.md':
+                raise ValueError('Retired agent pointer payload')
             if not path.startswith('templates/' + ident + '/') or path.casefold() in {p.casefold() for p in files}:
                 raise ValueError('Invalid or duplicate payload path')
             if not re.fullmatch('[a-f0-9]{64}', file['sha256']) or type(file['size']) is not int or not 0 <= file['size'] <= MAX_FILE:

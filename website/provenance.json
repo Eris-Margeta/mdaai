@@ -2,10 +2,9 @@
   "format": 1,
   "reviewedOn": "2026-10-04",
   "boundary": "Curated documentation; original sources are not distributed. A portable build verifies the reviewed content digest, source-reference coverage and public asset hashes, not availability of private source repositories.",
-  "contentSha256": "9484e90f41032743790cc2adf6f48dcd5e41444ccdf94f055db612558f52f398",
+  "contentSha256": "7b2b4b7584801a91a3c6917fbc098c111ac7dbe0696669848761658eaec10bf1",
   "sourceReferences": {
     "MDAAI 2.0: AGENTS.md": "f1a516f71d237ab741213a79997e3fc1edf98ce019d861dda92454934fd21374",
-    "MDAAI 2.0: CLAUDE.md": "d830177eb8e9b6cb9d77ca23cc1457e03361ebee774988d3b1b554faa4e02553",
     "MDAAI 2.0: docs/ADOPTION.md": "2e7d10dc769494de9c98041da4e5f57f70c06c137113b934ba9460a24fd1a0a8",
     "MDAAI 2.0: scripts/validate.py": "0bc7c12c210038df9f6cefe4341281a9ee988c732db76d4824c823aa40beb152",
     "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md": "62dba9a830d92aa07afd3f407446342677e6857663027aa18aed6204fca6ef51",
@@ -56,7 +55,7 @@
     "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/GOTCHAS.md": "e18f91b030c63bb43a2bebf867ec84252e26451f6c0aa21b2cb47fd30ed55a86",
     "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/ERROR-CATALOG.md": "a6c114bbb1db3ca83ba0e937782a047e19c549d08a329b1a1f4e58e5d074128c",
     "First-generation template: .template/agent-rules.yaml": "a991fa542005132cb49ee0a6a4f2c4588881d0977b0c9f97197929843fcb59f5",
-    "Public template catalog: templates.json": "f1e5b1426d00a9cc0192b644cde66a830b775bec3d0612f179cb3e693a3b17b4"
+    "Public template catalog: templates.json": "409fd2ff4159b03b5775c2c24458ef84da8664c38b47b3bfe04e171738321ece"
   },
   "assets": {
     "assets/icon-192.png": "f201bc2b313677469128145a4e165e9ba2f5ecdfe80de8988a911106ae0af804",
@@ -70,6 +69,12 @@
     "assets/media/mdaai-original-and-2.vtt": "e6ac7145d747870e627dfcb5036ee8d7f8cf5917437a174b162b6215bedc24a3",
     "assets/media/thumbnail.png": "72caeaaf23185d29ad0f159b3d1603f9dc00adbe990d0923c2d3472f1f5a3dab",
     "assets/media/mdaai-original-and-2.srt": "f2e871aa7399592c9dceecc08409f7eaa847162adfa06f51adb140cedd746b55",
-    "assets/publication.css": "1111cdeab342b27bea4cc9224f16f2eef3f9136a57b890bc3a3429d1781f875f"
+    "assets/publication.css": "f0233d1d96537aa27b834be92cee26f68b8b656970ad565a106c0b426cbda542",
+    "assets/brand/logo-black.svg": "cef322e1bfb791257622a4dfddbdbdd5036e1f2ba6ad50c757b6707f193d9901",
+    "assets/brand/logo-white.svg": "11af95fd5bfcfae955139d6b44aff606798bcf99dc0e2147bc2c1d852c700b8d",
+    "assets/brand/mdaai-guardian-cover.webp": "fee7149b09f5fdc922646a1356026af2bc0747dc586aa579b4842d977d82f22d"
+  },
+  "historicalSourceReferences": {
+    "MDAAI 2.0: CLAUDE.md": "d830177eb8e9b6cb9d77ca23cc1457e03361ebee774988d3b1b554faa4e02553"
   }
 }

@@ -33,7 +33,7 @@ install:
 
 # Build the project (override per project)
 build:
-    python3 -B website/build.py
+    docker run --rm -e PYTHONDONTWRITEBYTECODE=1 -v "{{justfile_directory()}}:/app" -w /app python:{{trim(read(".python-version"))}}-alpine python3 -B website/build.py
 
 # Run development server (override per project)
 dev:
@@ -41,7 +41,9 @@ dev:
 
 # Run tests (override per project)
 test:
-    @echo "Override this recipe in your project's Justfile"
+    docker run --rm -e PYTHONDONTWRITEBYTECODE=1 -v "{{justfile_directory()}}:/app" -w /app python:{{trim(read(".python-version"))}}-alpine sh -c "python3 -B website/build.py && python3 -B website/check.py && python3 -B website/check_templates.py && python3 -B website/check_release.py"
+    node website/check_clipboard.cjs
+    node --check website/assets/app.js
 
 # Run linter (override per project)
 lint:
@@ -119,8 +121,8 @@ agents:
 
 # Explicit network import of the reviewed immutable catalog only
 templates-sync:
-    python3 -B website/templates_feed.py
+    docker run --rm -e PYTHONDONTWRITEBYTECODE=1 -v "{{justfile_directory()}}:/app" -w /app python:{{trim(read(".python-version"))}}-alpine sh -c "apk add --no-cache curl >/dev/null && python3 -B website/templates_feed.py"
 
 # Offline build from an already synced, revalidated cache
 build-with-templates:
-    python3 -B website/build.py --include-templates
+    docker run --rm -e PYTHONDONTWRITEBYTECODE=1 -v "{{justfile_directory()}}:/app" -w /app python:{{trim(read(".python-version"))}}-alpine python3 -B website/build.py --include-templates

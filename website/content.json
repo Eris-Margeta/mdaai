@@ -39,7 +39,7 @@
       {
         "id": "what-it-adds",
         "title": "What adoption adds—and does not add",
-        "text": "The portable 2.0 core is a root AGENTS.md, five governance documents, project-owned Project Elaboration and a fresh TASKS.json. CLAUDE.md may point to AGENTS.md. Adoption is an explicitly authorized, project-by-project merge and migration, not a universal installer. The source package’s research code, dashboards, studies and existing task history are not copied into every adopted repository.",
+        "text": "The portable 2.0 core is a root AGENTS.md, five governance documents, project-owned Project Elaboration and a fresh TASKS.json. For any agent system, point its entry instructions to the nearest AGENTS.md. Applicable parent and scoped governance files are cumulative. Adoption is an explicitly authorized, project-by-project merge and migration, not a universal installer. The source package’s research code, dashboards, studies and existing task history are not copied into every adopted repository.",
         "links": [
           [
             "Exact 2.0 adoption boundary",
@@ -75,7 +75,6 @@
     ],
     "sources": [
       "MDAAI 2.0: AGENTS.md",
-      "MDAAI 2.0: CLAUDE.md",
       "MDAAI 2.0: docs/ADOPTION.md",
       "MDAAI 2.0: scripts/validate.py",
       "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
@@ -113,7 +112,7 @@
         "id": "file-map",
         "title": "Files and information owners",
         "text": "At adoption, merge the governance instructions and author the two management files for the target project. The map below uses exact core paths. Conditional pattern rows describe record categories, not files an installer creates. Each core file has an explanatory section linked below.",
-        "code": "AGENTS.md                                  [required core]\nCLAUDE.md                                  [optional pointer]\nPROJECT-INTERNAL/\n├── GOVERNANCE/                            [required core]\n│   ├── AUTHORITY.md\n│   ├── ENGINEERING.md\n│   ├── EVIDENCE.md\n│   ├── REASONING.md\n│   └── RECORDS.md\n├── MANAGEMENT/                            [required project-owned]\n│   ├── PROJECT-ELABORATION.md\n│   └── TASKS.json\n├── ARCHITECTURE/                           [conditional decisions]\n│   └── project-selected ADR files\n└── RECORDS/                                [conditional example location]\n    └── project-selected durable records\n\nEvidence lives at project-selected paths; no universal evidence folder.",
+        "code": "AGENTS.md                                  [required core]\nPROJECT-INTERNAL/\n├── GOVERNANCE/                            [required core]\n│   ├── AUTHORITY.md\n│   ├── ENGINEERING.md\n│   ├── EVIDENCE.md\n│   ├── REASONING.md\n│   └── RECORDS.md\n├── MANAGEMENT/                            [required project-owned]\n│   ├── PROJECT-ELABORATION.md\n│   └── TASKS.json\n├── ARCHITECTURE/                           [conditional decisions]\n│   └── project-selected ADR files\n└── RECORDS/                                [conditional example location]\n    └── project-selected durable records\n\nEvidence lives at project-selected paths; no universal evidence folder.",
         "language": "Repository tree",
         "table": {
           "headers": [
@@ -128,12 +127,6 @@
               "Required core",
               "Operating contract and entry point. Names the canonical scope/task owners and links the five rule documents.",
               "Operator-authorized maintainer merges on adoption; change only when the contract changes."
-            ],
-            [
-              "CLAUDE.md",
-              "Optional pointer",
-              "Points to AGENTS.md; owns no independent rules.",
-              "Copy or adapt if that assistant entry point is used; keep as a pointer."
             ],
             [
               "PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
@@ -203,10 +196,6 @@
             "structure#entry"
           ],
           [
-            "CLAUDE.md",
-            "structure#pointer"
-          ],
-          [
             "PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
             "structure#authority"
           ],
@@ -243,8 +232,8 @@
       },
       {
         "id": "pointer",
-        "title": "CLAUDE.md",
-        "text": "The source pointer says: “Read AGENTS.md. It is the only operating contract; this file adds no independent rules.” It is optional for adoption and should not evolve into a competing constitution."
+        "title": "Agent entry instructions",
+        "text": "For any agent system, point its entry instructions to the nearest AGENTS.md. Applicable parent and scoped governance files are cumulative."
       },
       {
         "id": "authority",
@@ -305,7 +294,6 @@
     ],
     "sources": [
       "MDAAI 2.0: AGENTS.md",
-      "MDAAI 2.0: CLAUDE.md",
       "MDAAI 2.0: docs/ADOPTION.md",
       "MDAAI 2.0: scripts/validate.py",
       "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
@@ -397,7 +385,6 @@
     ],
     "sources": [
       "MDAAI 2.0: AGENTS.md",
-      "MDAAI 2.0: CLAUDE.md",
       "MDAAI 2.0: docs/ADOPTION.md",
       "MDAAI 2.0: scripts/validate.py",
       "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
@@ -486,7 +473,6 @@
     ],
     "sources": [
       "MDAAI 2.0: AGENTS.md",
-      "MDAAI 2.0: CLAUDE.md",
       "MDAAI 2.0: docs/ADOPTION.md",
       "MDAAI 2.0: scripts/validate.py",
       "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
@@ -522,7 +508,7 @@
           ],
           "rows": [
             [
-              "AGENTS.md; CLAUDE.md (root)",
+              "AGENTS.md (root)",
               "Checked; template copy",
               "Agent navigation/contract pointer; inherited instructions."
             ],
@@ -782,7 +768,6 @@
     ],
     "sources": [
       "MDAAI 2.0: AGENTS.md",
-      "MDAAI 2.0: CLAUDE.md",
       "MDAAI 2.0: docs/ADOPTION.md",
       "MDAAI 2.0: scripts/validate.py",
       "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
@@ -799,7 +784,7 @@
     "route": "/templates/",
     "group": "Templates",
     "title": "Templates",
-    "description": "Explore 93 literal governance files in two versioned MDAAI template families. Inspect their sources, choose applicable files and review before explicit adoption.",
+    "description": "Explore 105 literal governance files in two versioned MDAAI template families. Inspect their sources, choose applicable files and review before explicit adoption.",
     "sources": [
       "Public template catalog: templates.json"
     ],
@@ -817,12 +802,12 @@
       {
         "id": "source-versions",
         "title": "Versions and export boundaries",
-        "text": "The first-generation family carries VERSION 1.0.0 while AI-INSTRUCTIONS.md identifies Version 1.7; supporting protocols have their own labels. It is not a pristine original 1.0 release. MDAAI 2.0 supplies six portable core files, an optional CLAUDE.md pointer and fresh project-owned Elaboration and TASKS.json scaffolds. Its root contract omits laboratory-specific commands. Original source repositories remain unchanged."
+        "text": "The first-generation family carries VERSION 1.0.0 while AI-INSTRUCTIONS.md identifies Version 1.7; supporting protocols have their own labels. It is not a pristine original 1.0 release. MDAAI 2.0 supplies six portable core files and fresh project-owned Elaboration and TASKS.json scaffolds. Its root contract omits laboratory-specific commands. Original source repositories remain unchanged."
       },
       {
         "id": "review",
         "title": "Review before adoption",
-        "text": "Both bundles are marked review-before-adoption and complete: false. All 93 listed files are exported; this status describes uninitialized downstream scaffolds, adoption review and known literal link gaps, not missing export files. First-generation references to PROJECT-DEVELOPMENT-ELABORATION.md and GUIDES/CHECKPOINT-PROTOCOL.md need reconciliation with the supplied owners. Review the export manifest, license scopes and known link-gap inventory. Back up the target, choose one active profile, reconcile existing rules, fill project identity and actual commands, then exercise a real task and resumption. No installer, automatic activation or guaranteed self-improvement is provided."
+        "text": "Both bundles are marked review-before-adoption and complete: false. All 105 listed files are exported; this status describes uninitialized downstream scaffolds, adoption review and known literal link gaps, not missing export files. First-generation references to PROJECT-DEVELOPMENT-ELABORATION.md and GUIDES/CHECKPOINT-PROTOCOL.md need reconciliation with the supplied owners. Review the export manifest, license scopes and known link-gap inventory. Back up the target, choose one active profile, reconcile existing rules, fill project identity and actual commands, then exercise a real task and resumption. No installer, automatic activation or guaranteed self-improvement is provided."
       },
       {
         "id": "evolution",

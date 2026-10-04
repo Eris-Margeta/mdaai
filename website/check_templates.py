@@ -39,9 +39,19 @@ class FeedTests(unittest.TestCase):
         return gzip.compress(stream.getvalue())
 
     def test_reviewed_inventory(self):
-        self.assertEqual(len(self.files), 93)
-        self.assertEqual([len(t['files']) for t in self.catalog['templates']], [84, 9])
+        self.assertEqual(len(self.files), 105)
+        self.assertEqual([len(t['files']) for t in self.catalog['templates']], [89, 16])
         self.assertEqual(feed.sha((self.site / 'templates.catalog.json').read_bytes()), self.lock['manifestSha256'])
+
+    def test_retired_provider_pointer_rejected(self):
+        catalog = json.loads((self.site / "templates.catalog.json").read_text())
+        catalog["templates"][0]["files"][0]["path"] = "templates/mdaai-1/cLaUdE.Md"
+        raw = json.dumps(catalog).encode()
+        (self.site / "templates.catalog.json").write_bytes(raw)
+        self.lock["manifestSha256"] = feed.sha(raw)
+        (self.site / "templates.lock.json").write_text(json.dumps(self.lock))
+        with self.assertRaisesRegex(ValueError, "Retired agent pointer"):
+            feed.load_catalog(self.site)
 
     def test_safe_archive_and_admin_files(self):
         data = self.archive([(self.root + '/' + self.path, self.data, tarfile.REGTYPE), (self.root + '/README.md', b'ignored', tarfile.REGTYPE)])

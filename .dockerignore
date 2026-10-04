@@ -1,6 +1,12 @@
 *
 !Dockerfile
 !nginx.conf
+!.python-version
+!README.md
+!Justfile
+!.github/
+!.github/workflows/
+!.github/workflows/website.yml
 !website/
 !website/**
 website/dist/

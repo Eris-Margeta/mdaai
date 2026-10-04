@@ -10,12 +10,12 @@ def cycle(content):
 
 def gallery(lock, catalog, content, include=False):
     base = f'https://github.com/{REPOSITORY}/blob/{lock["revision"]}/'
-    result = '<p class="catalog-pin">Reviewed catalog commit <a href="' + base + 'templates.json"><code>' + E(lock['revision']) + '</code></a> · 93 files</p>'
+    result = '<p class="catalog-pin">Reviewed catalog commit <a href="' + base + 'templates.json"><code>' + E(lock['revision']) + '</code></a> · ' + str(lock['fileCount']) + ' files</p>'
     result += '<p>' + E(content['included'] if include else content['remote']) + '</p>'
     result += '<p><a href="' + base + 'export-manifest.json">Export provenance</a> · <a href="' + base + 'LICENSE-NOTICES.md">License scopes</a> · <a href="' + base + 'tests/known-source-link-gaps.json">Known source link gaps</a></p>'
     index = 0
     for template in catalog['templates']:
-        result += f'<article class="template-card" aria-labelledby="{E(template["id"])}-title"><h3 id="{E(template["id"])}-title">{E(template["title"])}</h3><p>{E(template["description"])}</p><dl class="template-facts"><dt>Template version</dt><dd>{E(template["templateVersion"])}</dd><dt>Protocol identity</dt><dd>{E(template["protocol"]["identity"])}</dd><dt>Original source</dt><dd>{E(template["source"]["repository"])} @ <code>{E(template["source"]["revision"])}</code></dd><dt>Adoption status</dt><dd>Review before adoption · complete: false</dd></dl><p><a href="{base + E(template["entrypoint"])}">Read the entry point on GitHub <span aria-hidden="true">↗</span></a></p><details class="template-inventory"><summary>Inspect {len(template["files"])} files and their roles</summary><ul>'
+        result += f'<article class="template-card template-family-{E(template["id"])}" aria-labelledby="{E(template["id"])}-title"><h3 id="{E(template["id"])}-title">{E(template["title"])}</h3><p>{E(template["description"])}</p><dl class="template-facts"><dt>Template version</dt><dd>{E(template["templateVersion"])}</dd><dt>Protocol identity</dt><dd>{E(template["protocol"]["identity"])}</dd><dt>Canonical source</dt><dd>{E(template["source"]["repository"])} @ <code>{E(template["source"]["revision"])}</code></dd><dt>License</dt><dd>{E(template["license"])}</dd><dt>Adoption status</dt><dd>Review before adoption · complete: false</dd></dl><p><a href="https://github.com/{E(template["source"]["repository"])}">Canonical template repository ↗</a> · <a href="{base + E(template["entrypoint"])}">Read the entry point on GitHub <span aria-hidden="true">↗</span></a></p><details class="template-inventory"><summary>Inspect {len(template["files"])} files and their roles</summary><ul>'
         for file in template['files']:
             result += f'<li><span class="file-role">{E(file["role"])}</span><a href="{base + E(file["path"])}"><code>{E(file["path"])}</code></a><small>{file["size"]:,} bytes</small>'
             if include:

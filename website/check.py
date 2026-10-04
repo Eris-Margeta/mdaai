@@ -136,7 +136,7 @@ class WebsiteTests(unittest.TestCase):
             if not file.is_file():
                 continue
             self.assertFalse(file.is_symlink())
-            if file.suffix in ('.png', '.mp4'):
+            if file.suffix in ('.png', '.webp', '.mp4'):
                 continue
             text = file.read_text()
             for pattern in (r'/Users/', r'/private/', r'file://', r'BEGIN [A-Z ]*PRIVATE KEY', r'\bsk-[A-Za-z0-9]{20,}', r'\b[A-Fa-f0-9]{64}\b', r'source-pins', r'sourcearchives', r'\.hermes/', r'\.git/'):
@@ -152,8 +152,12 @@ class WebsiteTests(unittest.TestCase):
         for doc in self.documents.values():
             links = [a for t, a in doc.elements if t == 'a' and a.get('class') == 'templates-repo']
             self.assertEqual(len(links), 1)
-            self.assertEqual(links[0]['href'], 'https://github.com/Eris-Margeta/mdaai-templates')
-            self.assertIn('external', links[0]['aria-label'])
+            self.assertEqual(links[0]['href'], '/templates/')
+            self.assertIn('>TEMPLATES</a>', doc.text)
+            github = [a for t, a in doc.elements if t == 'a' and a.get('class') == 'templates-repo github-repo']
+            self.assertEqual(len(github), 1)
+            self.assertEqual(github[0]['href'], 'https://github.com/Eris-Margeta/mdaai')
+            self.assertIn('external', github[0]['aria-label'])
         gallery = self.documents['/templates/'].text
         lock, catalog, files = build.load_catalog(build.SITE)
         for path, file in files.items():
@@ -179,7 +183,7 @@ class WebsiteTests(unittest.TestCase):
         self.assertIn('Project Elaboration owns scope and sequence', home)
 
     def test_rejected_content_is_not_served(self):
-        text = '\n'.join(f.read_text() for f in build.OUT.rglob('*') if f.is_file() and f.suffix not in ('.png', '.mp4'))
+        text = '\n'.join(f.read_text() for f in build.OUT.rglob('*') if f.is_file() and f.suffix not in ('.png', '.webp', '.mp4'))
         for rejected in ('hermes --', 'HermesSol', 'Hermes Agent', 'native_p95_regression', '564 tests', 'Year-long governance', 'python3 -B website/', '/docs/quickstart/', '/evolution/', 'industry-first', 'self-declared breakthrough'):
             self.assertNotIn(rejected, text)
         self.assertEqual(len(list(build.OUT.rglob('*.html'))), 8)
@@ -187,7 +191,7 @@ class WebsiteTests(unittest.TestCase):
     def test_core_inventory_and_section_links(self):
         structure = next(p for p in self.pages if p['slug'] == 'structure')
         section = structure['sections'][0]
-        core = {'AGENTS.md', 'CLAUDE.md'} | {'PROJECT-INTERNAL/GOVERNANCE/' + n + '.md' for n in ('AUTHORITY', 'ENGINEERING', 'EVIDENCE', 'REASONING', 'RECORDS')} | {'PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md', 'PROJECT-INTERNAL/MANAGEMENT/TASKS.json'}
+        core = {'AGENTS.md'} | {'PROJECT-INTERNAL/GOVERNANCE/' + n + '.md' for n in ('AUTHORITY', 'ENGINEERING', 'EVIDENCE', 'REASONING', 'RECORDS')} | {'PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md', 'PROJECT-INTERNAL/MANAGEMENT/TASKS.json'}
         listed = {r[0] for r in section['table']['rows']}
         self.assertTrue(core <= listed)
         for path in core:

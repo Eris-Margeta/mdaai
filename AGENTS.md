@@ -2,6 +2,8 @@
 
 Read this file before editing. This repository publishes seven curated documentation pages and an explanatory video; it is not the private product implementation or an automatic governance installer.
 
+For any agent system, point its entry instructions to the nearest AGENTS.md. Applicable parent and scoped governance files are cumulative.
+
 ## Working contract
 - Preserve approved content and the existing design. Keep source packages read-only.
 - `website/content.json` owns published prose; `website/provenance.json` pins reviewed content, logical source references and assets. Builds fail closed on drift.
