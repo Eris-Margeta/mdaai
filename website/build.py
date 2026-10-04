@@ -8,6 +8,8 @@ import base64
 from seo import metadata, video_section, graph, BASE, AUTHOR
 from templates_feed import load_catalog, read_cache, emit_payloads
 from templates_view import cycle, gallery
+from identity import emit_manifest
+from pwa import write_pwa
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'website'
@@ -20,15 +22,15 @@ def layer_diagram():
 
 
 def header():
-    return '<a class="skip" href="#main">Skip to content</a><header class="header"><a class="brand" href="/"><img class="brand-logo logo-light" src="/assets/brand/logo-black.svg" width="28" height="28" alt=""><img class="brand-logo logo-dark" src="/assets/brand/logo-white.svg" width="28" height="28" alt="">MDAAI</a><span class="header-note">Repository documentation</span><div class="tools"><a class="templates-repo" href="/templates/">TEMPLATES</a><a class="templates-repo github-repo" href="https://github.com/Eris-Margeta/mdaai" aria-label="MDAAI repository on GitHub (external)">GitHub <span aria-hidden="true">↗</span></a><button class="search-open" type="button">Search <kbd>⌘ K</kbd></button><button class="theme" type="button" aria-label="Switch color theme">◐</button><button class="menu" type="button" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="docs-nav">☰</button></div></header>'
+    return '<a class="skip" href="#main">Skip to content</a><header class="header"><a class="brand" href="/"><img class="brand-logo logo-light" src="/assets/brand/logo-black.svg" width="28" height="28" alt=""><img class="brand-logo logo-dark" src="/assets/brand/logo-white.svg" width="28" height="28" alt="">MDAAI</a><span class="header-note">Repository documentation</span><div class="tools"><a class="templates-repo" href="/templates/">TEMPLATES</a><a class="templates-repo github-repo" href="https://github.com/Eris-Margeta/mdaai" aria-label="MDAAI repository on GitHub (external)">GitHub <span aria-hidden="true">↗</span></a><button class="menu" type="button" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="docs-nav">☰</button></div></header>'
 
 
 def footer():
-    return '<footer class="footer"><p>MDAAI · Repository operating protocol</p><section class="tejl" aria-label="Website creation and TEJL contact"><span>WEB made by</span><a href="https://tejl.hr/" aria-label="TEJL — tejl.hr"><img src="/assets/tejl-logo.svg" width="74" height="38" alt="TEJL"></a><a href="https://tejl.hr/">tejl.hr</a><a href="https://tejl.com/">tejl.com</a><a href="tel:+385****1079">+385 99 836 1079</a></section></footer>'
+    return '<footer class="footer"><p>MDAAI · Repository operating protocol</p><section class="tejl" aria-label="Website creation and TEJL contact"><span>WEB made by</span><a class="tejl-mark" href="https://tejl.hr/" aria-label="TEJL — tejl.hr"><img class="tejl-light" src="/assets/tejl/tejl-logo-off-black.svg" width="68" height="35" alt=""><img class="tejl-dark" src="/assets/tejl/tejl-logo-off-white.svg" width="68" height="35" alt=""></a><span>Web studio contact: <a href="tel:+385998361079">+385 99 836 1079</a></span><span class="tejl-domains"><a href="https://tejl.hr/">tejl.hr</a> · <a href="https://tejl.com/">tejl.com</a></span></section></footer>'
 
 
 def shell(title, description, body, cls='', route=None):
-    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(title)} · MDAAI</title><meta name="description" content="{E(description)}">{metadata(title, description, route)}<meta name="color-scheme" content="light dark"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/publication.css"><script src="/assets/app.js" defer></script></head><body class="{cls}">{header()}{body}{footer()}<dialog id="search-dialog" aria-labelledby="search-title"><div class="search-heading"><h2 id="search-title">Search documentation</h2><button id="search-close" type="button" aria-label="Close search">×</button></div><label for="search-input">Find a file, relationship or task rule</label><input id="search-input" type="search" autocomplete="off" placeholder="Try TASKS.json or supersession"><p id="search-status" role="status" aria-live="polite">Search runs locally. No query leaves your browser.</p><div id="search-results"></div><small>↑ ↓ move · Enter open · Esc close</small></dialog></body></html>'''
+    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(title)} · MDAAI</title><meta name="description" content="{E(description)}">{metadata(title, description, route)}<meta name="color-scheme" content="light dark"><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/publication.css"><script src="/assets/app.js" defer></script><script src="/assets/pwa.js" defer></script></head><body class="{cls}">{header()}<nav class="section-bar" aria-label="Page sections"><label for="section-jump">On this page</label><select id="section-jump" aria-label="Jump to section"><option value="">Overview</option></select><button class="search-open" type="button">Search <kbd>⌘ K</kbd></button><button class="theme" type="button" aria-label="Switch color theme">◐</button></nav>{body}<dialog id="search-dialog" aria-labelledby="search-title"><div class="search-heading"><h2 id="search-title">Search documentation</h2><button id="search-close" type="button" aria-label="Close search">×</button></div><label for="search-input">Find a file, relationship or task rule</label><input id="search-input" type="search" autocomplete="off" placeholder="Try TASKS.json or supersession"><p id="search-status" role="status" aria-live="polite">Search runs locally. No query leaves your browser.</p><div id="search-results"></div><small>↑ ↓ move · Enter open · Esc close</small></dialog></body></html>'''
 
 
 
@@ -137,8 +139,11 @@ def build(include_templates=False):
         video = video_section(page['videoIntro']) + cycle(page['templateCycle']) if url == '/' else ''
         if video:
             toc += '<a href="#explainer">Video explainer</a><a href="#template-cycle">Protocol and templates</a>'
-        cover = '<figure class="documentation-cover"><img src="/assets/brand/mdaai-guardian-cover.webp" width="1000" height="1300" alt="MDAAI documentation cover with a coiled mythical guardian and E.M.K. credit." fetchpriority="high"><figcaption>Cover by E.M.K. · AI-generated mythical guardian, based on original MDAAI artwork.</figcaption></figure>' if url == '/' else ''
-        body = f'<div class="docs-layout"><aside id="docs-nav"><nav aria-label="Documentation">{current_nav}</nav></aside><main id="main" class="article" tabindex="-1">{cover}<h1>{E(page["title"])}</h1><p class="lede">{E(page["description"])}</p>{author}{sections}{video}{source_note}{pagination}</main><aside class="toc"><nav aria-label="On this page"><p>On this page</p>{toc}</nav></aside></div>'
+        cover = '<figure class="documentation-cover"><img src="/assets/brand/mdaai-guardian-cover.webp" width="1000" height="1300" alt="MDAAI documentation cover with a coiled mythical guardian and E.M.K. credit." fetchpriority="high"><figcaption>Cover by E.M.K. · AI-generated mythical guardian, based on original MDAAI artwork; inspired by o&#39;reily&#39;s book covers.</figcaption></figure>' if url == '/' else ''
+        intro = f'<h1>{E(page["title"])}</h1><p class="lede">{E(page["description"])}</p>{author}'
+        if url == "/":
+            intro = f'<div class="homepage-intro"><div class="homepage-intro-copy">{intro}</div>{cover}</div>'
+        body = f'<div class="docs-layout"><aside id="docs-nav"><nav aria-label="Documentation">{current_nav}</nav></aside><main id="main" tabindex="0" aria-label="Documentation content"><article class="article">{intro}{sections}{video}{source_note}{pagination}</article>{footer()}</main></div>'
         target = OUT / page['route'].strip('/')
         target.mkdir(parents=True, exist_ok=True)
         (target / 'index.html').write_text(shell(page['title'], page['description'], body, 'docs', url))
@@ -146,17 +151,18 @@ def build(include_templates=False):
         if entry['url'] == '/templates/#catalog':
             entry['text'] += ' ' + ' '.join(catalog_files)
     (assets / 'search.json').write_text(json.dumps(search, ensure_ascii=False))
-    (OUT / '404.html').write_text(shell('Page not found', 'This route is not part of the documentation.', '<main id="main" class="not-found"><h1>Page not found</h1><p>The page may have moved, or the address may be incorrect.</p><a class="button primary" href="/">Go to documentation →</a></main>'))
+    (OUT / '404.html').write_text(shell('Page not found', 'This route is not part of the documentation.', f'<main id="main" class="not-found" tabindex="0"><h1>Page not found</h1><p>The page may have moved, or the address may be incorrect.</p><a class="button primary" href="/">Go to documentation →</a>{footer()}</main>'))
     (OUT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {BASE}/sitemap.xml\n')
     (OUT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(f'<url><loc>{BASE}{p["route"]}</loc></url>' for p in pages) + '</urlset>')
-    (OUT / 'site.webmanifest').write_text(json.dumps({'name': 'MDAAI Documentation', 'short_name': 'MDAAI', 'start_url': '/', 'display': 'standalone', 'background_color': '#f7f6f2', 'theme_color': '#0b5146', 'icons': [{'src': '/assets/icon-192.png', 'sizes': '192x192', 'type': 'image/png'}, {'src': '/assets/icon-512.png', 'sizes': '512x512', 'type': 'image/png'}]}))
+    emit_manifest(OUT)
+    write_pwa(OUT)
     hashes = []
     for file in OUT.rglob('*.html'):
         for data in re.findall(r'<script type="application/ld\+json">(.*?)</script>', file.read_text(), re.S):
             hashes.append("'sha256-" + base64.b64encode(hashlib.sha256(data.encode()).digest()).decode() + "'")
     csp = "default-src 'self'; script-src 'self' " + ' '.join(hashes) + "; style-src 'self'; img-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'"
     (SITE / 'csp-header.conf').write_text('add_header Content-Security-Policy "' + csp + '" always;\n')
-    expected = {'index.html', '404.html', 'robots.txt', 'sitemap.xml', 'site.webmanifest', 'assets/search.json'} | {(p['route'].strip('/') + '/index.html').lstrip('/') for p in pages} | set(json.loads((SITE / 'provenance.json').read_text())['assets'])
+    expected = {'index.html', '404.html', 'robots.txt', 'sitemap.xml', 'site.webmanifest', 'assets/search.json', 'offline.html', 'service-worker.js'} | {(p['route'].strip('/') + '/index.html').lstrip('/') for p in pages} | set(json.loads((SITE / 'provenance.json').read_text())['assets'])
     if payloads is not None:
         expected |= emit_payloads(OUT, payloads)
     for file in OUT.rglob('*'):

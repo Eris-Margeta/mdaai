@@ -7,14 +7,14 @@ const vm = require('node:vm');
 const source = fs.readFileSync(__dirname + '/assets/app.js', 'utf8');
 async function check(mode) {
   const nodes = new Map();
-  const element = () => ({dataset:{},setAttribute(){},addEventListener(){},classList:{remove(){},contains(){return false;}},focus(){},remove(){},select(){},style:{}});
+  const element = () => ({dataset:{},setAttribute(){},addEventListener(){},classList:{remove(){},contains(){return false;}},focus(){},remove(){},select(){},style:{},contains(){return false;},querySelectorAll(){return [];},getBoundingClientRect(){return {top:0};},scrollTo(){}});
   const status = {textContent:''};
   const code = {textContent:'safe website example\nsecond line'};
   const block = {querySelector: s => s === 'code' ? code : status};
   let handler, fallbackCalls = 0;
   const button = {...element(),textContent:'Copy',closest:()=>block,addEventListener:(_,f)=>{handler=f;}};
   const document = {
-    documentElement:element(),body:{...element(),append(){}},
+    fonts:{ready:Promise.resolve()},documentElement:element(),body:{...element(),append(){}},
     querySelector:s=>{if(!nodes.has(s))nodes.set(s,element());return nodes.get(s);},
     getElementById:s=>{if(!nodes.has(s))nodes.set(s,element());return nodes.get(s);},
     querySelectorAll:s=>s === '.copy' ? [button] : [],
@@ -22,7 +22,7 @@ async function check(mode) {
     execCommand:()=>{fallbackCalls++;return false;}
   };
   const navigator = mode === 'absent' ? {} : {clipboard:{writeText:()=>mode === 'pending' ? new Promise(()=>{}) : Promise.reject(new Error('permission denied'))}};
-  vm.runInNewContext(source,{document,navigator,window:{},localStorage:{getItem(){return null;}},setTimeout,clearTimeout});
+  vm.runInNewContext(source,{document,navigator,window:{addEventListener(){}},location:{hash:""},localStorage:{getItem(){return null;}},setTimeout,clearTimeout});
   const outcome = await Promise.race([handler().then(()=> 'settled'),new Promise(r=>setTimeout(()=>r('hung'),2200))]);
   assert.equal(outcome,'settled',mode + ': copy handler must settle within a bounded interval');
   assert.equal(fallbackCalls,1,mode + ': unavailable async API must try fallback once');

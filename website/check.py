@@ -23,6 +23,7 @@ from urllib.error import HTTPError
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import build
+from identity import social_assets
 import serve
 
 
@@ -129,14 +130,14 @@ class WebsiteTests(unittest.TestCase):
 
     def test_no_private_assets_or_machine_paths(self):
         provenance = json.loads((build.SITE / 'provenance.json').read_text())
-        expected = {'404.html', 'robots.txt', 'sitemap.xml', 'site.webmanifest', 'assets/search.json'} | set(provenance['assets']) | {(p['route'].strip('/') + '/index.html').lstrip('/') for p in self.pages}
+        expected = {'404.html', 'robots.txt', 'sitemap.xml', 'site.webmanifest', 'assets/search.json', 'offline.html', 'service-worker.js'} | set(provenance['assets']) | {(p['route'].strip('/') + '/index.html').lstrip('/') for p in self.pages}
         files = {str(p.relative_to(build.OUT)) for p in build.OUT.rglob('*') if p.is_file()}
         self.assertEqual(files, expected)
         for file in build.OUT.rglob('*'):
             if not file.is_file():
                 continue
             self.assertFalse(file.is_symlink())
-            if file.suffix in ('.png', '.webp', '.mp4'):
+            if file.suffix in ('.png', '.webp', '.mp4', '.gif', '.ico'):
                 continue
             text = file.read_text()
             for pattern in (r'/Users/', r'/private/', r'file://', r'BEGIN [A-Z ]*PRIVATE KEY', r'\bsk-[A-Za-z0-9]{20,}', r'\b[A-Fa-f0-9]{64}\b', r'source-pins', r'sourcearchives', r'\.hermes/', r'\.git/'):
@@ -149,7 +150,9 @@ class WebsiteTests(unittest.TestCase):
         self.assertRegex(home, r'</video><p>English narration.*?</p></section><section id="template-cycle"')
         self.assertIn('Have Trouble Reading?', home)
         self.assertIn('Here&#x27;s MDAAI in 91 seconds.', home)
-        for doc in self.documents.values():
+        for route, doc in self.documents.items():
+            if route == '/offline.html':
+                continue
             links = [a for t, a in doc.elements if t == 'a' and a.get('class') == 'templates-repo']
             self.assertEqual(len(links), 1)
             self.assertEqual(links[0]['href'], '/templates/')
@@ -183,10 +186,10 @@ class WebsiteTests(unittest.TestCase):
         self.assertIn('Project Elaboration owns scope and sequence', home)
 
     def test_rejected_content_is_not_served(self):
-        text = '\n'.join(f.read_text() for f in build.OUT.rglob('*') if f.is_file() and f.suffix not in ('.png', '.webp', '.mp4'))
+        text = '\n'.join(f.read_text() for f in build.OUT.rglob('*') if f.is_file() and f.suffix not in ('.png', '.webp', '.mp4', '.gif', '.ico'))
         for rejected in ('hermes --', 'HermesSol', 'Hermes Agent', 'native_p95_regression', '564 tests', 'Year-long governance', 'python3 -B website/', '/docs/quickstart/', '/evolution/', 'industry-first', 'self-declared breakthrough'):
             self.assertNotIn(rejected, text)
-        self.assertEqual(len(list(build.OUT.rglob('*.html'))), 8)
+        self.assertEqual(len(list(build.OUT.rglob('*.html'))), 9)
 
     def test_core_inventory_and_section_links(self):
         structure = next(p for p in self.pages if p['slug'] == 'structure')
@@ -260,7 +263,11 @@ class WebsiteTests(unittest.TestCase):
             self.assertIn(term, js)
         for f in build.OUT.rglob('*.html'):
             text = f.read_text()
-            for term in ('Skip to content', 'aria-labelledby="search-title"', 'WEB made by', '/assets/tejl-logo.svg'):
+            if f.name == 'offline.html':
+                self.assertIn('MDAAI is offline', text)
+                self.assertIn('Return to MDAAI documentation', text)
+                continue
+            for term in ('Skip to content', 'aria-labelledby="search-title"', 'WEB made by', '/assets/tejl/tejl-logo-off-white.svg', '/assets/tejl/tejl-logo-off-black.svg', 'Web studio contact:'):
                 self.assertIn(term, text)
 
     def test_metadata_schema_and_canonical_routes(self):
@@ -275,13 +282,16 @@ class WebsiteTests(unittest.TestCase):
                 for tag, attrs in doc.elements:
                     if tag == 'meta' and ('name' in attrs or 'property' in attrs):
                         key = attrs.get('name', attrs.get('property'))
-                        self.assertNotIn(key, metas)
-                        metas[key] = attrs.get('content')
+                        if key.startswith('og:image') or key == 'theme-color':
+                            metas.setdefault(key, attrs.get('content'))
+                        else:
+                            self.assertNotIn(key, metas)
+                            metas[key] = attrs.get('content')
                 title = page['title'] + ' · MDAAI'
                 self.assertIn('<title>' + build.E(title) + '</title>', doc.text)
                 titles.append(title)
                 descriptions.append(metas['description'])
-                expected = {'author': author, 'description': page['description'], 'og:title': title, 'twitter:title': title, 'og:description': page['description'], 'twitter:description': page['description'], 'og:url': base + route, 'og:type': 'website' if route == '/' else 'article', 'og:site_name': 'MDAAI', 'og:locale': 'en_US', 'og:image': base + '/assets/og.png', 'twitter:image': base + '/assets/og.png', 'og:image:type': 'image/png', 'og:image:width': '1200', 'og:image:height': '630', 'twitter:card': 'summary_large_image'}
+                expected = {'author': author, 'description': page['description'], 'og:title': title, 'twitter:title': title, 'og:description': page['description'], 'twitter:description': page['description'], 'og:url': base + route, 'og:type': 'website' if route == '/' else 'article', 'og:site_name': 'MDAAI', 'og:locale': 'en_US', 'og:image': base + social_assets(route)['static'], 'twitter:image': base + social_assets(route)['large'], 'og:image:type': 'image/png', 'og:image:width': '1200', 'og:image:height': '630', 'twitter:card': 'summary_large_image'}
                 for key, value in expected.items():
                     self.assertEqual(metas[key], value, key)
                 self.assertTrue(metas['og:image:alt'].strip())
@@ -295,7 +305,7 @@ class WebsiteTests(unittest.TestCase):
                 nodes = graph['@graph']
                 by_id = {n['@id']: n for n in nodes}
                 self.assertEqual(len(by_id), len(nodes))
-                self.assertEqual({n['@type'] for n in nodes}, {'Person', 'WebSite', 'BreadcrumbList', 'WebPage' if route == '/' else 'TechArticle'} | ({'VideoObject'} if route == '/' else set()))
+                self.assertEqual({n['@type'] for n in nodes}, {'Person', 'Organization', 'Brand', 'WebSite', 'BreadcrumbList', 'WebPage' if route == '/' else 'TechArticle'} | ({'VideoObject'} if route == '/' else set()))
                 def refs(value):
                     if isinstance(value, dict):
                         if set(value) == {'@id'}:

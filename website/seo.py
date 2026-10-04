@@ -1,22 +1,23 @@
 """Canonical metadata for the curated publication; no ranking promises."""
 import html
 import json
+from identity import icon_metadata, social_assets
 
 BASE = 'https://www.mdaai.internet.technology'
 AUTHOR = 'Eris Margeta Kurdali'
-IMAGE = BASE + '/assets/og.png'
-ALT = 'MDAAI — repository-based operating protocol; contracts, tasks and evidence'
 
 
 def graph(title, description, route):
     person = {'@type': 'Person', '@id': BASE + '/#author', 'name': AUTHOR}
-    site = {'@type': 'WebSite', '@id': BASE + '/#website', 'url': BASE + '/', 'name': 'MDAAI', 'inLanguage': 'en', 'author': {'@id': person['@id']}}
+    studio = {'@type': 'Organization', '@id': 'https://tejl.hr/#organization', 'name': 'TEJL Studio', 'url': 'https://tejl.hr/', 'sameAs': ['https://tejl.com/']}
+    brand = {'@type': 'Brand', '@id': BASE + '/#brand', 'name': 'MDAAI', 'url': BASE + '/', 'logo': BASE + '/assets/identity/icon-512.png'}
+    site = {'@type': 'WebSite', '@id': BASE + '/#website', 'url': BASE + '/', 'name': 'MDAAI', 'inLanguage': 'en', 'author': {'@id': person['@id']}, 'publisher': {'@id': person['@id']}, 'about': {'@id': brand['@id']}, 'creator': {'@id': studio['@id']}, 'maintainer': {'@id': studio['@id']}}
     page = {'@type': 'WebPage' if route == '/' else 'TechArticle', '@id': BASE + route + '#page', 'url': BASE + route, 'name': title + ' · MDAAI', 'description': description, 'inLanguage': 'en', 'isPartOf': {'@id': site['@id']}, 'author': {'@id': person['@id']}, 'breadcrumb': {'@id': BASE + route + '#breadcrumb'}}
     items = [{'@type': 'ListItem', 'position': 1, 'name': 'MDAAI', 'item': BASE + '/'}]
     if route != '/':
         items.append({'@type': 'ListItem', 'position': 2, 'name': title, 'item': BASE + route})
     breadcrumbs = {'@type': 'BreadcrumbList', '@id': BASE + route + '#breadcrumb', 'itemListElement': items}
-    objects = [person, site, page, breadcrumbs]
+    objects = [person, studio, brand, site, page, breadcrumbs]
     if route == '/':
         video = {'@type': 'VideoObject', '@id': BASE + '/#explainer', 'name': 'MDAAI: original and 2.0', 'description': 'A technical file-map explainer showing the original MDAAI template, the MDAAI 2.0 portable core, file relationships and evidence-backed task completion.', 'thumbnailUrl': BASE + '/assets/media/thumbnail.png', 'contentUrl': BASE + '/assets/media/mdaai-original-and-2.mp4', 'duration': 'PT1M31.3S', 'uploadDate': '2026-10-04', 'inLanguage': 'en', 'creator': {'@id': person['@id']}, 'isPartOf': {'@id': page['@id']}}
         objects.append(video)
@@ -26,11 +27,26 @@ def graph(title, description, route):
 
 def metadata(title, description, route):
     if route is None:
-        return '<meta name="robots" content="noindex,follow">'
+        return '<meta name="robots" content="noindex,follow">' + icon_metadata()
     escape = html.escape
     url = BASE + route
+    assets = social_assets(route)
     data = json.dumps(graph(title, description, route), ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c')
-    return f'''<link rel="canonical" href="{url}"><meta name="author" content="{AUTHOR}"><meta property="og:type" content="{'website' if route == '/' else 'article'}"><meta property="og:site_name" content="MDAAI"><meta property="og:locale" content="en_US"><meta property="og:title" content="{escape(title)} · MDAAI"><meta property="og:description" content="{escape(description)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{IMAGE}"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{ALT}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{escape(title)} · MDAAI"><meta name="twitter:description" content="{escape(description)}"><meta name="twitter:image" content="{IMAGE}"><meta name="twitter:image:alt" content="{ALT}"><link rel="manifest" href="/site.webmanifest"><script type="application/ld+json">{data}</script>'''
+    tags = [f'<link rel="canonical" href="{url}">', f'<meta name="author" content="{AUTHOR}">']
+    def meta(key, value, property=False):
+        attribute = 'property' if property else 'name'
+        tags.append(f'<meta {attribute}="{key}" content="{escape(str(value), quote=True)}">')
+    for key, value in [('og:type', 'website' if route == '/' else 'article'), ('og:site_name', 'MDAAI'), ('og:locale', 'en_US'), ('og:title', title + ' · MDAAI'), ('og:description', description), ('og:url', url)]:
+        meta(key, value, True)
+    # Ordered OG records: reliable PNG first, correctly typed GIF alternate second.
+    for variant, mime, alt in [('static', 'image/png', assets['alt']), ('animated', 'image/gif', assets['alt'] + ' — animated alternate; platform playback varies')]:
+        for key, value in [('og:image', BASE + assets[variant]), ('og:image:secure_url', BASE + assets[variant]), ('og:image:type', mime), ('og:image:width', '1200'), ('og:image:height', '630'), ('og:image:alt', alt)]:
+            meta(key, value, True)
+    for key, value in [('twitter:card', 'summary_large_image'), ('twitter:title', title + ' · MDAAI'), ('twitter:description', description), ('twitter:image', BASE + assets['large']), ('twitter:image:alt', assets['alt'])]:
+        meta(key, value)
+    tags.append(icon_metadata())
+    tags.append(f'<script type="application/ld+json">{data}</script>')
+    return ''.join(tags)
 
 
 def video_section(intro):

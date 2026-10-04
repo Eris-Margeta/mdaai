@@ -5,7 +5,7 @@
   try { saved = localStorage.getItem('onion-theme'); } catch (_) { /* Storage may be unavailable. */ }
   root.dataset.theme = saved === 'dark' || saved === 'light' ? saved : 'light';
   const theme = document.querySelector('.theme');
-  const updateTheme = () => { theme.setAttribute('aria-label', `Switch to ${root.dataset.theme === 'dark' ? 'light' : 'dark'} theme`); theme.setAttribute('aria-pressed', String(root.dataset.theme === 'dark')); };
+  const updateTheme = () => { theme.setAttribute('aria-label', `Switch to ${root.dataset.theme === 'dark' ? 'light' : 'dark'} theme`); theme.setAttribute('aria-pressed', String(root.dataset.theme === 'dark')); document.querySelectorAll('meta[name="theme-color"]').forEach(meta => { meta.removeAttribute('media'); meta.setAttribute('content', root.dataset.theme === 'dark' ? '#161b21' : '#f8f9fa'); }); };
   updateTheme();
   theme.addEventListener('click', () => { root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('onion-theme', root.dataset.theme); } catch (_) {} updateTheme(); });
   const menu = document.querySelector('.menu');
@@ -76,9 +76,59 @@
     block.querySelector('.copy-status').textContent = ok ? 'Copied to clipboard.' : 'Copy unavailable. Select the code and copy manually.';
     button.textContent = ok ? 'Copied' : 'Copy';
   }));
-  const headings = document.querySelectorAll('.article section[id]');
-  if ('IntersectionObserver' in window && headings.length) {
-    const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) { document.querySelectorAll('.toc a').forEach(link => { if (link.hash === '#' + entry.target.id) link.setAttribute('aria-current','location'); else link.removeAttribute('aria-current'); }); } }); }, {rootMargin:'-105px 0px -60% 0px'});
-    headings.forEach(h => observer.observe(h));
+  const main = document.getElementById('main');
+  const jump = document.getElementById('section-jump');
+  const sections = Array.from(main.querySelectorAll('.article section[id]'));
+  if (sections.length) jump.replaceChildren();
+  sections.forEach(section => {
+    const option = document.createElement('option'); option.value = section.id;
+    option.textContent = section.querySelector('h2')?.textContent || section.id;
+    jump.append(option);
+  });
+  function spy() {
+    const top = main.getBoundingClientRect().top;
+    let active = sections[0]?.id || '';
+    sections.forEach(section => { if (section.getBoundingClientRect().top <= top + 100) active = section.id; });
+    if (main.scrollTop > 0 && main.scrollTop + main.clientHeight >= main.scrollHeight - 2 && sections.length) active = sections[sections.length - 1].id;
+    jump.value = active;
+    jump.dataset.currentSection = active;
   }
+  function navigate(hash, record = false) {
+    const id = decodeURIComponent(hash.replace(/^#/, ''));
+    const target = id ? document.getElementById(id) : main;
+    if (!target || !main.contains(target) && target !== main) return;
+    if (record) history.pushState(null, '', id ? '#' + encodeURIComponent(id) : location.pathname);
+    main.scrollTo({top: target === main ? 0 : main.scrollTop + target.getBoundingClientRect().top - main.getBoundingClientRect().top - 16, behavior: 'auto'});
+    spy();
+  }
+  jump.addEventListener('change', () => navigate('#' + jump.value, true));
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin === location.origin && url.pathname === location.pathname && url.hash) {
+      event.preventDefault(); navigate(url.hash, true);
+      if (url.hash === '#main') main.focus({preventScroll:true});
+      closeNav();
+    }
+  });
+  // Only the focused pane owns document-style scroll keys; leave inputs,
+  // selects, links, and modified keyboard commands to their native behavior.
+  main.addEventListener('keydown', event => {
+    if (event.target !== main || event.altKey || event.ctrlKey || event.metaKey) return;
+    const page = Math.max(1, main.clientHeight - 40);
+    const positions = {Home:0, End:main.scrollHeight, PageDown:main.scrollTop + page, PageUp:main.scrollTop - page, ' ':main.scrollTop + (event.shiftKey ? -page : page)};
+    if (!Object.prototype.hasOwnProperty.call(positions, event.key)) return;
+    event.preventDefault(); main.scrollTo({top:positions[event.key], behavior:'instant'});
+  });
+  main.addEventListener('scroll', spy, {passive:true});
+  window.addEventListener('hashchange', () => navigate(location.hash));
+  window.addEventListener('popstate', () => navigate(location.hash));
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(spy, {root:main, threshold:[0,1]});
+    sections.forEach(section => observer.observe(section));
+  }
+  document.fonts.ready.then(() => navigate(location.hash));
+  window.addEventListener('load', () => navigate(location.hash));
+  spy();
 })();

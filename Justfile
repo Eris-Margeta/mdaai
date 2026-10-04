@@ -41,9 +41,10 @@ dev:
 
 # Run tests (override per project)
 test:
-    docker run --rm -e PYTHONDONTWRITEBYTECODE=1 -v "{{justfile_directory()}}:/app" -w /app python:{{trim(read(".python-version"))}}-alpine sh -c "python3 -B website/build.py && python3 -B website/check.py && python3 -B website/check_templates.py && python3 -B website/check_release.py"
+    docker run --rm -e PYTHONDONTWRITEBYTECODE=1 -v "{{justfile_directory()}}:/app" -w /app python:{{trim(read(".python-version"))}}-alpine sh -c "python3 -B website/build.py && python3 -B website/check.py && python3 -B website/check_templates.py && python3 -B website/check_release.py && python3 -B website/check_identity.py --dist website/dist"
     node website/check_clipboard.cjs
     node --check website/assets/app.js
+    node --check website/assets/pwa.js
 
 # Run linter (override per project)
 lint:

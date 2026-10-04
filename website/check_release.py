@@ -62,7 +62,14 @@ class ReleaseTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(data).hexdigest(), "fee7149b09f5fdc922646a1356026af2bc0747dc586aa579b4842d977d82f22d")
         html = (build.OUT / "index.html").read_text()
         self.assertIn("coiled mythical guardian and E.M.K. credit", html)
-        self.assertLess(html.index("documentation-cover"), html.index("<h1>"))
+        self.assertLess(html.index("<h1>"), html.index("documentation-cover"))
+        self.assertIn('class="homepage-intro"', html)
+        import html as html_parser
+        self.assertIn("inspired by o'reily's book covers", html_parser.unescape(html))
+        self.assertEqual(html.count('<h1>'), 1)
+        for page in build.OUT.rglob('index.html'):
+            if page != build.OUT / 'index.html':
+                self.assertNotIn('class="homepage-intro"', page.read_text())
         self.assertIn("Eris Margeta Kurdali", html)
         self.assertIn("AI-generated mythical guardian", html)
         self.assertNotIn("Iconographia Zoologica", html)

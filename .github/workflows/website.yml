@@ -15,11 +15,12 @@ jobs:
           python-version-file: '.python-version'
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
       - run: python3 -B website/build.py
       - run: python3 -B website/check.py
       - run: python3 -B website/check_templates.py
       - run: python3 -B website/check_release.py
+      - run: python3 -B website/check_identity.py --dist website/dist
       - run: node website/check_clipboard.cjs
       - run: node --check website/assets/app.js
       - run: docker build --platform linux/amd64 -t mdaai-check .
@@ -30,3 +31,9 @@ jobs:
           test "$(curl --silent -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/missing/)" = '404'
           test "$(curl --silent -H 'Range: bytes=0-1023' -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/assets/media/mdaai-original-and-2.mp4)" = '206'
           docker exec mdaai-check id
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+        env:
+          E2E_BASE_URL: http://127.0.0.1:8080
+          E2E_OUTPUT: PROJECT-INTERNAL/e2e-ci
