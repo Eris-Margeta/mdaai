@@ -64,8 +64,11 @@ for(const width of [320,375,1440]) for(const dpr of [1,2,3]) {
       expect(tag.includes('loading="eager"')).toBe(true);expect(tag.includes('fetchpriority="high"')).toBe(true);
       const image=page.locator('.documentation-cover img');
       const before=await image.evaluate((e:HTMLImageElement)=>({complete:e.complete,width:e.getBoundingClientRect().width,height:e.getBoundingClientRect().height,loading:e.loading,priority:e.fetchPriority,attrs:[e.getAttribute('width'),e.getAttribute('height')],sizes:e.sizes}));
-      expect(before.complete).toBe(false);expect(before.width).toBe(width===1440?352:272);
-      expect(before.height).toBe(width===1440?440:353.59375);
+      // Linux's classic scrollbar reserves 15px; macOS reserves 12px.
+      // Derive the bounded mobile box from its real grid content width, not OS pixels.
+      const expectedWidth=width===1440?352:await page.locator('.homepage-intro').evaluate(e=>Math.min(272,e.clientWidth));
+      expect(before.complete).toBe(false);expect(before.width).toBe(expectedWidth);
+      expect(Math.abs(before.height-(width===1440?440:expectedWidth*1.3))).toBeLessThan(0.02);
       expect(before.attrs).toEqual(['1000','1300']);expect(before.loading).toBe('eager');expect(before.priority).toBe('high');expect(before.sizes).toBe(inventory.sizes);
       release();
       await image.evaluate((e:HTMLImageElement)=>e.decode());
@@ -76,7 +79,10 @@ for(const width of [320,375,1440]) for(const dpr of [1,2,3]) {
       expect(!!selected).toBe(true);
       // Selection is allowed to reflect Chromium's throttled-network intervention.
       // The descriptor density, not device DPR, corrects naturalWidth/naturalHeight.
-      const density=selected.width/before.width;
+      // naturalWidth follows the advertised sizes slot, not the painted box.
+      // At 320px Linux's gutter makes that box 3px narrower without layout drift.
+      const slotWidth=width<=1000?Math.min(272,width-48):Math.min(352,width*0.45945946-142.891892);
+      const density=selected.width/slotWidth;
       expect(Math.abs(after.naturalWidth-selected.width/density)).toBeLessThanOrEqual(1);
       expect(Math.abs(after.naturalHeight-selected.height/density)).toBeLessThanOrEqual(1);
       const fetched=requests.filter(e=>/assets\/(cover\/|brand\/mdaai-guardian-cover)/.test(e.request.url));
