@@ -137,7 +137,7 @@ class WebsiteTests(unittest.TestCase):
             if not file.is_file():
                 continue
             self.assertFalse(file.is_symlink())
-            if file.suffix in ('.png', '.webp', '.mp4', '.gif', '.ico'):
+            if file.suffix in ('.png', '.webp', '.jpg', '.mp4', '.gif', '.ico'):
                 continue
             text = file.read_text()
             for pattern in (r'/Users/', r'/private/', r'file://', r'BEGIN [A-Z ]*PRIVATE KEY', r'\bsk-[A-Za-z0-9]{20,}', r'\b[A-Fa-f0-9]{64}\b', r'source-pins', r'sourcearchives', r'\.hermes/', r'\.git/'):
@@ -186,7 +186,7 @@ class WebsiteTests(unittest.TestCase):
         self.assertIn('Project Elaboration owns scope and sequence', home)
 
     def test_rejected_content_is_not_served(self):
-        text = '\n'.join(f.read_text() for f in build.OUT.rglob('*') if f.is_file() and f.suffix not in ('.png', '.webp', '.mp4', '.gif', '.ico'))
+        text = '\n'.join(f.read_text() for f in build.OUT.rglob('*') if f.is_file() and f.suffix not in ('.png', '.webp', '.jpg', '.mp4', '.gif', '.ico'))
         for rejected in ('hermes --', 'HermesSol', 'Hermes Agent', 'native_p95_regression', '564 tests', 'Year-long governance', 'python3 -B website/', '/docs/quickstart/', '/evolution/', 'industry-first', 'self-declared breakthrough'):
             self.assertNotIn(rejected, text)
         self.assertEqual(len(list(build.OUT.rglob('*.html'))), 9)

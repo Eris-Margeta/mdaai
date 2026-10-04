@@ -106,10 +106,10 @@
       "purpose": "maskable",
       "sha256": "f6a1382641419ed1b11d722a36a4db45d0650ac317e433717a5da4f5a1cad002"
     },
-    "v1-connections-og-animated.gif": {
+    "v2-connections-og-animated.gif": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 45948,
+      "backdrop": "#f4f1e8",
+      "bytes": 43459,
       "dimensions": [
         1200,
         630
@@ -117,48 +117,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "a3f69bcd1996cc333797f13b772eb5f7f23e17ce6422d48fb831dd6a1ed8759c"
+      "sha256": "46568a0c1f97541fa2ae623f092aa3e5d7e0db23bb073e25cd2f48f7c15503bc"
     },
-    "v1-connections-og-static.png": {
+    "v2-connections-og-static.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 51392,
+      "backdrop": "#f4f1e8",
+      "bytes": 83628,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "f136ab376c7d072230b8a2fe4b5213075506a5a0162e0943ba5bb39f67587eab"
+      "sha256": "96e709fb6fcee6671fe0609dabc3ad2ada7f3a0b4246c5564e2b41a6ce3372f6"
     },
-    "v1-connections-twitter-large.png": {
+    "v2-connections-twitter-large.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 51199,
+      "backdrop": "#f4f1e8",
+      "bytes": 72529,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "cfc80ca016813249094481e15f69b2438245dc918e15720a082b29924e52efd0"
+      "sha256": "c69c7061d9ae7c921e74fa2185990a2bdf44e629a71488967296d779249afa57"
     },
-    "v1-connections-twitter-summary.png": {
+    "v2-connections-twitter-summary.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 28919,
+      "backdrop": "#f4f1e8",
+      "bytes": 71830,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "c3de420ce5b53d7875b26742995e3e4fe2ea5b2e0c0b297959fa0b67207db367"
+      "sha256": "eba17b3a54c057d405deab1205ddbd30096313c180fad1aa9e33717056bd2bb4"
     },
-    "v1-lifecycle-og-animated.gif": {
+    "v2-lifecycle-og-animated.gif": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 45413,
+      "backdrop": "#f4f1e8",
+      "bytes": 42636,
       "dimensions": [
         1200,
         630
@@ -166,48 +166,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "8ce52d7d0a0324f51d4fa8e4c794cffa212b6c83f2ec618f010c5c30a2787f8b"
+      "sha256": "d787d5f546a8e44000ac996f5af7854a5ad1268d29c1b934ecaf6f59245f7921"
     },
-    "v1-lifecycle-og-static.png": {
+    "v2-lifecycle-og-static.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 51731,
+      "backdrop": "#f4f1e8",
+      "bytes": 84636,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "caf382af4886727b382d7d272d4b71d73ae7bff75a0f8f44858139420d39fd0b"
+      "sha256": "9cd81b039536da913bcf8e0d3aa06d50184f05603fc46ad34353dc7100f96df2"
     },
-    "v1-lifecycle-twitter-large.png": {
+    "v2-lifecycle-twitter-large.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 51537,
+      "backdrop": "#f4f1e8",
+      "bytes": 73558,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "d416fe77c2fa3b5a238dfce9b92d55e72e444e5778c1b96ffb3469905b30ad53"
+      "sha256": "598cd04d4de416dc040573a5657a198bdf6f1ef892bf160aeb4a86b07d546682"
     },
-    "v1-lifecycle-twitter-summary.png": {
+    "v2-lifecycle-twitter-summary.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 29149,
+      "backdrop": "#f4f1e8",
+      "bytes": 70625,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "682b6e82e4cd4e4040f1592dee94fc81b63e28394fc94cf6ca654af09316d031"
+      "sha256": "0f833e45746c9fd2102905555e194f423939925f41d327aa5b88467c0424a967"
     },
-    "v1-mdaai-1-og-animated.gif": {
+    "v2-mdaai-1-og-animated.gif": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 46304,
+      "backdrop": "#f4f1e8",
+      "bytes": 44126,
       "dimensions": [
         1200,
         630
@@ -215,48 +215,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "f37092484f2cd68aeb2e1b328f0408a8faf755e1b7be29a974426eaaf14213c1"
+      "sha256": "d8fbff580adeaaa02d2613a9d860de6af560226198eff4cc87c8fb72380596e3"
     },
-    "v1-mdaai-1-og-static.png": {
+    "v2-mdaai-1-og-static.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 53500,
+      "backdrop": "#f4f1e8",
+      "bytes": 86168,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "31f77d73983503f9dc783dc8a26c501bebfec15a7fda406bd5f227ff0b73479e"
+      "sha256": "f5de63304d0991a85bcfd719139d2a9704d3670771867494e857a48e511c9b9f"
     },
-    "v1-mdaai-1-twitter-large.png": {
+    "v2-mdaai-1-twitter-large.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 53304,
+      "backdrop": "#f4f1e8",
+      "bytes": 75061,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "886fa25d7d2cee929fcc793c3dff9ab8568826bdb3196fd822f7479b4538c3cc"
+      "sha256": "ac843e88a8cae46b406b95f0faa0f0fde1d5fa7517bb3a7c0605822e204ca5db"
     },
-    "v1-mdaai-1-twitter-summary.png": {
+    "v2-mdaai-1-twitter-summary.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 30557,
+      "backdrop": "#f4f1e8",
+      "bytes": 72644,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "abe84164baf535619864c587aa20892e373bd0aa0182cfdb5e4cdab80681c8d1"
+      "sha256": "8f4fc98dd314ab9a9bf5fef2d69ad08e5c0daa4d33c574654951af8f02fa3df7"
     },
-    "v1-mdaai-2-og-animated.gif": {
+    "v2-mdaai-2-og-animated.gif": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 43241,
+      "backdrop": "#f4f1e8",
+      "bytes": 40564,
       "dimensions": [
         1200,
         630
@@ -264,48 +264,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "8722b40fbe48688d4e65d25f1f62a00d1867c760f8de88bf1f0e39b33355004f"
+      "sha256": "c10f559e8ae429bde1e44802919da26bd8850cca10776931e599912ce327b953"
     },
-    "v1-mdaai-2-og-static.png": {
+    "v2-mdaai-2-og-static.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 47739,
+      "backdrop": "#f4f1e8",
+      "bytes": 79832,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "4d7bfbd73db49d724e0466916c8801454fcc8f362c519400cd78a5482469fed6"
+      "sha256": "130b9d94ceaabc43344f4cea24f29942f1b21879de4223046b9f6888fed7a7ab"
     },
-    "v1-mdaai-2-twitter-large.png": {
+    "v2-mdaai-2-twitter-large.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 47536,
+      "backdrop": "#f4f1e8",
+      "bytes": 68712,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "7bc2a3875ee35398af9d90aecfd023f20d08974e0437b654165f9502fbee0d02"
+      "sha256": "48c130eb1d62288d561ea4f7bec60eb53c633d4d3bf778d072290cd14576016e"
     },
-    "v1-mdaai-2-twitter-summary.png": {
+    "v2-mdaai-2-twitter-summary.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 26248,
+      "backdrop": "#f4f1e8",
+      "bytes": 69655,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "f9bddc8e03a8c4aa5a9b049af790dde7938d533ec3874585f63dc87a72da151a"
+      "sha256": "c0aac20ef0cd6466a2a02b6a3f78fafd44986fb905fef6a97163d6f4e12f1a1a"
     },
-    "v1-mdaai-og-animated.gif": {
+    "v2-mdaai-og-animated.gif": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 43595,
+      "backdrop": "#f4f1e8",
+      "bytes": 40832,
       "dimensions": [
         1200,
         630
@@ -313,48 +313,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "b7cf3822ecac506cf1573dfbc838a4083ede27abdbc7f1594ecf07f03a2f0e66"
+      "sha256": "5edfc6b276c35edb0bd9a308b9b8e1bf9d8fd2fd0032ebe35dceb9993830037a"
     },
-    "v1-mdaai-og-static.png": {
+    "v2-mdaai-og-static.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 47484,
+      "backdrop": "#f4f1e8",
+      "bytes": 80067,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "15f2881dbaf56bb3c7be22c7e774348b4de07d0f053d6f8469f38ed705baa5b6"
+      "sha256": "8780a268bb7bbcb8d363fb7d4badd1a0b89a08b2398a92a4b9648a69eb2c5381"
     },
-    "v1-mdaai-twitter-large.png": {
+    "v2-mdaai-twitter-large.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 47287,
+      "backdrop": "#f4f1e8",
+      "bytes": 68869,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "48f6108e5809acf6e7f41144b9c1fbe973124c037b1780bf8145d794c4d45649"
+      "sha256": "93d670ab47212990c9f51c51d87df0205682f7d8b6f5d9b752c0391c5c5c5dcb"
     },
-    "v1-mdaai-twitter-summary.png": {
+    "v2-mdaai-twitter-summary.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 26060,
+      "backdrop": "#f4f1e8",
+      "bytes": 68133,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "ff572429c7d3f096868582a239e377d07c98746e094b4f59d9488afd16dbdcc2"
+      "sha256": "2f42182c3a6386c0fb883717437380c5ed380f1162af26759f25f7cb52e18967"
     },
-    "v1-structure-og-animated.gif": {
+    "v2-structure-og-animated.gif": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 45819,
+      "backdrop": "#f4f1e8",
+      "bytes": 43082,
       "dimensions": [
         1200,
         630
@@ -362,48 +362,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "8a1f7f727b341194e8a417c6bab5fe221380cd9dfa34335c42d46d15be0dd83a"
+      "sha256": "96e58e58e3a9bfd8a034d5c60cfce095bc01f25f4f2156f2f6dbc1f23ae76fef"
     },
-    "v1-structure-og-static.png": {
+    "v2-structure-og-static.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 52568,
+      "backdrop": "#f4f1e8",
+      "bytes": 85220,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "c81ecd46303acedd9dd3e19ce82548f16bb3e9d020dd51b80763e976c87564cf"
+      "sha256": "80d95f7d881c1f4a8e850acded2801453472c7ab38e5eaa601635afc84721890"
     },
-    "v1-structure-twitter-large.png": {
+    "v2-structure-twitter-large.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 52373,
+      "backdrop": "#f4f1e8",
+      "bytes": 74083,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "642977f003f53f22605205c53aa62d8381736fbb6fe865ae6bf1d965e99475ef"
+      "sha256": "60f240ddf017480ba5a91b1574d0bcc543cec729d9eed11f7326d15febafa35f"
     },
-    "v1-structure-twitter-summary.png": {
+    "v2-structure-twitter-summary.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 29682,
+      "backdrop": "#f4f1e8",
+      "bytes": 71786,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "6854c551da48032ed609e848747f19be50e77126795087d52c847c80c4448eaf"
+      "sha256": "1b5a152a6b1a776e2a45167ddb116a2e4e75b358a8eb79fdea0d657a37f82cf8"
     },
-    "v1-templates-og-animated.gif": {
+    "v2-templates-og-animated.gif": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 44708,
+      "backdrop": "#f4f1e8",
+      "bytes": 42103,
       "dimensions": [
         1200,
         630
@@ -411,48 +411,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "71a2ce0fd7f214fe9b31837cb8378a5a76b6c5f379e4b93b7e3168522bfecc6f"
+      "sha256": "7800548ad384d0a99ebbbe70dc3ee9c383d19f6de1470f6d5d5656fca8ce9641"
     },
-    "v1-templates-og-static.png": {
+    "v2-templates-og-static.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 50232,
+      "backdrop": "#f4f1e8",
+      "bytes": 82860,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "875045f94ce58748606307069e95f99ec9b82ef3463bfd867d8ecdbae71c7bd0"
+      "sha256": "90996eab1b12810ac321002db2bb4db5b828933ae696e088805a87ad348bfd2d"
     },
-    "v1-templates-twitter-large.png": {
+    "v2-templates-twitter-large.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 50038,
+      "backdrop": "#f4f1e8",
+      "bytes": 71761,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "237af8aa224feeaa7a5c1597287c2879c73f8b0874ad83d239af530f6169fdfc"
+      "sha256": "43a1506b912756924d4aee58ee5ef0538510784958ca10be34269fd85663b154"
     },
-    "v1-templates-twitter-summary.png": {
+    "v2-templates-twitter-summary.png": {
       "alpha": false,
-      "backdrop": "#161b21",
-      "bytes": 28115,
+      "backdrop": "#f4f1e8",
+      "bytes": 69644,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "83f1b0e9101db1b3d57ca0a3be453ade962411d08fe9361ba01e350e2a909219"
+      "sha256": "e2819273b069848008eb99dd6476b9a6688c0e63cf2a1367b63396532e738e16"
     }
   },
   "coverSha256": "fee7149b09f5fdc922646a1356026af2bc0747dc586aa579b4842d977d82f22d",
   "generator": {
-    "algorithm": "SVG cubic contours sampled at 32 steps; 4x source mask; Lanczos fit; deterministic flat cards",
+    "algorithm": "Approved native cover plate crop (270,405,735,1060); aspect-fit Lanczos; ivory paper and burgundy measured title band; bounded footer tick",
     "font": "Pillow embedded Aileron default",
     "pillow": "12.1.0",
     "svgSha256": "11af95fd5bfcfae955139d6b44aff606798bcf99dc0e2147bc2c1d852c700b8d"
@@ -463,54 +463,54 @@
   ],
   "routes": {
     "/": {
-      "alt": "MDAAI coiled guardian emblem \u2014 MDAAI; Repository operating protocol",
-      "animated": "/assets/identity/v1-mdaai-og-animated.gif",
-      "large": "/assets/identity/v1-mdaai-twitter-large.png",
-      "static": "/assets/identity/v1-mdaai-og-static.png",
-      "summary": "/assets/identity/v1-mdaai-twitter-summary.png"
+      "alt": "MDAAI engraved guardian book-cover artwork \u2014 MDAAI; Repository operating protocol",
+      "animated": "/assets/identity/v2-mdaai-og-animated.gif",
+      "large": "/assets/identity/v2-mdaai-twitter-large.png",
+      "static": "/assets/identity/v2-mdaai-og-static.png",
+      "summary": "/assets/identity/v2-mdaai-twitter-summary.png"
     },
     "/how-files-work-together/": {
-      "alt": "MDAAI coiled guardian emblem \u2014 How files work together; Instructions to evidence",
-      "animated": "/assets/identity/v1-connections-og-animated.gif",
-      "large": "/assets/identity/v1-connections-twitter-large.png",
-      "static": "/assets/identity/v1-connections-og-static.png",
-      "summary": "/assets/identity/v1-connections-twitter-summary.png"
+      "alt": "MDAAI engraved guardian book-cover artwork \u2014 How files work together; Instructions to evidence",
+      "animated": "/assets/identity/v2-connections-og-animated.gif",
+      "large": "/assets/identity/v2-connections-twitter-large.png",
+      "static": "/assets/identity/v2-connections-og-static.png",
+      "summary": "/assets/identity/v2-connections-twitter-summary.png"
     },
     "/mdaai-1/": {
-      "alt": "MDAAI coiled guardian emblem \u2014 First-generation MDAAI; The original repository template",
-      "animated": "/assets/identity/v1-mdaai-1-og-animated.gif",
-      "large": "/assets/identity/v1-mdaai-1-twitter-large.png",
-      "static": "/assets/identity/v1-mdaai-1-og-static.png",
-      "summary": "/assets/identity/v1-mdaai-1-twitter-summary.png"
+      "alt": "MDAAI engraved guardian book-cover artwork \u2014 First-generation MDAAI; The original repository template",
+      "animated": "/assets/identity/v2-mdaai-1-og-animated.gif",
+      "large": "/assets/identity/v2-mdaai-1-twitter-large.png",
+      "static": "/assets/identity/v2-mdaai-1-og-static.png",
+      "summary": "/assets/identity/v2-mdaai-1-twitter-summary.png"
     },
     "/mdaai-2/": {
-      "alt": "MDAAI coiled guardian emblem \u2014 MDAAI 2.0; The portable core",
-      "animated": "/assets/identity/v1-mdaai-2-og-animated.gif",
-      "large": "/assets/identity/v1-mdaai-2-twitter-large.png",
-      "static": "/assets/identity/v1-mdaai-2-og-static.png",
-      "summary": "/assets/identity/v1-mdaai-2-twitter-summary.png"
+      "alt": "MDAAI engraved guardian book-cover artwork \u2014 MDAAI 2.0; The portable core",
+      "animated": "/assets/identity/v2-mdaai-2-og-animated.gif",
+      "large": "/assets/identity/v2-mdaai-2-twitter-large.png",
+      "static": "/assets/identity/v2-mdaai-2-og-static.png",
+      "summary": "/assets/identity/v2-mdaai-2-twitter-summary.png"
     },
     "/repository-structure/": {
-      "alt": "MDAAI coiled guardian emblem \u2014 Repository structure; Contracts, tasks and evidence",
-      "animated": "/assets/identity/v1-structure-og-animated.gif",
-      "large": "/assets/identity/v1-structure-twitter-large.png",
-      "static": "/assets/identity/v1-structure-og-static.png",
-      "summary": "/assets/identity/v1-structure-twitter-summary.png"
+      "alt": "MDAAI engraved guardian book-cover artwork \u2014 Repository structure; Contracts, tasks and evidence",
+      "animated": "/assets/identity/v2-structure-og-animated.gif",
+      "large": "/assets/identity/v2-structure-twitter-large.png",
+      "static": "/assets/identity/v2-structure-og-static.png",
+      "summary": "/assets/identity/v2-structure-twitter-summary.png"
     },
     "/task-lifecycle/": {
-      "alt": "MDAAI coiled guardian emblem \u2014 Task lifecycle; Assigned work to verified completion",
-      "animated": "/assets/identity/v1-lifecycle-og-animated.gif",
-      "large": "/assets/identity/v1-lifecycle-twitter-large.png",
-      "static": "/assets/identity/v1-lifecycle-og-static.png",
-      "summary": "/assets/identity/v1-lifecycle-twitter-summary.png"
+      "alt": "MDAAI engraved guardian book-cover artwork \u2014 Task lifecycle; Assigned work to verified completion",
+      "animated": "/assets/identity/v2-lifecycle-og-animated.gif",
+      "large": "/assets/identity/v2-lifecycle-twitter-large.png",
+      "static": "/assets/identity/v2-lifecycle-og-static.png",
+      "summary": "/assets/identity/v2-lifecycle-twitter-summary.png"
     },
     "/templates/": {
-      "alt": "MDAAI coiled guardian emblem \u2014 Templates; Reviewed repository starting points",
-      "animated": "/assets/identity/v1-templates-og-animated.gif",
-      "large": "/assets/identity/v1-templates-twitter-large.png",
-      "static": "/assets/identity/v1-templates-og-static.png",
-      "summary": "/assets/identity/v1-templates-twitter-summary.png"
+      "alt": "MDAAI engraved guardian book-cover artwork \u2014 Templates; Reviewed repository starting points",
+      "animated": "/assets/identity/v2-templates-og-animated.gif",
+      "large": "/assets/identity/v2-templates-twitter-large.png",
+      "static": "/assets/identity/v2-templates-og-static.png",
+      "summary": "/assets/identity/v2-templates-twitter-summary.png"
     }
   },
-  "version": "v1"
+  "version": "v2"
 }

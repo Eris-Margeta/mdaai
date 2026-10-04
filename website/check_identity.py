@@ -43,7 +43,7 @@ class Head(HTMLParser):
 
 
 def check_identity(site=SITE, dist=None, decode=False):
-    from identity import manifest, social_assets, ASSET_ROOT, COVER_SHA256
+    from identity import manifest, social_assets, ASSET_ROOT, COVER_SHA256, ROUTES, VERSION
     from seo import metadata, BASE, AUTHOR
     site = Path(site)
     pages = json.loads((site / 'content.json').read_text())
@@ -57,6 +57,8 @@ def check_identity(site=SITE, dist=None, decode=False):
                 required.add(value.removeprefix('/' + ASSET_ROOT + '/'))
     assert set(inventory['assets']) == required, 'Exact reviewed identity asset matrix required'
     assert len(required) == 36
+    content = json.loads((site / 'content.json').read_text())
+    assert {p['route']: p['title'] for p in content} == {route: values[1] for route, values in ROUTES.items()}, 'Social titles must match actual published titles'
     assert inventory['generator']['pillow'] == '12.1.0'
     assert hashlib.sha256((site / 'assets/brand/mdaai-guardian-cover.webp').read_bytes()).hexdigest() == COVER_SHA256, 'Approved cover changed'
     for name, entry in inventory['assets'].items():
@@ -230,12 +232,32 @@ def check_identity(site=SITE, dist=None, decode=False):
             if image.format == 'GIF':
                 assert image.n_frames == entry['frames']
                 frames = []
+                stable = None
                 for i in range(image.n_frames):
                     image.seek(i)
                     image.load()
                     assert image.size == (1200,630)
-                    frames.append(hashlib.sha256(image.convert('RGB').tobytes()).hexdigest())
+                    rgb = image.convert('RGB')
+                    # Motion is confined to the footer tick; art and title are complete
+                    # on frame zero and must remain exactly stable in every frame.
+                    upper = rgb.crop((0, 0, 1200, 600)).tobytes()
+                    if stable is None:
+                        stable = upper
+                    assert upper == stable, (name, 'Animated title/art changed')
+                    assert image.info['duration'] == 140
+                    frames.append(hashlib.sha256(rgb.tobytes()).hexdigest())
                 assert len(set(frames)) > 1
+            if name.startswith(VERSION + '-') and image.format == 'PNG':
+                cover = Image.open(site / 'assets/brand/mdaai-guardian-cover.webp').convert('RGB')
+                rgb = image.convert('RGB')
+                assert rgb.getpixel((0, 0)) == cover.getpixel((20, 20)), (name, 'Ivory paper')
+                assert rgb.getpixel((0, 100)) == cover.getpixel((20, 100)), (name, 'Burgundy band')
+                square = image.width == image.height
+                band_bottom = 225 if square else 250
+                plate = cover.crop((270, 405, 735, 1060))
+                plate.thumbnail((225, 292) if square else (260, image.height - band_bottom - 90), Image.Resampling.LANCZOS)
+                x = (image.width - plate.width) // 2 if square else image.width - 60 - plate.width - 65
+                assert rgb.crop((x, band_bottom + 12, x + plate.width, band_bottom + 12 + plate.height)).tobytes() == plate.tobytes(), (name, 'Approved plate must be intact and aspect-fitted')
             if 'maskable' in name:
                 rgb = image.convert('RGB')
                 w, h = rgb.size

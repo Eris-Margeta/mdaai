@@ -4,7 +4,7 @@ Build integration: emit_manifest(OUT). Copy only files in inventory['assets']
 through the reviewed provenance allowlist. Normal imports need Python stdlib only.
 Regenerate: Python + Pillow==12.1.0, `python3 -B website/identity.py --generate`.
 Pillow's embedded default Aileron font avoids host font dependencies. The approved
-SVG path geometry is sampled deterministically, not replaced by a text monogram.
+native cover plate is aspect-fitted deterministically, never replaced by a new animal.
 Generation does not change the approved guardian cover or source SVGs.
 """
 from pathlib import Path
@@ -13,7 +13,7 @@ import json
 
 SITE = Path(__file__).resolve().parent
 ASSET_ROOT = 'assets/identity'
-VERSION = 'v1'
+VERSION = 'v2'
 THEME_DARK = '#161b21'
 THEME_LIGHT = '#f8f9fa'
 COVER_SHA256 = 'fee7149b09f5fdc922646a1356026af2bc0747dc586aa579b4842d977d82f22d'
@@ -34,7 +34,7 @@ def social_assets(route):
     prefix = '/' + ASSET_ROOT + '/' + VERSION + '-' + slug + '-'
     return {'static': prefix + 'og-static.png', 'animated': prefix + 'og-animated.gif',
             'large': prefix + 'twitter-large.png', 'summary': prefix + 'twitter-summary.png',
-            'alt': 'MDAAI coiled guardian emblem — ' + title + '; ' + subtitle}
+            'alt': 'MDAAI engraved guardian book-cover artwork — ' + title + '; ' + subtitle}
 
 
 def icon_metadata():
@@ -78,8 +78,6 @@ def emit_manifest(output):
 def generate_assets():
     """Developer-only generation; Pillow is deliberately imported lazily."""
     import hashlib
-    import io
-    import re
     import xml.etree.ElementTree as ET
     import PIL
     from PIL import Image, ImageDraw, ImageFont
@@ -96,78 +94,24 @@ def generate_assets():
     output.mkdir(parents=True, exist_ok=True)
     inventory = {}
 
-    def contours(path):
-        tokens = re.findall(r'[MCLZ]|-?\d+(?:\.\d+)?', path)
-        result, points = [], []
-        pos, current = 0, (0, 0)
-        while pos < len(tokens):
-            command = tokens[pos]
-            pos += 1
-            if command in ['M', 'L']:
-                current = (float(tokens[pos]), float(tokens[pos+1]))
-                pos += 2
-                points.append(current)
-            elif command == 'C':
-                values = list(map(float, tokens[pos:pos+6]))
-                pos += 6
-                a, b, c = current, tuple(values[:2]), tuple(values[2:4])
-                end = tuple(values[4:])
-                for step in range(1, 33):
-                    t = step / 32
-                    u = 1-t
-                    points.append(tuple(u**3*a[k] + 3*u*u*t*b[k] + 3*u*t*t*c[k] + t**3*end[k] for k in [0,1]))
-                current = end
-            elif command == 'Z':
-                result.append(points)
-                points = []
-            else:
-                raise ValueError('Unsupported source path command')
-        assert not points
-        return result
-
-    # Source geometry is preserved: exterior paths union; subsequent contours are holes.
-    mask = Image.new('L', (2048,2048))
-    draw = ImageDraw.Draw(mask)
-    for path in paths:
-        for index, polygon in enumerate(contours(path)):
-            draw.polygon([(round(x*4), round(y*4)) for x,y in polygon], fill=255 if index == 0 else 0)
-
-    def mark(size):
-        stamp = Image.new('RGBA', (size,size), '#ecf0f4')
-        stamp.putalpha(mask.resize((size,size), Image.Resampling.LANCZOS))
-        return stamp
-
     def record(name, image, mime, purpose, **options):
         target = output / name
         image.save(target, **options)
         data = target.read_bytes()
         inventory[name] = {'mime': mime, 'dimensions': list(image.size), 'bytes': len(data),
                            'sha256': hashlib.sha256(data).hexdigest(), 'purpose': purpose,
-                           'alpha': image.mode == 'RGBA', 'backdrop': THEME_DARK}
+                           'alpha': image.mode == 'RGBA', 'backdrop': '#%02x%02x%02x' % paper}
         if mime == 'image/gif':
             inventory[name]['frames'] = Image.open(target).n_frames
 
-    for size, name, purpose in [(32,'favicon-32.png','browser'),(180,'apple-touch-icon.png','apple'),
-                                (192,'icon-192.png','any'),(512,'icon-512.png','any'),
-                                (192,'icon-maskable-192.png','maskable'),(512,'icon-maskable-512.png','maskable')]:
-        image = Image.new('RGB', (size,size), THEME_DARK)
-        # Maskable fits a central circle, including antialiasing; not a square inset.
-        extent = round(size*(.70 if purpose == 'maskable' else .89))
-        stamp = mark(extent)
-        offset = (size-extent)//2
-        image.paste(stamp,(offset,offset),stamp)
-        record(name,image,'image/png',purpose,format='PNG',optimize=False,compress_level=9)
-    ico = Image.new('RGBA',(64,64),THEME_DARK)
-    stamp = mark(58)
-    ico.alpha_composite(stamp,(3,3))
-    record('favicon.ico',ico,'image/x-icon','browser',format='ICO',sizes=[(16,16),(32,32)])
-    inventory['favicon.ico']['dimensions'] = [32, 32]
-    inventory['favicon.ico']['frames'] = [[16,16], [32,32]]
-    svg = source.read_text().replace('fill="#fff"','fill="#20262c"')
-    svg = svg.replace('<path d=', '<style>@media(prefers-color-scheme:dark){svg{fill:#ecf0f4}}</style><path d=',1)
-    (output / 'favicon.svg').write_text(svg)
-    data = (output / 'favicon.svg').read_bytes()
-    inventory['favicon.svg'] = {'mime':'image/svg+xml','dimensions':[512,512],'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'purpose':'browser','alpha':True,'backdrop':'transparent'}
+    # Only social assets are regenerated; native icons remain immutable.
+    previous = json.loads((output / 'inventory.json').read_text())
+    inventory.update({n: e for n, e in previous['assets'].items() if not n.startswith(('v1-', 'v2-'))})
+    approved = Image.open(cover).convert('RGB')
+    assert approved.size == (1000, 1300)
+    plate = approved.crop((270, 405, 735, 1060))
+    paper = approved.getpixel((20, 20))
+    burgundy = approved.getpixel((20, 100))
 
     def font(size):
         return ImageFont.load_default(size=size)
@@ -186,48 +130,39 @@ def generate_assets():
         return result
 
     def card(route, width, height, phase=0):
-        slug,title,subtitle = ROUTES[route]
+        slug, title, subtitle = ROUTES[route]
         square = width == height
-        image = Image.new('RGB',(width,height),THEME_DARK)
+        image = Image.new('RGB', (width, height), paper)
         d = ImageDraw.Draw(image)
-        margin = 56 if square else 72
-        # Restrained grid references repository relationships, not a product UI.
-        for x in range(0,width,60):
-            d.line((x,0,x,height),fill='#1d242c')
-        for y in range(0,height,60):
-            d.line((0,y,width,y),fill='#1d242c')
-        d.rectangle((margin,margin,width-margin,margin+3), fill='#9bcbea')
-        d.text((margin,margin+25),'MDAAI  /  DOCUMENTATION',font=font(22 if square else 24),fill='#9bcbea')
-        if square:
-            size = 136
-            stamp = mark(size)
-            image.paste(stamp,(margin,124),stamp)
-            top,width_text,fs = 287,width-2*margin,40
-        else:
-            size = 278
-            stamp = mark(size)
-            image.paste(stamp,(width-margin-size,158),stamp)
-            top,width_text,fs = 171,700,54
-        face = font(fs)
-        wrapped = lines(title,d,face,width_text)
-        for index,line in enumerate(wrapped):
-            d.text((margin,top+index*(fs+10)),line,font=face,fill='#ecf0f4')
-        subtop = top + len(wrapped)*(fs+10) + 22
-        for index,line in enumerate(lines(subtitle,d,font(22 if square else 27),width_text)):
-            d.text((margin,subtop+index*33),line,font=font(22 if square else 27),fill='#b5c0cb')
+        margin = 36 if square else 60
+        band_top, band_bottom = (30, 225) if square else (36, 250)
+        d.rectangle((0, band_top, width, band_bottom), fill=burgundy)
+        d.text((margin, band_top + 18), 'MDAAI', font=font(38 if square else 44), fill=paper)
+        fs = 40 if square else 58
+        while True:
+            face = font(fs)
+            wrapped = lines(title, d, face, width - 2 * margin)
+            if len(wrapped) <= 2 and all(d.textlength(t, font=face) <= width - 2 * margin for t in wrapped):
+                break
+            fs -= 1
+            assert fs >= 24, 'Title cannot fit approved band'
+        top = band_top + (72 if square else 83)
+        for index, line in enumerate(wrapped):
+            d.text((margin, top + index * (fs + 8)), line, font=face, fill=paper)
+        assert top + len(wrapped) * (fs + 8) <= band_bottom - 8, 'Title clipping'
+        stamp = plate.copy()
+        stamp.thumbnail((225, 292) if square else (260, height - band_bottom - 90), Image.Resampling.LANCZOS)
+        x = (width - stamp.width) // 2 if square else width - margin - stamp.width - 65
+        image.paste(stamp, (x, band_bottom + 12))
         if not square:
-            flow_y = height-142
-            for index,label in enumerate(['CONTRACTS','TASKS','EVIDENCE']):
-                x = margin+index*228
-                d.rounded_rectangle((x,flow_y,x+198,flow_y+48),radius=5,fill='#293542',outline='#3a4653')
-                d.text((x+18,flow_y+14),label,font=font(18),fill='#ecf0f4')
-                if index < 2:
-                    d.line((x+204,flow_y+24,x+222,flow_y+24),fill='#9bcbea',width=2)
-            # One bounded evidence-flow pulse; title/emblem never morph or disappear.
-            x = margin+int((phase/11)*652)
-            d.ellipse((x-4,flow_y+58,x+4,flow_y+66),fill='#9bcbea')
-        d.text((margin,height-54),'mdaai.internet.technology',font=font(18),fill='#b5c0cb')
-        d.text((width-margin-30,height-54),f'{list(ROUTES).index(route)+1:02}',font=font(18),fill='#9bcbea')
+            for index, line in enumerate(lines(subtitle, d, font(30), 620)):
+                d.text((margin, band_bottom + 50 + index * 39), line, font=font(30), fill='#202321')
+            d.text((margin, band_bottom + 154), 'MDAAI DOCUMENTATION', font=font(19), fill='#202321')
+        footer = height - (52 if square else 64)
+        d.line((margin, footer - 12, width - margin, footer - 12), fill='#555853', width=1)
+        d.text((margin, footer), 'E.M.K.', font=font(25 if square else 28), fill='#202321')
+        tick = margin + round(phase / 11 * 66)
+        d.line((tick, height - 14, tick + 12, height - 14), fill=burgundy, width=2)
         return image
 
     for route in ROUTES:
@@ -236,7 +171,7 @@ def generate_assets():
             record(Path(assets[key]).name,card(route,w,h),'image/png',key,format='PNG',compress_level=9)
         frames = [card(route,1200,630,phase=i).quantize(colors=128,method=Image.Quantize.MEDIANCUT,dither=Image.Dither.NONE) for i in range(12)]
         record(Path(assets['animated']).name,frames[0],'image/gif','animated alternate',format='GIF',save_all=True,append_images=frames[1:],duration=140,loop=0,disposal=1,optimize=False)
-    document = {'version':VERSION,'generator':{'pillow':'12.1.0','font':'Pillow embedded Aileron default','svgSha256':hashlib.sha256(source.read_bytes()).hexdigest(),'algorithm':'SVG cubic contours sampled at 32 steps; 4x source mask; Lanczos fit; deterministic flat cards'},'coverSha256':COVER_SHA256,'assets':inventory,'routes':{route:social_assets(route) for route in ROUTES},'limitations':['Animated GIF is an alternate; platform playback and crawler cache behavior are not verified locally.','Installation, offline and update acceptance require the separately integrated service worker and browser tests.']}
+    document = {'version':VERSION,'generator':{'pillow':'12.1.0','font':'Pillow embedded Aileron default','svgSha256':hashlib.sha256(source.read_bytes()).hexdigest(),'algorithm':'Approved native cover plate crop (270,405,735,1060); aspect-fit Lanczos; ivory paper and burgundy measured title band; bounded footer tick'},'coverSha256':COVER_SHA256,'assets':inventory,'routes':{route:social_assets(route) for route in ROUTES},'limitations':['Animated GIF is an alternate; platform playback and crawler cache behavior are not verified locally.','Installation, offline and update acceptance require the separately integrated service worker and browser tests.']}
     (output / 'inventory.json').write_text(json.dumps(document,sort_keys=True,indent=2)+'\n')
     print(f'Generated {len(inventory)} identity assets; approved cover unchanged.')
 

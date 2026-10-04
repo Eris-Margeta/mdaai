@@ -10,6 +10,7 @@ from templates_feed import load_catalog, read_cache, emit_payloads
 from templates_view import cycle, gallery
 from identity import emit_manifest
 from pwa import write_pwa
+from cover import image_html
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'website'
@@ -18,11 +19,11 @@ E = html.escape
 
 
 def layer_diagram():
-    return '<figure class="file-flow"><div class="flow-row"><span>AGENTS.md</span> → <span>Assigned TASKS.json row</span> → <span>scopeRef + relevant rules</span></div><div class="flow-row"><span>Authorized implementation</span> → <span>Actual evidence / conditional ADR</span> → <span>Task update + history</span></div><figcaption>Read instructions and current task before work; write evidence and update the canonical task afterward. Arrows describe information flow, not an automatic executor.</figcaption></figure>'
+    return '<figure class="file-flow"><div class="flow-row"><span>AGENTS.md</span> <span class="direction-icon" aria-hidden="true">→</span> <span>Assigned TASKS.json row</span> <span class="direction-icon" aria-hidden="true">→</span> <span>scopeRef + relevant rules</span></div><div class="flow-row"><span>Authorized implementation</span> <span class="direction-icon" aria-hidden="true">→</span> <span>Actual evidence / conditional ADR</span> <span class="direction-icon" aria-hidden="true">→</span> <span>Task update + history</span></div><figcaption>Read instructions and current task before work; write evidence and update the canonical task afterward. Arrows describe information flow, not an automatic executor.</figcaption></figure>'
 
 
 def header():
-    return '<a class="skip" href="#main">Skip to content</a><header class="header"><a class="brand" href="/"><img class="brand-logo logo-light" src="/assets/brand/logo-black.svg" width="28" height="28" alt=""><img class="brand-logo logo-dark" src="/assets/brand/logo-white.svg" width="28" height="28" alt="">MDAAI</a><span class="header-note">Repository documentation</span><div class="tools"><a class="templates-repo" href="/templates/">TEMPLATES</a><a class="templates-repo github-repo" href="https://github.com/Eris-Margeta/mdaai" aria-label="MDAAI repository on GitHub (external)">GitHub <span aria-hidden="true">↗</span></a><button class="menu" type="button" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="docs-nav">☰</button></div></header>'
+    return '<a class="skip" href="#main">Skip to content</a><header class="header"><a class="brand" href="/"><img class="brand-logo logo-light" src="/assets/brand/logo-black.svg" width="28" height="28" alt=""><img class="brand-logo logo-dark" src="/assets/brand/logo-white.svg" width="28" height="28" alt="">MDAAI</a><span class="header-note">Repository documentation</span><div class="tools"><a class="templates-repo" href="/templates/">TEMPLATES</a><a class="templates-repo github-repo" href="https://github.com/Eris-Margeta/mdaai" aria-label="MDAAI repository on GitHub (external)"><svg aria-hidden="true" focusable="false" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"/></svg><span>GH</span></a><button class="menu" type="button" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="docs-nav">☰</button></div></header>'
 
 
 def footer():
@@ -125,11 +126,11 @@ def build(include_templates=False):
             for label, target in ([] if anchor == 'file-map' else section.get('links', [])):
                 slug, _, fragment = target.partition('#')
                 href = routes[slug] + ('#' + fragment if fragment else '')
-                sections += f'<a class="inline-link" href="{href}">{E(label)} →</a>'
+                sections += f'<a class="inline-link" href="{href}"><span>{E(label)}</span><span class="direction-icon" aria-hidden="true">→</span></a>'
             sections += '</section>'
             search.append({'title': page['title'], 'heading': section['title'], 'text': section['text'] + ' ' + section.get('code', '') + ' ' + ' '.join(' '.join(row) for row in section.get('table', {}).get('rows', [])), 'url': url + '#' + anchor})
         pagination = '<nav class="pagination" aria-label="Adjacent pages">'
-        for label, idx in [('← Previous', i-1), ('Next →', i+1)]:
+        for label, idx in [('<span class="direction-icon" aria-hidden="true">←</span><span>Previous</span>', i-1), ('<span>Next</span><span class="direction-icon" aria-hidden="true">→</span>', i+1)]:
             if 0 <= idx < len(pages):
                 p = pages[idx]
                 pagination += f'<a href="{p["route"]}"><small>{label}</small>{E(p["title"])}</a>'
@@ -139,7 +140,7 @@ def build(include_templates=False):
         video = video_section(page['videoIntro']) + cycle(page['templateCycle']) if url == '/' else ''
         if video:
             toc += '<a href="#explainer">Video explainer</a><a href="#template-cycle">Protocol and templates</a>'
-        cover = '<figure class="documentation-cover"><img src="/assets/brand/mdaai-guardian-cover.webp" width="1000" height="1300" alt="MDAAI documentation cover with a coiled mythical guardian and E.M.K. credit." fetchpriority="high"><figcaption>Cover by E.M.K. · AI-generated mythical guardian, based on original MDAAI artwork; inspired by o&#39;reily&#39;s book covers.</figcaption></figure>' if url == '/' else ''
+        cover = '<figure class="documentation-cover">' + image_html('MDAAI documentation cover with a coiled mythical guardian and E.M.K. credit.') + '<figcaption>Cover by E.M.K. · AI-generated mythical guardian, based on original MDAAI artwork; inspired by o&#39;reily&#39;s book covers.</figcaption></figure>' if url == '/' else ''
         intro = f'<h1>{E(page["title"])}</h1><p class="lede">{E(page["description"])}</p>{author}'
         if url == "/":
             intro = f'<div class="homepage-intro"><div class="homepage-intro-copy">{intro}</div>{cover}</div>'
@@ -151,7 +152,7 @@ def build(include_templates=False):
         if entry['url'] == '/templates/#catalog':
             entry['text'] += ' ' + ' '.join(catalog_files)
     (assets / 'search.json').write_text(json.dumps(search, ensure_ascii=False))
-    (OUT / '404.html').write_text(shell('Page not found', 'This route is not part of the documentation.', f'<main id="main" class="not-found" tabindex="0"><h1>Page not found</h1><p>The page may have moved, or the address may be incorrect.</p><a class="button primary" href="/">Go to documentation →</a>{footer()}</main>'))
+    (OUT / '404.html').write_text(shell('Page not found', 'This route is not part of the documentation.', f'<main id="main" class="not-found" tabindex="0"><h1>Page not found</h1><p>The page may have moved, or the address may be incorrect.</p><a class="button primary" href="/"><span>Go to documentation</span><span class="direction-icon" aria-hidden="true">→</span></a>{footer()}</main>'))
     (OUT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {BASE}/sitemap.xml\n')
     (OUT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(f'<url><loc>{BASE}{p["route"]}</loc></url>' for p in pages) + '</urlset>')
     emit_manifest(OUT)

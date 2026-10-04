@@ -22,6 +22,14 @@ The final MP4, SRT, PNG poster and matching WebVTT are explicitly selected from 
 
 The original reviewed `style.css`, `app.js`, SVG favicon and TEJL logo are preserved byte-for-byte. A separate tiny stylesheet sizes the new video. Canonical URLs, visible authorship, structured data and social metadata add no new marketing claims or invented organization credentials. No analytics or remote fonts are added.
 
+## Approved cover and social-art optimization
+
+The approved lossless 1000 × 1300 guardian cover remains unchanged. The homepage now selects a high-quality progressive JPEG derivative from 280, 360, 560, 720 and 1000 pixel widths using initial-HTML `srcset` and CSS-matched `sizes`. Each derivative uses quality 95, 4:4:4 sampling and multiple progressive scans; eager loading and high fetch priority do not depend on JavaScript. Explicit dimensions retain the existing rendered geometry. `website/cover.py` reproduces the derivatives with pinned Pillow 12.1.0 and records the original and derivative digests, encoded dimensions and codec version in its source inventory. The reviewed provenance allowlist publishes only selected derivatives, not that inventory.
+
+All seven routes' four social-art variants were separately adapted from the approved guardian plate, with warm ivory paper, a burgundy title band, route-specific titles and E.M.K. credit. The native master is neither replaced nor recolored. `website/identity.py` reproduces the exact existing dimensions: 1200 × 630 static PNG and GIF alternate, 1200 × 600 large-card PNG, and 600 × 600 square PNG. The new `v2` URLs avoid stale social-art URLs; the GIF's small footer tick leaves its complete title and artwork stable from the first frame. The static PNG remains the primary Open Graph image. Full author attribution is preserved. Social-platform recrawl timing and GIF playback are not guaranteed.
+
+These authorized appearance-preserving cover derivatives and owner-requested social-art revisions justify updating only their corresponding reviewed asset digests. Browser regression coverage checks cold-cache responsive selection, one high-priority cover request, encoded progressive scans and unchanged pre/post-decode image geometry with zero image-associated layout shift. This is not a claim that every connection paints progressive scans at the same speed.
+
 ## Rights
 
 The canonical template's tracked MIT license is preserved unchanged at `licenses/template-MIT.txt`, including its original attribution. No blanket MIT or public-domain status is invented for website content or media. See the root [rights notice](../../LICENSE).

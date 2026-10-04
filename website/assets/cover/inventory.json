@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "master": {
+    "path": "assets/brand/mdaai-guardian-cover.webp",
+    "sha256": "fee7149b09f5fdc922646a1356026af2bc0747dc586aa579b4842d977d82f22d",
+    "bytes": 186774,
+    "width": 1000,
+    "height": 1300
+  },
+  "generator": {
+    "pillow": "12.1.0",
+    "libjpeg": "6.2",
+    "quality": 95,
+    "subsampling": "4:4:4",
+    "progressive": true,
+    "optimize": true,
+    "resample": "LANCZOS"
+  },
+  "sizes": "(max-width: 1000px) min(272px, calc(100vw - 48px)), min(352px, calc(45.945946vw - 142.891892px))",
+  "assets": [
+    {
+      "path": "assets/cover/v1-guardian-280-d34465f33e761a5c.jpg",
+      "sha256": "d34465f33e761a5c32f9b99965de4a383ff59aebfdaa2ea223d4092638cbd30e",
+      "bytes": 19234,
+      "width": 280,
+      "height": 364,
+      "sof": "SOF2",
+      "sos_scans": 10,
+      "psnr_db": 47.497
+    },
+    {
+      "path": "assets/cover/v1-guardian-360-956ffbae244cacd6.jpg",
+      "sha256": "956ffbae244cacd6d594042454d9ed803091476ce15f4b979ba74d67ff3e6a93",
+      "bytes": 27455,
+      "width": 360,
+      "height": 468,
+      "sof": "SOF2",
+      "sos_scans": 10,
+      "psnr_db": 48.124
+    },
+    {
+      "path": "assets/cover/v1-guardian-560-4b6f1d19c15990cb.jpg",
+      "sha256": "4b6f1d19c15990cb851cadb423ecd4b6d0cda6df15599e625d6c5db38e528173",
+      "bytes": 56069,
+      "width": 560,
+      "height": 728,
+      "sof": "SOF2",
+      "sos_scans": 10,
+      "psnr_db": 48.876
+    },
+    {
+      "path": "assets/cover/v1-guardian-720-64c295d39216a21f.jpg",
+      "sha256": "64c295d39216a21f079c25ea243347d2957baa3c2a1d63878c45a752de8d5b53",
+      "bytes": 82292,
+      "width": 720,
+      "height": 936,
+      "sof": "SOF2",
+      "sos_scans": 10,
+      "psnr_db": 49.308
+    },
+    {
+      "path": "assets/cover/v1-guardian-1000-a7061bdcdc1c732e.jpg",
+      "sha256": "a7061bdcdc1c732e83d7dfa8be674d8cce2aa8a4b1c6bb7756177541a2dd07a6",
+      "bytes": 134918,
+      "width": 1000,
+      "height": 1300,
+      "sof": "SOF2",
+      "sos_scans": 10,
+      "psnr_db": 50.065
+    }
+  ]
+}

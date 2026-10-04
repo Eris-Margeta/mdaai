@@ -1,4 +1,5 @@
 'use strict';
+// Mobile drawer uses the same breakpoint as the CSS shell.
 (() => {
   const root = document.documentElement;
   let saved;
@@ -9,8 +10,24 @@
   updateTheme();
   theme.addEventListener('click', () => { root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('onion-theme', root.dataset.theme); } catch (_) {} updateTheme(); });
   const menu = document.querySelector('.menu');
-  const closeNav = () => { document.body.classList.remove('nav-open'); menu.setAttribute('aria-expanded', 'false'); };
-  menu.addEventListener('click', () => { const open = document.body.classList.toggle('nav-open'); menu.setAttribute('aria-expanded', String(open)); });
+  const pane = document.getElementById('main');
+  const layout = document.querySelector('.docs-layout');
+  if (layout?.prepend) {
+    const backdrop = document.createElement('div');
+    backdrop.className = 'nav-backdrop'; backdrop.setAttribute('aria-hidden', 'true');
+    layout.prepend(backdrop);
+  }
+  const closeNav = () => {
+    const wasOpen = document.body.classList.contains('nav-open');
+    document.body.classList.remove('nav-open'); menu.setAttribute('aria-expanded', 'false');
+    pane.inert = false;
+    if (wasOpen) menu.focus({preventScroll:true});
+  };
+  menu.addEventListener('click', () => {
+    if (document.body.classList.contains('nav-open')) { closeNav(); return; }
+    document.body.classList.add('nav-open'); menu.setAttribute('aria-expanded', 'true'); pane.inert = true;
+  });
+  if (window.matchMedia) window.matchMedia('(min-width: 801px)').addEventListener('change', e => { if (e.matches) closeNav(); });
   document.addEventListener('click', e => { if (document.body.classList.contains('nav-open') && !e.target.closest('#docs-nav') && !e.target.closest('.menu')) closeNav(); });
   const dialog = document.getElementById('search-dialog');
   const input = document.getElementById('search-input');
@@ -131,4 +148,41 @@
   document.fonts.ready.then(() => navigate(location.hash));
   window.addEventListener('load', () => navigate(location.hash));
   spy();
+  // Enhance anchored headings without changing stable IDs, jump labels or history.
+  main.querySelectorAll('h2,h3').forEach(heading => {
+    const existing = heading.querySelector('.heading-anchor');
+    const id = existing?.getAttribute('href')?.slice(1) || heading.id || (heading.parentElement.matches('section[id]') ? heading.parentElement.id : '');
+    if (!id) return;
+    const title = heading.textContent.trim();
+    const label = document.createElement('span'); label.className = 'heading-title'; label.textContent = title;
+    const anchor = document.createElement('a'); anchor.className = 'heading-anchor'; anchor.href = '#' + id;
+    anchor.textContent = '#'; anchor.setAttribute('aria-label', `Permalink to ${title}`);
+    const button = document.createElement('button'); button.type = 'button'; button.className = 'heading-copy';
+    button.setAttribute('aria-label', `Copy link to ${title}`); button.title = `Copy link to ${title}`;
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    Object.entries({'aria-hidden':'true',viewBox:'0 0 24 24',width:'16',height:'16',fill:'none',stroke:'currentColor','stroke-width':'1.7'}).forEach(([key,value]) => icon.setAttribute(key,value));
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    Object.entries({x:'8',y:'8',width:'12',height:'12',rx:'2'}).forEach(([key,value]) => rect.setAttribute(key,value));
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3');
+    icon.append(rect, path); button.append(icon);
+    const notice = document.createElement('span'); notice.className = 'heading-copy-status'; notice.hidden = true; notice.setAttribute('aria-live', 'polite');
+    heading.classList.add('anchorable-heading'); heading.replaceChildren(label, anchor, button, notice);
+    button.addEventListener('click', async () => {
+      // Canonical public host and path, never transient search parameters.
+      const url = new URL(document.querySelector('link[rel="canonical"]')?.href || location.href);
+      url.search = ''; url.hash = '#' + id;
+      let timer; let ok = false;
+      button.disabled = true;
+      try {
+        if (navigator.clipboard) {
+          await Promise.race([navigator.clipboard.writeText(url.href), new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('Clipboard permission did not settle')), 1500); })]);
+          ok = true;
+        }
+      } catch (_) {} finally { clearTimeout(timer); button.disabled = false; }
+      notice.hidden = false;
+      notice.textContent = ok ? 'Copied link.' : `Copy unavailable. Copy this link manually: ${url.href}`;
+      button.focus({preventScroll:true});
+    });
+  });
 })();
