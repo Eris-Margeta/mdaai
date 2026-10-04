@@ -1,0 +1,779 @@
+[
+  {
+    "slug": "mdaai",
+    "route": "/",
+    "title": "MDAAI",
+    "description": "MDAAI is a repository-based operating protocol for human-directed AI development. It puts instructions, project scope, tasks, decisions and verification evidence in files so an agent can know what it may change, what is current and what supports a result.",
+    "group": "Documentation",
+    "sections": [
+      {
+        "id": "what-it-is",
+        "title": "A protocol kept with the project",
+        "text": "The repository carries the working agreement between its operator and development agents. Instructions define constraints; the project plan defines scope; task records preserve current work and evidence. These are ordinary Markdown and JSON files, read and maintained alongside code—not a replacement for the application or its tests.",
+        "links": [
+          [
+            "See the files",
+            "structure"
+          ],
+          [
+            "Follow one task",
+            "lifecycle"
+          ]
+        ]
+      },
+      {
+        "id": "what-it-solves",
+        "title": "Continuity without duplicate state",
+        "text": "A new session should be able to find the authorized task, its acceptance criteria, current evidence and next action without reconstructing a conversation. In MDAAI 2.0, Project Elaboration owns scope and sequence; TASKS.json owns task state. Keeping each fact with one owner avoids conflicting status checkboxes, parallel registries and repeated work.",
+        "links": [
+          [
+            "How the files work together",
+            "connections"
+          ]
+        ]
+      },
+      {
+        "id": "what-it-adds",
+        "title": "What adoption adds—and does not add",
+        "text": "The portable 2.0 core is a root AGENTS.md, five governance documents, project-owned Project Elaboration and a fresh TASKS.json. CLAUDE.md may point to AGENTS.md. Adoption is an explicitly authorized, project-by-project merge and migration, not a universal installer. The source package’s research code, dashboards, studies and existing task history are not copied into every adopted repository.",
+        "links": [
+          [
+            "Exact 2.0 adoption boundary",
+            "mdaai-2"
+          ]
+        ]
+      },
+      {
+        "id": "generations",
+        "title": "Two repository workflows",
+        "text": "The first-generation template uses an elaborated project plan, Work Orders, a work-order registry, corrective records and architecture decisions. MDAAI 2.0 concentrates routine work in one task registry and adds separate records only when they carry necessary context. A migration reconciles contradictory instructions and preserves completed history; it does not simply add a second protocol on top.",
+        "links": [
+          [
+            "First-generation MDAAI",
+            "mdaai-1"
+          ],
+          [
+            "MDAAI 2.0",
+            "mdaai-2"
+          ]
+        ]
+      },
+      {
+        "id": "onion",
+        "title": "Where Onion fits",
+        "text": "In this repository, Onion Governance is the broader governance system; MDAAI 2.0 is its repository and coding-governance layer. That relationship is this project’s declared scope, not an extra file all MDAAI adopters must install. The Onion implementation and its laboratory evidence are distinct from the portable instructions documented here."
+      },
+      {
+        "id": "enforcement",
+        "title": "Instructions are not automatic enforcement",
+        "text": "Markdown instructions guide agent behavior. Structural validators can check fields, references and consistency; they cannot establish that a claim is true, grant authorization or prove a product works. Actual tests and relevant runtime observation support acceptance. Automated revision/publication software is a separate implementation with separate approvals—not a consequence of reading AGENTS.md."
+      }
+    ],
+    "sources": [
+      "MDAAI 2.0: AGENTS.md",
+      "MDAAI 2.0: CLAUDE.md",
+      "MDAAI 2.0: docs/ADOPTION.md",
+      "MDAAI 2.0: scripts/validate.py",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/ENGINEERING.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/EVIDENCE.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/REASONING.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/RECORDS.md",
+      "AGENTS.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/TASKS.json"
+    ]
+  },
+  {
+    "slug": "structure",
+    "route": "/repository-structure/",
+    "title": "Repository structure",
+    "description": "The minimal MDAAI 2.0 adoption map. Required means part of the portable contract, not every file required by the source laboratory’s own validator.",
+    "group": "Documentation",
+    "sections": [
+      {
+        "id": "file-map",
+        "title": "Files and information owners",
+        "text": "At adoption, merge the governance instructions and author the two management files for the target project. The map below uses exact core paths. Conditional pattern rows describe record categories, not files an installer creates. Each core file has an explanatory section linked below.",
+        "code": "AGENTS.md                                  [required core]\nCLAUDE.md                                  [optional pointer]\nPROJECT-INTERNAL/\n├── GOVERNANCE/                            [required core]\n│   ├── AUTHORITY.md\n│   ├── ENGINEERING.md\n│   ├── EVIDENCE.md\n│   ├── REASONING.md\n│   └── RECORDS.md\n├── MANAGEMENT/                            [required project-owned]\n│   ├── PROJECT-ELABORATION.md\n│   └── TASKS.json\n├── ARCHITECTURE/                           [conditional decisions]\n│   └── project-selected ADR files\n└── RECORDS/                                [conditional example location]\n    └── project-selected durable records\n\nEvidence lives at project-selected paths; no universal evidence folder.",
+        "language": "Repository tree",
+        "table": {
+          "headers": [
+            "Path / category",
+            "Required when",
+            "Owns / references",
+            "Created and updated by"
+          ],
+          "rows": [
+            [
+              "AGENTS.md",
+              "Required core",
+              "Operating contract and entry point. Names the canonical scope/task owners and links the five rule documents.",
+              "Operator-authorized maintainer merges on adoption; change only when the contract changes."
+            ],
+            [
+              "CLAUDE.md",
+              "Optional pointer",
+              "Points to AGENTS.md; owns no independent rules.",
+              "Copy or adapt if that assistant entry point is used; keep as a pointer."
+            ],
+            [
+              "PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
+              "Required core",
+              "Authorization, private data and protected work. Read before effects; a task row is not permission.",
+              "Merge on adoption; authorized maintainer updates when authority rules change."
+            ],
+            [
+              "PROJECT-INTERNAL/GOVERNANCE/ENGINEERING.md",
+              "Required core",
+              "Domain design, architecture decisions, regression-first defect repair and resource hygiene.",
+              "Merge on adoption; executor reads for relevant implementation or defects."
+            ],
+            [
+              "PROJECT-INTERNAL/GOVERNANCE/EVIDENCE.md",
+              "Required core",
+              "Evidence profiles and the limits of acceptance claims. References checks/logs, not a second task list.",
+              "Merge on adoption; consult when selecting checks and claiming results."
+            ],
+            [
+              "PROJECT-INTERNAL/GOVERNANCE/REASONING.md",
+              "Required core",
+              "Context economy and single-writer coordination. Coordinator owns integration and status.",
+              "Merge on adoption; consult during planning, delegation and resumption."
+            ],
+            [
+              "PROJECT-INTERNAL/GOVERNANCE/RECORDS.md",
+              "Required core",
+              "Task states, scheduling dispositions, durable records and terminal supersession. Links TASKS.json.",
+              "Merge on adoption; read when updating or recovering task records."
+            ],
+            [
+              "PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
+              "Required project-owned",
+              "Scope and sequence only. Links TASKS.json; does not duplicate task status checkboxes.",
+              "Operator/authorized executor writes project-specific scope at adoption; revise when scope/order changes."
+            ],
+            [
+              "PROJECT-INTERNAL/MANAGEMENT/TASKS.json",
+              "Required project-owned",
+              "Only task state, disposition, owner, acceptance evidence, blocker, next action and history source. scopeRef points to scope; evidence references actual artifacts.",
+              "Create fresh at adoption; task owner/coordinator updates active rows as work/evidence changes."
+            ],
+            [
+              "Architecture decisions (project-selected paths)",
+              "Conditional; no mandated 2.0 filename",
+              "Architecture tradeoffs, alternatives, migration/rollback and limits. Link the project’s actual ADR from the task.",
+              "Authorized executor writes when architecture changes warrant a compact ADR; not for every edit."
+            ],
+            [
+              "PROJECT-INTERNAL/RECORDS/…",
+              "Conditional; project-selected record path",
+              "Decision, defect cause, handoff or external-effect context not understandable from task/evidence alone.",
+              "Authorized owner creates only when needed. RECORDS/ exists in the source package; adoption does not require this folder."
+            ],
+            [
+              "Evidence artifacts (project-selected paths)",
+              "Conditional; paths are not prescribed",
+              "Tests, logs and artifact observations supporting acceptance; task evidence.reference locates them.",
+              "Executor produces actual evidence appropriate to changed surface; keep private data out."
+            ]
+          ]
+        },
+        "links": [
+          [
+            "AGENTS.md",
+            "structure#entry"
+          ],
+          [
+            "CLAUDE.md",
+            "structure#pointer"
+          ],
+          [
+            "PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
+            "structure#authority"
+          ],
+          [
+            "PROJECT-INTERNAL/GOVERNANCE/ENGINEERING.md",
+            "structure#engineering"
+          ],
+          [
+            "PROJECT-INTERNAL/GOVERNANCE/EVIDENCE.md",
+            "structure#evidence"
+          ],
+          [
+            "PROJECT-INTERNAL/GOVERNANCE/REASONING.md",
+            "structure#reasoning"
+          ],
+          [
+            "PROJECT-INTERNAL/GOVERNANCE/RECORDS.md",
+            "structure#records"
+          ],
+          [
+            "PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
+            "structure#scope"
+          ],
+          [
+            "PROJECT-INTERNAL/MANAGEMENT/TASKS.json",
+            "structure#tasks"
+          ]
+        ]
+      },
+      {
+        "id": "entry",
+        "title": "AGENTS.md",
+        "text": "Start here. Its operating contract tells the agent to read the assigned task and only named relevant references, preserves higher-level and nearest-repository constraints, and links authority, engineering, evidence, reasoning and records. It is not the place for a second task list."
+      },
+      {
+        "id": "pointer",
+        "title": "CLAUDE.md",
+        "text": "The source pointer says: “Read AGENTS.md. It is the only operating contract; this file adds no independent rules.” It is optional for adoption and should not evolve into a competing constitution."
+      },
+      {
+        "id": "authority",
+        "title": "AUTHORITY.md",
+        "text": "Owns the boundary between bounded implementation and effects needing action-time authorization. It covers data classification, credentials, Git and protected work. Read before the affected action. Writing an active task or plan never expands permission."
+      },
+      {
+        "id": "engineering",
+        "title": "ENGINEERING.md",
+        "text": "Owns implementation and defect-repair rules. Domain invariants stay with their domain owner. Architecture changes get a compact ADR when warranted. Defects follow investigation → faithful regression → adjacent-test audit → red → root fix → affected green; expected red tests are not new corrective work orders."
+      },
+      {
+        "id": "evidence",
+        "title": "EVIDENCE.md",
+        "text": "Owns what level of proof an acceptance claim needs. Documentation checks, unit tests, ordinary startup, real-browser observation and deployed-state verification are distinct. The task stores references and results; the evidence file does not repeat task status."
+      },
+      {
+        "id": "reasoning",
+        "title": "REASONING.md",
+        "text": "Owns economical context gathering and coordination. Read relevant records first, expand only for a concrete uncertainty, give each mutable file one writer, and leave shared integration/status to the coordinator. It does not prescribe a personal model launcher or local agent configuration."
+      },
+      {
+        "id": "records",
+        "title": "RECORDS.md",
+        "text": "Owns task/record semantics and recovery rules. It links the management registry and defines lifecycle states separately from scheduling disposition. Active records can evolve; coherent terminal results are preserved and corrected through linked supersession."
+      },
+      {
+        "id": "scope",
+        "title": "PROJECT-ELABORATION.md",
+        "text": "Owns the project’s authorized scope and delivery order. The adopting project writes its own content. It links TASKS.json for live status and evidence, rather than copying progress checkboxes. Change it when project scope or sequencing changes—not for every state transition."
+      },
+      {
+        "id": "tasks",
+        "title": "TASKS.json",
+        "text": "Owns current tasks and their audit history. A task has a stable project-prefixed ID, owner, scopeRef, acceptance criteria, state, disposition, evidence, blocker, next action, dependencies and history. The owner/coordinator updates active work here. Start with a fresh target-specific registry; do not copy the source package’s tasks.",
+        "links": [
+          [
+            "See a minimal task record",
+            "lifecycle#record"
+          ]
+        ]
+      },
+      {
+        "id": "decisions",
+        "title": "Conditional decisions",
+        "text": "ENGINEERING.md requires a compact ADR for architecture changes. Preserve accepted decisions and supersede them when warranted. The portable 2.0 adoption guide does not mandate a fixed ADR filename or an ADR template; use the target’s decision convention and link the actual file."
+      },
+      {
+        "id": "durable",
+        "title": "Conditional context records",
+        "text": "RECORDS.md permits a short durable record when a material decision, defect cause, review, handoff or external effect needs context beyond the task/evidence. Include ID/date, owner, scope, decision/mechanism, result/limits, next action and supersession link as applicable. No routine WO, CWO or checkpoint is required. PROJECT-INTERNAL/RECORDS/ is a source-package location, not a mandatory adoption artifact."
+      },
+      {
+        "id": "proof",
+        "title": "Evidence artifacts",
+        "text": "TASKS.json evidence entries reference project-local artifacts when possible. Their exact paths and formats depend on the checks performed. Evidence identifies what was observed; a digest or log alone is not semantic proof. Generated runtime dependencies are not automatically disposable."
+      }
+    ],
+    "sources": [
+      "MDAAI 2.0: AGENTS.md",
+      "MDAAI 2.0: CLAUDE.md",
+      "MDAAI 2.0: docs/ADOPTION.md",
+      "MDAAI 2.0: scripts/validate.py",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/ENGINEERING.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/EVIDENCE.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/REASONING.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/RECORDS.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/TASKS.json"
+    ]
+  },
+  {
+    "slug": "connections",
+    "route": "/how-files-work-together/",
+    "title": "How files work together",
+    "description": "One owner for each kind of information; links connect the owners instead of copying their contents.",
+    "group": "Documentation",
+    "sections": [
+      {
+        "id": "reading-order",
+        "title": "Startup reading order",
+        "text": "Read the applicable AGENTS.md and the assigned TASKS.json row first. Follow scopeRef to Project Elaboration or the actual scope owner; read linked evidence and only relevant governance references. Inspect the current working tree/runtime before resuming. Do not execute deferred tasks merely because they are visible. The source entry point names instructions → assigned task → relevant references; this diagram expands those actual relationships, not a new mandatory ceremony.",
+        "diagram": true
+      },
+      {
+        "id": "directions",
+        "title": "Read, write and reference directions",
+        "text": "AGENTS.md supplies the operating contract; the rule documents constrain work. TASKS.json points to scope and evidence. Project Elaboration links back to the registry for status. The executor reads these inputs, changes only authorized product files, and writes actual evidence; the task owner/coordinator updates the canonical row. Architecture decisions and other durable records are conditional supporting references.",
+        "table": {
+          "headers": [
+            "From",
+            "Direction / destination",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "AGENTS.md",
+              "read → assigned TASKS.json row",
+              "Find current task; follow relevant rule links."
+            ],
+            [
+              "TASKS.json scopeRef",
+              "reference → scope owner",
+              "Locate bounded project scope, not another status list."
+            ],
+            [
+              "Project Elaboration",
+              "reference → TASKS.json",
+              "Read state/evidence here; do not copy checkboxes."
+            ],
+            [
+              "Task owner / coordinator",
+              "write → active TASKS.json row",
+              "Update owner, state, disposition, next action, evidence and transition history."
+            ],
+            [
+              "Executor",
+              "write → authorized product + actual evidence",
+              "Implementation and observations, constrained by instructions and scope."
+            ],
+            [
+              "TASKS.json evidence.reference",
+              "reference → evidence / conditional record",
+              "Locate result context and limits."
+            ],
+            [
+              "Later correction task",
+              "reference → earlier terminal record + new evidence",
+              "Preserve the historical result; express correction without erasing it."
+            ]
+          ]
+        }
+      },
+      {
+        "id": "ownership",
+        "title": "Why not duplicate status?",
+        "text": "A project plan may say “implement request validation before UI integration,” while the registry says that validation is active and its next action is a boundary test. Those are different facts. Updating active state in both a Markdown checkbox list and JSON creates competing answers. Put scope/order in Project Elaboration, current progress in TASKS.json, actual observations in evidence, and architectural rationale in the decision record."
+      },
+      {
+        "id": "updates",
+        "title": "What changes during ordinary work",
+        "text": "Usually the implementation, relevant tests/docs, evidence artifacts and one active task row change. Governance files do not need an edit for each feature. Project Elaboration changes only for scope/sequence changes. An ADR appears only for a relevant architecture decision; a separate durable record appears only for context the row and evidence cannot carry clearly."
+      },
+      {
+        "id": "history",
+        "title": "History and recovery",
+        "text": "Append a concise transition for lifecycle/disposition changes. Once a record has a coherent terminal result, preserve its meaning. A later discovered defect gets its own task with a link to the earlier result; material corrections use linked supersession. The registry can add that correction link without deleting the old transition. Resumption uses current nonterminal rows, linked evidence and live state—not an unbounded replay of old conversations."
+      }
+    ],
+    "sources": [
+      "MDAAI 2.0: AGENTS.md",
+      "MDAAI 2.0: CLAUDE.md",
+      "MDAAI 2.0: docs/ADOPTION.md",
+      "MDAAI 2.0: scripts/validate.py",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/ENGINEERING.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/EVIDENCE.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/REASONING.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/RECORDS.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/TASKS.json"
+    ]
+  },
+  {
+    "slug": "lifecycle",
+    "route": "/task-lifecycle/",
+    "title": "Task lifecycle",
+    "description": "A demonstrative endpoint task in MDAAI 2.0. These records are examples of the source schema, not claims that an endpoint or its tests were executed.",
+    "group": "Documentation",
+    "sections": [
+      {
+        "id": "read",
+        "title": "1. Establish the task and its scope",
+        "text": "The operator authorizes a read-only status endpoint. The executor reads AGENTS.md, the assigned APP-001 row, its scopeRef and applicable rule documents. Confirm that the endpoint is within project scope and that no external effect is being smuggled into the task. Read current working files before editing; preserve unrelated changes."
+      },
+      {
+        "id": "record",
+        "title": "2. Keep one active task record",
+        "text": "This complete minimal registry uses fields checked by the source scripts/validate.py. APP is an illustrative project prefix. The scope file must actually exist. The ISO date and single active history entry satisfy that source validator; the task is not complete, has no invented evidence and names a useful next action.",
+        "code": "{\n  \"schemaVersion\": 1,\n  \"taskPrefix\": \"APP\",\n  \"tasks\": [\n    {\n      \"id\": \"APP-001\",\n      \"title\": \"Add a read-only status endpoint\",\n      \"owner\": \"project executor\",\n      \"state\": \"active\",\n      \"disposition\": \"current\",\n      \"scopeRef\": \"PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md\",\n      \"acceptance\": [\n        \"Endpoint returns the documented response and rejects unsupported methods.\"\n      ],\n      \"dependencies\": [],\n      \"evidence\": [],\n      \"blocker\": null,\n      \"next\": \"Add boundary tests for response shape and unsupported methods.\",\n      \"history\": [\n        {\n          \"at\": \"2026-10-04\",\n          \"state\": \"active\",\n          \"disposition\": \"current\",\n          \"reason\": \"Operator authorized this bounded endpoint change.\"\n        }\n      ]\n    }\n  ]\n}",
+        "language": "Illustrative TASKS.json"
+      },
+      {
+        "id": "implement",
+        "title": "3. Implement and collect evidence",
+        "text": "Write endpoint code and relevant tests/docs in the existing project layout. Check response shape and unsupported methods, then affected integration/runtime paths appropriate to the application. Save actual results at project-selected paths and update evidence/next in the active row. No routine Work Order or checkpoint is added. If this were a bug fix, capture a faithful pre-fix regression where safely possible before the root fix."
+      },
+      {
+        "id": "conditional",
+        "title": "4. Add context only when necessary",
+        "text": "If the endpoint forces an architecture choice—such as a new service boundary—record alternatives, decision, migration/rollback and limits in the project’s compact ADR and link it. Otherwise no ADR is needed. A deployment or production write would need its applicable authorization and evidence; local implementation success does not authorize it."
+      },
+      {
+        "id": "terminal",
+        "title": "5. Record a terminal result, not an invented one",
+        "text": "Only after actual evidence supports every acceptance criterion should the owner/coordinator set state to complete, disposition to current, blocker and next to null, attach criterion-indexed evidence, and append the complete transition. The fragment below is structural notation, not a completed sample: substitute a real local reference and observed result. Do not record success merely because the JSON validates.",
+        "code": "evidence entry: {criterion: 1, result: observed behavior + evidence level + limits,\n                 reference: existing project-local evidence path}\nhistory entry:  {at: ISO date, state: complete, disposition: current,\n                 reason: actual supported acceptance result}\nterminal fields: state = complete; disposition = current;\n                 blocker = null; next = null",
+        "language": "Field guide — not JSON"
+      },
+      {
+        "id": "defer",
+        "title": "Blocked and deferred are different",
+        "text": "If APP-001 cannot proceed, blocked requires a concrete blocker and useful next action; resume blocked → active before completing. A separate unrelated defect may be recorded as active or proposed with deferred disposition, impact and next action, but it is not automatically authorized. A relevant defect still blocks the acceptance it invalidates.",
+        "table": {
+          "headers": [
+            "Field",
+            "Allowed values / role"
+          ],
+          "rows": [
+            [
+              "state",
+              "proposed · active · blocked · complete · void"
+            ],
+            [
+              "disposition",
+              "current · deferred (independent of lifecycle)"
+            ],
+            [
+              "complete",
+              "Evidence covers every criterion; next and blocker null; terminal disposition current."
+            ],
+            [
+              "void",
+              "Reason required; preserve terminal record."
+            ],
+            [
+              "history",
+              "Concise state/disposition transitions; preserve coherent terminal history."
+            ]
+          ]
+        }
+      },
+      {
+        "id": "resume",
+        "title": "6. Resume or correct later",
+        "text": "A new session reads APP-001 and its evidence, checks live state and continues only authorized nonterminal work. If the completed endpoint later proves defective, create a new task linked to APP-001 and retain the earlier evidence. Do not silently rewrite the old completed result into a different history."
+      }
+    ],
+    "sources": [
+      "MDAAI 2.0: AGENTS.md",
+      "MDAAI 2.0: CLAUDE.md",
+      "MDAAI 2.0: docs/ADOPTION.md",
+      "MDAAI 2.0: scripts/validate.py",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/ENGINEERING.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/EVIDENCE.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/REASONING.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/RECORDS.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/TASKS.json"
+    ]
+  },
+  {
+    "slug": "mdaai-1",
+    "route": "/mdaai-1/",
+    "title": "First-generation MDAAI",
+    "description": "A template-centered workflow: project plan → authorized Work Order → implementation and verification → registered result. The inspected template is first-generation lineage, not a pristine protocol 1.0 snapshot.",
+    "group": "Documentation",
+    "sections": [
+      {
+        "id": "template",
+        "title": "What the template puts in a repository",
+        "text": "Instantiation copies a repository template and customizes project-specific metadata and management content. The template includes governance, management, work-order and architecture scaffolding. Work Orders and later decisions are authored during work; they are not all pre-generated by instantiation. The template’s sync manifest separates inherited instructions from project-owned history so upstream synchronization does not overwrite local plans or work records."
+      },
+      {
+        "id": "inventory",
+        "title": "First-generation file map",
+        "text": "The following groups are present in the inspected canonical template. “Checked” names the template validator’s required-file checks; it does not imply every unchecked policy is optional. Root README.md, VERSION, SECURITY.md, CONTRIBUTING.md and CODE_OF_CONDUCT.md are also baseline template files, not per-task records.",
+        "table": {
+          "headers": [
+            "Exact paths (PROJECT-INTERNAL/ unless root noted)",
+            "Required / created when",
+            "Information owner and update rule"
+          ],
+          "rows": [
+            [
+              "AGENTS.md; CLAUDE.md (root)",
+              "Checked; template copy",
+              "Agent navigation/contract pointer; inherited instructions."
+            ],
+            [
+              "project-meta.yaml (root)",
+              "Checked; customize at instantiation",
+              "Operator identity/classification, template lineage and project conventions; never synced."
+            ],
+            [
+              "GOVERNANCE/AI-INSTRUCTIONS.md; MULTI-AGENT-PROTOCOL.md; WORK-ORDER-PROTOCOL.md; CHECKPOINT-PROTOCOL.md; AGENTS.md",
+              "Checked; template copy, always-sync list",
+              "Constitution and protocols; AI read-only, maintained upstream."
+            ],
+            [
+              "GOVERNANCE/DOCUMENTATION-PROTOCOL.md; LIFECYCLE-PHASES-PROTOCOL.md; BETA-PHASE-PROTOCOL.md",
+              "Present and always synced; not separately checked",
+              "Binding subject-specific governance; not routine task files."
+            ],
+            [
+              "CLASSIFICATION-REGULATIONS.md",
+              "Present, referenced for formal initialization",
+              "Formal classification/reference-number rules."
+            ],
+            [
+              "MANAGEMENT/AGENTS.md; PROJECT-ELABORATION.md",
+              "Checked; template scaffolding + project customization",
+              "Navigation is inherited; Elaboration owns task plan/progress/WO links under first-generation rules and is never synced."
+            ],
+            [
+              "MANAGEMENT/VISION.md; ROADMAP.md",
+              "Explicitly optional; present",
+              "Operator-owned direction/timeline; AI read-only, never synced."
+            ],
+            [
+              "MANAGEMENT/PROJECT-RULES.md; ENVIRONMENT.md",
+              "Present; project-specific",
+              "Operator-owned binding rules and system environment; AI read-only, never synced."
+            ],
+            [
+              "WORK-ORDERS/AGENTS.md; work-order-template.md; registry.json; CORRECTIVE/corrective-work-order-template.md",
+              "Checked; template copy; registry project-specific",
+              "Templates/navigation inherited; registry owns order allocation/index; agents reserve/register."
+            ],
+            [
+              "WORK-ORDERS/WO-YYYY-NNN-short-description.md",
+              "Create before implementation",
+              "Executor authors authorized objective, specification, files and verification; completes/registers order."
+            ],
+            [
+              "WORK-ORDERS/CORRECTIVE/CWO-YYYY-NNN-short-description.md",
+              "Create for remediation/protocol correction",
+              "Executor records incident, cause, correction and prevention; links original work where applicable."
+            ],
+            [
+              "WORK-ORDERS/DIAGNOSTIC/DWO-YYYY-NNN-short-description.md",
+              "Optional investigation record",
+              "Diagnostic type is defined; no standalone diagnostic template was found. Read-only investigation needs no WO."
+            ],
+            [
+              "ARCHITECTURE/AGENTS.md; adr-template.md; ADR-000-record-architecture-decisions.md",
+              "Checked; template copy",
+              "Decision-process scaffolding and accepted foundational ADR."
+            ],
+            [
+              "ARCHITECTURE/ADR-NNN-description.md",
+              "Significant architecture decision",
+              "Human initiates/approves; assistant drafts; implementation recorded through WO. Accepted ADR immutable, superseded by a new ADR."
+            ],
+            [
+              "AI/AGENTS.md; functions/work-orders.json; functions/registry.json; functions/reporting.json",
+              "Checked; template copy",
+              "Read-only function contracts. Their presence does not prove tools are installed; direct document/registry updates are permitted when unavailable."
+            ],
+            [
+              "CHECKPOINTS/AGENTS.md; checkpoint-template.md",
+              "Checked; inherited template scaffolding",
+              "Milestone certificate navigation/template; authored checkpoint needs operator approval."
+            ],
+            [
+              "CHECKPOINTS/CP-NNN-PHASE-X-DESCRIPTION.md",
+              "Author when phase/version/ADR/significant milestone ends or operator requests",
+              "Executor prepares from plan, WOs/CWOs, files and actual verification; operator approves; immutable after creation."
+            ],
+            [
+              "ANALYSIS/AGENTS.md; analysis-report-template.md",
+              "Checked; template scaffolding",
+              "Executor writes authorized durable investigations with scope/evidence/findings; links WO/ADR; analysis alone grants no implementation authority."
+            ],
+            [
+              "KNOWLEDGE/AGENTS.md; DEVELOPER-GUIDE.md; DEVELOPMENT-PRACTICES.md; GOTCHAS.md; ERROR-CATALOG.md",
+              "Checked; project-owned living documents after template copy",
+              "Executor updates technical context, patterns, pitfalls and resolved errors when warranted; reference source WO/CWO."
+            ],
+            [
+              ".template/agent-rules.yaml; .template/sync-manifest.yaml (root)",
+              "Checked; inherited scaffolding",
+              "Machine-readable constraints and inherited/project-owned synchronization policy; presence alone is not automated enforcement."
+            ]
+          ]
+        }
+      },
+      {
+        "id": "work-order",
+        "title": "A Work Order connects authorization to the change",
+        "text": "A task reference points from the order back to the operator request or Project Elaboration; Related ADR and Depends On link decisions and predecessor work. The template describes reserving a number in WORK-ORDERS/registry.json, opening an order before implementation, recording files/verification, and registering the result with completion/WO links in Project Elaboration. However, root AGENTS.md and WORK-ORDER-PROTOCOL.md also prohibit editing WOs after creation, while work-order-template.md expects active updates. Adopters must reconcile this contradiction with operator authority before executing that workflow; this documentation does not silently choose one rule.",
+        "code": "AUTHORIZATION\n  Task Reference\n  Related ADR\n  Depends On\nOBJECTIVE\nTECHNICAL SPECIFICATION\nVERIFICATION STEPS\nFILES CHANGED\nVERIFICATION RESULTS\nSTATUS\n  PENDING → IN PROGRESS → COMPLETED (or BLOCKED)",
+        "language": "Selected headings from work-order-template.md"
+      },
+      {
+        "id": "correction",
+        "title": "CWO and ADR serve different purposes",
+        "text": "A CWO captures an error’s classification, root cause, correction, prevention and verification. An ADR captures the context, decision drivers, alternatives, chosen outcome and validation for an architecture decision. Neither is a substitute for the authorized project task. Completed work and accepted decisions retain historical meaning; later decisions supersede rather than silently erase accepted ADRs."
+      },
+      {
+        "id": "checkpoint",
+        "title": "Checkpoints certify milestones, not each edit",
+        "text": "CHECKPOINT-PROTOCOL.md requires a checkpoint at phase completion, a major version increment, finalized ADR implementation, a significant milestone or an operator request. Before creating it, synchronize relevant project knowledge, ensure WOs/CWOs are resolved and logged, run the required tests, update documentation and obtain human approval. The checkpoint gathers scope, deliverables, work orders, files, verification and next-phase context. It is immutable after creation; errors require a linked CWO, not an edit to the certificate."
+      },
+      {
+        "id": "version-note",
+        "title": "Source note",
+        "text": "The currently inspected first-generation constitution labels itself Version 1.7, Revision 8. Other template component metadata uses different protocol labels. “First generation” here names the template workflow and lineage; it does not assert every retained file is version 1.0 or confuse those labels with the separate MDAAI 2.0 package. The template also contains legacy reference/casing inconsistencies; its Markdown templates and function contracts should not be treated as one identical schema."
+      }
+    ],
+    "sources": [
+      "First-generation template: AGENTS.md",
+      "First-generation template: .template/sync-manifest.yaml",
+      "First-generation template: .template/scripts/validate.sh",
+      "First-generation template: project-meta.yaml",
+      "First-generation template: PROJECT-INTERNAL/GOVERNANCE/AI-INSTRUCTIONS.md",
+      "First-generation template: PROJECT-INTERNAL/GOVERNANCE/WORK-ORDER-PROTOCOL.md",
+      "First-generation template: PROJECT-INTERNAL/GOVERNANCE/CHECKPOINT-PROTOCOL.md",
+      "First-generation template: PROJECT-INTERNAL/GOVERNANCE/MULTI-AGENT-PROTOCOL.md",
+      "First-generation template: PROJECT-INTERNAL/GOVERNANCE/DOCUMENTATION-PROTOCOL.md",
+      "First-generation template: PROJECT-INTERNAL/GOVERNANCE/LIFECYCLE-PHASES-PROTOCOL.md",
+      "First-generation template: PROJECT-INTERNAL/GOVERNANCE/BETA-PHASE-PROTOCOL.md",
+      "First-generation template: PROJECT-INTERNAL/GOVERNANCE/AGENTS.md",
+      "First-generation template: PROJECT-INTERNAL/CLASSIFICATION-REGULATIONS.md",
+      "First-generation template: PROJECT-INTERNAL/MANAGEMENT/AGENTS.md",
+      "First-generation template: PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
+      "First-generation template: PROJECT-INTERNAL/MANAGEMENT/VISION.md",
+      "First-generation template: PROJECT-INTERNAL/MANAGEMENT/ROADMAP.md",
+      "First-generation template: PROJECT-INTERNAL/MANAGEMENT/PROJECT-RULES.md",
+      "First-generation template: PROJECT-INTERNAL/MANAGEMENT/ENVIRONMENT.md",
+      "First-generation template: PROJECT-INTERNAL/WORK-ORDERS/AGENTS.md",
+      "First-generation template: PROJECT-INTERNAL/WORK-ORDERS/work-order-template.md",
+      "First-generation template: PROJECT-INTERNAL/WORK-ORDERS/registry.json",
+      "First-generation template: PROJECT-INTERNAL/WORK-ORDERS/CORRECTIVE/corrective-work-order-template.md",
+      "First-generation template: PROJECT-INTERNAL/ARCHITECTURE/AGENTS.md",
+      "First-generation template: PROJECT-INTERNAL/ARCHITECTURE/adr-template.md",
+      "First-generation template: PROJECT-INTERNAL/ARCHITECTURE/ADR-000-record-architecture-decisions.md",
+      "First-generation template: PROJECT-INTERNAL/AI/AGENTS.md",
+      "First-generation template: PROJECT-INTERNAL/AI/functions/work-orders.json",
+      "First-generation template: PROJECT-INTERNAL/AI/functions/registry.json",
+      "First-generation template: PROJECT-INTERNAL/AI/functions/reporting.json",
+      "First-generation template: PROJECT-INTERNAL/CHECKPOINTS/AGENTS.md",
+      "First-generation template: PROJECT-INTERNAL/CHECKPOINTS/checkpoint-template.md",
+      "First-generation template: PROJECT-INTERNAL/ANALYSIS/AGENTS.md",
+      "First-generation template: PROJECT-INTERNAL/ANALYSIS/analysis-report-template.md",
+      "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/AGENTS.md",
+      "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/DEVELOPER-GUIDE.md",
+      "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/DEVELOPMENT-PRACTICES.md",
+      "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/GOTCHAS.md",
+      "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/ERROR-CATALOG.md",
+      "First-generation template: .template/agent-rules.yaml"
+    ]
+  },
+  {
+    "slug": "mdaai-2",
+    "route": "/mdaai-2/",
+    "title": "MDAAI 2.0",
+    "description": "The portable revision reduces routine records while retaining explicit authority, engineering obligations, evidence and recoverable task history.",
+    "group": "Documentation",
+    "sections": [
+      {
+        "id": "adoption",
+        "title": "What gets added at adoption",
+        "text": "docs/ADOPTION.md defines a project-by-project pilot: inventory existing constraints/history and recovery state; reconcile conflicting first-generation rules; explicitly merge the root contract and five governance documents; author target-specific Elaboration and a fresh registry. A successful governance-file revision is not wholesale version adoption. No automatic installer or mass migration is implied. Record the selected authority in the pilot ADR. Adoption acceptance requires structural and targeted product checks, applicable ordinary startup/browser/device evidence, and a pilot exercising active-record editing, a deferred defect, a terminal result and resumption.",
+        "links": [
+          [
+            "Core paths and ownership",
+            "structure"
+          ]
+        ]
+      },
+      {
+        "id": "fresh-registry",
+        "title": "Start with the target’s history, not the source’s",
+        "text": "The adoption guide specifies schemaVersion 1, a project-specific uppercase taskPrefix and an empty tasks array. Add target-owned task rows before claiming work is active. Do not copy M20 tasks, the source proposal analysis or its package-specific ADR as the target’s task history.",
+        "code": "{\n  \"schemaVersion\": 1,\n  \"taskPrefix\": \"APP\",\n  \"tasks\": []\n}",
+        "language": "Fresh registry — source adoption schema"
+      },
+      {
+        "id": "comparison",
+        "title": "What changes from the first generation",
+        "text": "The simplification is about where routine facts live, not removing all architecture or correction records. Reconcile root/nested instructions and older mandatory WO/checkpoint policies before activation. Preserve terminal legacy records unchanged; map active WO/CWO work to stable task rows or linked deferred entries.",
+        "table": {
+          "headers": [
+            "Concern",
+            "First-generation template",
+            "MDAAI 2.0 portable contract"
+          ],
+          "rows": [
+            [
+              "Entry point",
+              "AGENTS.md routes to constitution, plan and protocols.",
+              "AGENTS.md is concise operating contract with five rule references."
+            ],
+            [
+              "Routine task execution",
+              "Open WO before implementation; register completion.",
+              "Update one task row and actual evidence; no routine per-edit WO."
+            ],
+            [
+              "Status",
+              "Project Elaboration progress and work-order registry.",
+              "TASKS.json alone; Elaboration keeps scope/order."
+            ],
+            [
+              "Errors",
+              "CWO remediation/protocol record.",
+              "Regression-first repair; separate record only when durable context is needed."
+            ],
+            [
+              "Architecture",
+              "Human-led ADR phase and template.",
+              "Compact ADR when architecture changes warrant it; retain accepted decisions."
+            ],
+            [
+              "Recovery",
+              "Read plan, work orders, registry and decisions.",
+              "Read relevant nonterminal task, evidence and current live state."
+            ],
+            [
+              "Adoption",
+              "Template instantiation + inherited/project-owned synchronization split.",
+              "Authorized target-specific migration/merge; preserve stronger constraints/history."
+            ]
+          ]
+        }
+      },
+      {
+        "id": "not-core",
+        "title": "What does not belong in every adopted repository",
+        "text": "The source package’s README.md, VERSION, Justfile, proposal analysis, governance-v2 ADR, adoption documentation, laboratory code, dashboards, formal models and studies belong to that package. Its scripts/validate.py REQUIRED list includes package-delivery files; that is not the portable adoption inventory. Validator/tests are optional tools to adapt. Add real project commands only when they exist; merely copying tools does not test the target product."
+      },
+      {
+        "id": "migration",
+        "title": "Mapping and rollback",
+        "text": "Active legacy WO/CWO records map to one canonical task row, with an extra linked record only for needed context. Completed/void records and checkpoints stay historical. Keep accepted ADRs; new decisions supersede them. For a failed pilot, preserve failure evidence and perform an authorized restoration of the pre-adoption instructions/status mapping. Governance rollback does not automatically undo product changes or external effects."
+      },
+      {
+        "id": "implementation",
+        "title": "Protocol and software are separate",
+        "text": "MDAAI 2.0’s source repository also implements research and governance-revision/publication software. That code is not installed merely by adopting the portable contract. This documentation describes the repository operating files, not a promise of automatic enforcement, autonomous migration or universal containment. Checks certify structure only to the extent actually tested."
+      }
+    ],
+    "sources": [
+      "MDAAI 2.0: AGENTS.md",
+      "MDAAI 2.0: CLAUDE.md",
+      "MDAAI 2.0: docs/ADOPTION.md",
+      "MDAAI 2.0: scripts/validate.py",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/AUTHORITY.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/ENGINEERING.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/EVIDENCE.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/REASONING.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/GOVERNANCE/RECORDS.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
+      "MDAAI 2.0: PROJECT-INTERNAL/MANAGEMENT/TASKS.json"
+    ]
+  }
+]

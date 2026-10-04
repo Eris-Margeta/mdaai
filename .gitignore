@@ -1,0 +1,34 @@
+# Local private canonical-template working scaffold — never publish
+/PROJECT-INTERNAL/
+/.template/
+/CLAUDE.md
+/project-meta.yaml
+/Justfile
+/CONTRIBUTING.md
+/CODE_OF_CONDUCT.md
+/SECURITY.md
+/CHANGELOG.md
+/docs/AGENTS.md
+/docs/.templates/
+/docs/assets/
+/docs/diagrams/
+# Reproducible output/runtime
+website/dist/
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.env*
+.DS_Store
+
+# Non-public inherited placeholder files
+/.dctxignore
+/.dircontxtignore
+/.github/dependabot.example
+/.github/workflows/.*.example
+/VERSION
+/docs/index.md
+/eriscode.config.json
+/packages/
+/tools/
+website/csp-header.conf

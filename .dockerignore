@@ -1,0 +1,8 @@
+*
+!Dockerfile
+!nginx.conf
+!website/
+!website/**
+website/dist/
+website/csp-header.conf
+website/__pycache__/

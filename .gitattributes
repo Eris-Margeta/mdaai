@@ -1,0 +1,6 @@
+# Normalize repository text while preserving binary detection.
+* text=auto eol=lf
+
+# CommonMark uses trailing spaces as intentional hard line breaks.
+# Keep strict whitespace diagnostics for every non-Markdown file type.
+*.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
