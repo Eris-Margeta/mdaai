@@ -99,7 +99,7 @@ class FeedTests(unittest.TestCase):
             build.build()
         paths = [str(p.relative_to(self.site / 'dist')) for p in (self.site / 'dist').rglob('*')]
         self.assertFalse(any('research-paper' in p or 'PROJECT-INTERNAL' in p for p in paths))
-        self.assertEqual({p for p in paths if p.endswith('.pdf')}, {'assets/paper/mdaai-paper-soft.pdf', 'assets/paper/mdaai-paper-clean.pdf'})
+        self.assertEqual({p for p in paths if p.endswith('.pdf')}, {'assets/paper/mdaai-paper-soft.pdf'})
 
     def test_retired_provider_pointer_rejected(self):
         catalog = json.loads((self.site / "templates.catalog.json").read_text())

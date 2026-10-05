@@ -1,7 +1,7 @@
 {
   "title": "MDAAI: A Protocol for Governing AI-Assisted Development",
   "author": "Eris Margeta Kurdali",
-  "affiliation": "TEJL — Tvornica Elektroničkih Jedinica i Logike, Croatia",
+  "affiliation": "TEJL \u2014 Tvornica Elektroni\u010dkih Jedinica i Logike, Croatia",
   "email": "eris.margeta@gmail.com",
   "abstract": "When an AI-assisted coding task stops between an edit and its verification, the next participant needs more than the patch. They need to know what was authorized, what remains unresolved, and which observations support the recorded result. MDAAI governs AI-assisted development through rules for authority, scope, evidence, history, and review. This paper uses interruption as a lens on that broader purpose, following a hypothetical date-parser repair through two template representations: a work-order document with a synchronized index, and a task registry with conditional supporting records. The comparison distinguishes internal record consistency from reconciliation with the current implementation, and prescribed narrative records from judgment about when a separate explanation is needed. The contribution is a documentary design account, not a measurement of improved task performance. Testing must establish whether recording and reconciliation prevent enough recovery and acceptance errors to justify their cost.",
   "datePublished": "2026-10-05",
@@ -21,14 +21,6 @@
       "sourceSha256": "ba78fb6aa2f58d9d03bba7088aa9897d9b2d622dcb84869731d76df646b13ce5",
       "sha256": "c0477db45c36754ae6491a82557ab4896f617fb4f26bdafbf759102f72043fad",
       "bytes": 11045544,
-      "pages": 3
-    },
-    {
-      "edition": "clean",
-      "path": "assets/paper/mdaai-paper-clean.pdf",
-      "sourceSha256": "9b885c3b1c3645df33e7e0b3a389ff7f9746b56f8560b115e9bfe3dba42c99cf",
-      "sha256": "fe5bd14356cce9c0a90fdfe71fb6034fb6c8b1dacf105c1b2cf96ba9534bc106",
-      "bytes": 66760,
       "pages": 3
     }
   ]

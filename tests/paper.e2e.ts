@@ -22,9 +22,13 @@ for(const width of [375,1440]) for(const theme of ['light','dark']) {
    expect(await page.locator('h1').textContent()).toBe('MDAAI: A Protocol for Governing AI-Assisted Development');
    const graph=JSON.parse((await page.locator('script[type="application/ld+json"]').textContent())!);
    const article=graph['@graph'].find((n:any)=>n['@type']==='ScholarlyArticle');
+   expect(article.encoding.length).toBe(1);
+   expect(await page.locator('#downloads a[download]').count()).toBe(1);
+   expect(await page.locator('a[href$="mdaai-paper-clean.pdf"]').count()).toBe(0);
+   expect((await context.request.get(base+'/assets/paper/mdaai-paper-clean.pdf')).status()).toBe(404);
    expect(article.author.name).toBe('Eris Margeta Kurdali');
    expect(article.abstract).toBe(await page.locator('#abstract>p').textContent());
-   expect(await page.locator('meta[name="citation_pdf_url"]').getAttribute('content')).toBe('https://www.mdaai.internet.technology/assets/paper/mdaai-paper-clean.pdf');
+   expect(await page.locator('meta[name="citation_pdf_url"]').getAttribute('content')).toBe('https://www.mdaai.internet.technology/assets/paper/mdaai-paper-soft.pdf');
    const link=page.locator('#downloads a[download]').first();await link.focus();
    expect(await link.evaluate(e=>e===document.activeElement)).toBe(true);
    const downloadEvent=page.waitForEvent('download');await page.keyboard.press('Enter');

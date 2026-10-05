@@ -168,11 +168,16 @@ class WebsiteTests(unittest.TestCase):
         metas = {a.get('name'): a.get('content') for t, a in doc.elements if t == 'meta'}
         self.assertEqual(metas['citation_title'], data['title'])
         self.assertEqual(metas['citation_author'], data['author'])
-        self.assertEqual(metas['citation_pdf_url'], build.BASE + '/assets/paper/mdaai-paper-clean.pdf')
+        self.assertEqual(metas['citation_pdf_url'], build.BASE + '/assets/paper/mdaai-paper-soft.pdf')
         links = [a for t,a in doc.elements if t == 'a' and a.get('href','').endswith('.pdf')]
         self.assertEqual({a['href'] for a in links}, {'/' + x['path'] for x in data['files']})
         self.assertTrue(all('download' in a for a in links))
-        self.assertEqual(len(article['encoding']), 2)
+        self.assertEqual(len(article['encoding']), 1)
+        self.assertEqual(len(links), 1)
+        self.assertFalse((build.SITE / 'assets/paper/mdaai-paper-clean.pdf').exists())
+        self.assertFalse((build.OUT / 'assets/paper/mdaai-paper-clean.pdf').exists())
+        self.assertNotIn('mdaai-paper-clean.pdf', doc.text)
+        self.assertEqual(data['files'][0]['sha256'], 'c0477db45c36754ae6491a82557ab4896f617fb4f26bdafbf759102f72043fad')
         for encoding, item in zip(article['encoding'], data['files']):
             self.assertEqual(encoding['encodingFormat'], 'application/pdf')
             self.assertEqual(encoding['contentUrl'], build.BASE + '/' + item['path'])

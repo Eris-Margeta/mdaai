@@ -118,11 +118,10 @@
     "assets/identity/v3-templates-og-static.png": "75796f1700cabf8d6a1c8a1157be5fc4dab113308b77abae0f6b7a06c532f306",
     "assets/identity/v3-templates-twitter-large.png": "8e731c2e272b6a181caa87206cb6ef459e6395ce1df58da3e7bdccbe2acf8947",
     "assets/identity/v3-templates-twitter-summary.png": "29d356fb2248329dda1fc980c09d71c5f3fcb8df46a110f4f48288882a72b719",
-    "assets/paper/mdaai-paper-soft.pdf": "c0477db45c36754ae6491a82557ab4896f617fb4f26bdafbf759102f72043fad",
-    "assets/paper/mdaai-paper-clean.pdf": "fe5bd14356cce9c0a90fdfe71fb6034fb6c8b1dacf105c1b2cf96ba9534bc106"
+    "assets/paper/mdaai-paper-soft.pdf": "c0477db45c36754ae6491a82557ab4896f617fb4f26bdafbf759102f72043fad"
   },
   "historicalSourceReferences": {
     "MDAAI 2.0: CLAUDE.md": "d830177eb8e9b6cb9d77ca23cc1457e03361ebee774988d3b1b554faa4e02553"
   },
-  "paperMetadataSha256": "4da30db39c67c4bc09453de87dac731e1e4bdec705cda9cb94ac3c4116a5f0c1"
+  "paperMetadataSha256": "438346796148cc972ca0a6a5657a188a241f9111acb51d64f55e89ce2e35df50"
 }
