@@ -11,6 +11,7 @@ from templates_view import cycle, gallery
 from identity import emit_manifest
 from pwa import write_pwa
 from cover import image_html
+import paper
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'website'
@@ -55,6 +56,9 @@ def load_content():
             raise ValueError('Unsafe asset path')
         if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
             raise ValueError('Reviewed asset changed: ' + asset)
+    if hashlib.sha256((SITE / 'paper.json').read_bytes()).hexdigest() != provenance['paperMetadataSha256']:
+        raise ValueError('Reviewed paper metadata changed')
+    paper.load(SITE)
     for page in pages:
         if not re.fullmatch('[a-z0-9-]+', page['slug']):
             raise ValueError('unsafe slug')
@@ -110,6 +114,8 @@ def build(include_templates=False):
             sections += f'<section id="{anchor}">' + ('<span id="choose-template" aria-hidden="true"></span><span id="choose" aria-hidden="true"></span>' if anchor == 'catalog' and url == '/templates/' else '') + f'<h2><a class="heading-anchor" href="#{anchor}">{E(section["title"])}</a></h2>'
             if section['text']:
                 sections += f'<p>{E(section["text"])}</p>'
+            if anchor == 'downloads' and url == '/paper/':
+                sections += paper.downloads(SITE)
             if anchor == 'catalog' and url == '/templates/':
                 sections += gallery(lock, catalog, page['catalogPresentation'], include_templates)
             if section.get('diagram'):
@@ -150,6 +156,7 @@ def build(include_templates=False):
         intro = f'<h1>{E(page["title"])}</h1><p class="lede">{E(page["description"])}</p>{author}'
         if url == "/":
             intro = f'<div class="homepage-intro"><div class="homepage-intro-copy">{intro}</div>{cover}</div>'
+            intro += paper.downloads(SITE, home=True)
         body = f'<div class="docs-layout"><aside id="docs-nav"><nav aria-label="Documentation">{current_nav}</nav></aside><main id="main" tabindex="0" aria-label="Documentation content"><article class="article">{intro}{sections}{video}{source_note}{pagination}</article>{footer()}</main></div>'
         target = OUT / page['route'].strip('/')
         target.mkdir(parents=True, exist_ok=True)

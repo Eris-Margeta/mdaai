@@ -47,7 +47,7 @@ def check_identity(site=SITE, dist=None, decode=False):
     from seo import metadata, page_title, BASE, AUTHOR
     site = Path(site)
     pages = json.loads((site / 'content.json').read_text())
-    assert len(pages) == 7, 'Seven reviewed routes required'
+    assert len(pages) == 8, 'Seven documentation routes plus approved paper required'
     inventory = json.loads((site / 'assets/identity/inventory.json').read_text())
     required = {'favicon.ico', 'favicon-32.png', 'favicon.svg', 'apple-touch-icon.png',
                 'icon-192.png', 'icon-512.png', 'icon-maskable-192.png', 'icon-maskable-512.png'}
@@ -58,7 +58,8 @@ def check_identity(site=SITE, dist=None, decode=False):
     assert set(inventory['assets']) == required, 'Exact reviewed identity asset matrix required'
     assert len(required) == 36
     content = json.loads((site / 'content.json').read_text())
-    assert {p['route']: p['title'] for p in content} == {route: values[1] for route, values in ROUTES.items()}, 'Social titles must match actual published titles'
+    assert {p['route']: p['title'] for p in content if p['route'] != '/paper/'} == {route: values[1] for route, values in ROUTES.items()}, 'Social titles must match actual published titles'
+    assert social_assets('/paper/')['static'] == social_assets('/')['static'], 'Paper deliberately reuses approved protocol artwork'
     assert inventory['generator']['pillow'] == '12.1.0'
     assert inventory['version'] == 'v3'
     assert len(inventory['layouts']) == 21

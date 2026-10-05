@@ -30,6 +30,11 @@ ROUTES = {
 
 def social_assets(route):
     """Fail closed on an unreviewed route; no silent home-art fallback."""
+    if route == '/paper/':
+        # Explicit editorial reuse of approved protocol artwork, not a new cover.
+        assets = social_assets('/')
+        assets['alt'] = 'MDAAI paper — approved engraved guardian protocol artwork, E.M.K.'
+        return assets
     slug, title, subtitle = ROUTES[route]
     prefix = '/' + ASSET_ROOT + '/' + VERSION + '-' + slug + '-'
     return {'static': prefix + 'og-static.png', 'animated': prefix + 'og-animated.gif',

@@ -106,6 +106,33 @@
     }
   },
   {
+    "slug": "paper",
+    "route": "/paper/",
+    "title": "MDAAI: A Protocol for Governing AI-Assisted Development",
+    "description": "A documentary design account of authority, scope, evidence, history and review in AI-assisted development.",
+    "group": "Paper",
+    "sources": [
+      "Final approved paper: manuscript v2"
+    ],
+    "sections": [
+      {
+        "id": "downloads",
+        "title": "Download the paper",
+        "text": "Preprint / documentary design paper. Published on the author’s website; no journal publication or peer-review claim is made."
+      },
+      {
+        "id": "abstract",
+        "title": "Abstract",
+        "text": "When an AI-assisted coding task stops between an edit and its verification, the next participant needs more than the patch. They need to know what was authorized, what remains unresolved, and which observations support the recorded result. MDAAI governs AI-assisted development through rules for authority, scope, evidence, history, and review. This paper uses interruption as a lens on that broader purpose, following a hypothetical date-parser repair through two template representations: a work-order document with a synchronized index, and a task registry with conditional supporting records. The comparison distinguishes internal record consistency from reconciliation with the current implementation, and prescribed narrative records from judgment about when a separate explanation is needed. The contribution is a documentary design account, not a measurement of improved task performance. Testing must establish whether recording and reconciliation prevent enough recovery and acceptance errors to justify their cost."
+      },
+      {
+        "id": "author",
+        "title": "Author and affiliation",
+        "text": "Eris Margeta Kurdali · TEJL — Tvornica Elektroničkih Jedinica i Logike, Croatia · eris.margeta@gmail.com · TEJL.com · TEJL.hr"
+      }
+    ]
+  },
+  {
     "slug": "structure",
     "route": "/repository-structure/",
     "title": "Repository structure",

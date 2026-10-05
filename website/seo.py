@@ -9,6 +9,8 @@ AUTHOR = 'Eris Margeta Kurdali'
 
 def page_title(title, route):
     """One editorial title shared by HTML, social metadata and schema."""
+    if route == '/paper/':
+        return title
     topic = title.removeprefix('MDAAI ')
     return 'MDAAI — A protocol for AI-assisted development' if route == '/' else topic + ' | MDAAI'
 
@@ -44,6 +46,10 @@ def graph(title, description, route):
                                       for i, entry in enumerate(catalog['templates'], 1)]}
         objects.append(listing)
         page['mainEntity'] = {'@id': listing['@id']}
+    if route == '/paper/':
+        import paper
+        objects.append(paper.article(BASE))
+        page['mainEntity'] = {'@id': BASE + '/paper/#article'}
     return {'@context': 'https://schema.org', '@graph': objects}
 
 
@@ -67,6 +73,9 @@ def metadata(title, description, route):
     for key, value in [('twitter:card', 'summary_large_image'), ('twitter:title', page_title(title, route)), ('twitter:description', description), ('twitter:image', BASE + assets['large']), ('twitter:image:alt', assets['alt'])]:
         meta(key, value)
     tags.append(icon_metadata())
+    if route == '/paper/':
+        import paper
+        tags.append(paper.citations(BASE))
     tags.append(f'<script type="application/ld+json">{data}</script>')
     return ''.join(tags)
 

@@ -137,6 +137,12 @@ class WebsiteTests(unittest.TestCase):
             if not file.is_file():
                 continue
             self.assertFalse(file.is_symlink())
+            if file.suffix == '.pdf':
+                approved = {x['path']: x['sha256'] for x in build.paper.load(build.SITE)['files']}
+                relative = file.relative_to(build.OUT).as_posix()
+                self.assertIn(relative, approved)
+                self.assertEqual(hashlib.sha256(file.read_bytes()).hexdigest(), approved[relative])
+                continue
             if file.suffix in ('.png', '.webp', '.jpg', '.mp4', '.gif', '.ico'):
                 continue
             text = file.read_text()
@@ -144,6 +150,46 @@ class WebsiteTests(unittest.TestCase):
                 self.assertIsNone(re.search(pattern, text), (file.name, pattern))
         for name in ('evidence', 'PROJECT-INTERNAL', 'provenance.json', 'source-pins.json'):
             self.assertFalse((build.OUT / name).exists())
+
+    def test_final_paper_schema_citations_and_download_allowlist(self):
+        data = build.paper.load(build.SITE)
+        doc = self.documents['/paper/']
+        nodes = json.loads(re.findall(r'<script type="application/ld\+json">(.*?)</script>', doc.text, re.S)[0])['@graph']
+        article = next(n for n in nodes if n['@type'] == 'ScholarlyArticle')
+        self.assertEqual(article['name'], data['title'])
+        self.assertEqual(article['headline'], data['title'])
+        self.assertEqual(article['abstract'], data['abstract'])
+        self.assertIn(build.E(data['abstract']), doc.text)
+        self.assertEqual(article['author']['name'], 'Eris Margeta Kurdali')
+        self.assertEqual(article['author']['affiliation']['name'], data['affiliation'])
+        self.assertEqual(article['datePublished'], '2026-10-05')
+        self.assertEqual(article['mainEntityOfPage'], build.BASE + '/paper/')
+        self.assertFalse(any(key in article for key in ('doi', 'identifier', 'isPartOf', 'review')))
+        metas = {a.get('name'): a.get('content') for t, a in doc.elements if t == 'meta'}
+        self.assertEqual(metas['citation_title'], data['title'])
+        self.assertEqual(metas['citation_author'], data['author'])
+        self.assertEqual(metas['citation_pdf_url'], build.BASE + '/assets/paper/mdaai-paper-clean.pdf')
+        links = [a for t,a in doc.elements if t == 'a' and a.get('href','').endswith('.pdf')]
+        self.assertEqual({a['href'] for a in links}, {'/' + x['path'] for x in data['files']})
+        self.assertTrue(all('download' in a for a in links))
+        self.assertEqual(len(article['encoding']), 2)
+        for encoding, item in zip(article['encoding'], data['files']):
+            self.assertEqual(encoding['encodingFormat'], 'application/pdf')
+            self.assertEqual(encoding['contentUrl'], build.BASE + '/' + item['path'])
+            self.assertEqual(encoding['contentSize'], str(item['bytes']) + ' bytes')
+            self.assertNotIn(item['path'], (build.OUT / 'service-worker.js').read_text())
+        home = self.documents['/'].text
+        self.assertLess(home.index('id="paper"'), home.index('id="explainer"'))
+        self.assertLess(home.index('id="paper"'), home.index('id="protocol"') if 'id="protocol"' in home else home.index('id="explainer"'))
+        with patch.object(build.paper, 'DATA', build.SITE / 'paper.json'):
+            item = build.SITE / data['files'][0]['path']
+            original = item.read_bytes()
+            try:
+                item.write_bytes(original + b'drift')
+                with self.assertRaisesRegex(ValueError, 'Reviewed asset changed'):
+                    build.load_content()
+            finally:
+                item.write_bytes(original)
 
     def test_template_panel_order_and_header(self):
         home = self.documents['/'].text
@@ -178,18 +224,18 @@ class WebsiteTests(unittest.TestCase):
         self.assertIn('textContent', js)
 
     def test_homepage_is_mdaai_documentation(self):
-        self.assertEqual(len(self.pages), 7)
-        self.assertEqual({p['route'] for p in self.pages}, {'/', '/repository-structure/', '/how-files-work-together/', '/task-lifecycle/', '/mdaai-1/', '/mdaai-2/', '/templates/'})
+        self.assertEqual(len(self.pages), 8)
+        self.assertEqual({p['route'] for p in self.pages}, {'/', '/paper/', '/repository-structure/', '/how-files-work-together/', '/task-lifecycle/', '/mdaai-1/', '/mdaai-2/', '/templates/'})
         home = (build.OUT / 'index.html').read_text()
         self.assertIn('<h1>MDAAI</h1>', home)
         self.assertIn('MDAAI is a protocol for governing AI-assisted development.', home)
         self.assertIn('Project Elaboration owns scope and sequence', home)
 
     def test_rejected_content_is_not_served(self):
-        text = '\n'.join(f.read_text() for f in build.OUT.rglob('*') if f.is_file() and f.suffix not in ('.png', '.webp', '.jpg', '.mp4', '.gif', '.ico'))
+        text = '\n'.join(f.read_text() for f in build.OUT.rglob('*') if f.is_file() and f.suffix not in ('.png', '.webp', '.jpg', '.mp4', '.gif', '.ico', '.pdf'))
         for rejected in ('hermes --', 'HermesSol', 'Hermes Agent', 'native_p95_regression', '564 tests', 'Year-long governance', 'python3 -B website/', '/docs/quickstart/', '/evolution/', 'industry-first', 'self-declared breakthrough'):
             self.assertNotIn(rejected, text)
-        self.assertEqual(len(list(build.OUT.rglob('*.html'))), 9)
+        self.assertEqual(len(list(build.OUT.rglob('*.html'))), 10)
 
     def test_core_inventory_and_section_links(self):
         structure = next(p for p in self.pages if p['slug'] == 'structure')
@@ -306,7 +352,7 @@ class WebsiteTests(unittest.TestCase):
                 nodes = graph['@graph']
                 by_id = {n['@id']: n for n in nodes}
                 self.assertEqual(len(by_id), len(nodes))
-                self.assertEqual({n['@type'] for n in nodes}, {'Person', 'Organization', 'Brand', 'WebSite', 'BreadcrumbList', 'CollectionPage' if route == '/templates/' else 'WebPage' if route == '/' else 'TechArticle'} | ({'VideoObject'} if route == '/' else {'ItemList'} if route == '/templates/' else set()))
+                self.assertEqual({n['@type'] for n in nodes}, {'Person', 'Organization', 'Brand', 'WebSite', 'BreadcrumbList', 'CollectionPage' if route == '/templates/' else 'WebPage' if route == '/' else 'TechArticle'} | ({'VideoObject'} if route == '/' else {'ItemList'} if route == '/templates/' else {'ScholarlyArticle'} if route == '/paper/' else set()))
                 def refs(value):
                     if isinstance(value, dict):
                         if set(value) == {'@id'}:
@@ -358,8 +404,8 @@ class WebsiteTests(unittest.TestCase):
                         path = build.OUT / urlsplit(video[key]).path.lstrip('/')
                         self.assertEqual(path.suffix, suffix)
                         self.assertTrue(path.is_file())
-        self.assertEqual(len(set(titles)), 7)
-        self.assertEqual(len(set(descriptions)), 7)
+        self.assertEqual(len(set(titles)), 8)
+        self.assertEqual(len(set(descriptions)), 8)
         not_found = self.documents['/404.html']
         self.assertIn(('meta', {'name': 'robots', 'content': 'noindex,follow'}), not_found.elements)
         self.assertFalse(any(t == 'link' and a.get('rel') == 'canonical' for t, a in not_found.elements))
@@ -432,7 +478,7 @@ class WebsiteTests(unittest.TestCase):
         root = ET.fromstring((build.OUT / 'sitemap.xml').read_text())
         locations = [n.text for n in root.findall('{http://www.sitemaps.org/schemas/sitemap/0.9}url/{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
         self.assertEqual(set(locations), {base + p['route'] for p in self.pages})
-        self.assertEqual(len(locations), 7)
+        self.assertEqual(len(locations), 8)
         self.assertEqual((build.OUT / 'robots.txt').read_text(), 'User-agent: *\nAllow: /\nSitemap: ' + base + '/sitemap.xml\n')
         for html in ('<script>alert(1)</script>', '<button onclick="evil()">x</button>', '<img onerror="evil()">'):
             with self.assertRaises(AssertionError):

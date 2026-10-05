@@ -2,7 +2,7 @@
   "format": 1,
   "reviewedOn": "2026-10-05",
   "boundary": "Independently versioned MDAAI protocol documentation and external named template releases. SourceReferences retain original reviewed historical hashes; current canonical template bytes are verified by the pinned catalog and explicit importer. Agents, harnesses and execution tools remain separate. Digests establish byte integrity, not runtime enforcement.",
-  "contentSha256": "4a7ca0b28890a9a41024e8058a1e029d2002f9707aee4e7e468a26c9b3a9f4f8",
+  "contentSha256": "4a3cb4b15fe143b00b0f219d7bdbb44dbc45ab0f4998326601ebff3da6434c78",
   "sourceReferences": {
     "MDAAI 2.0: AGENTS.md": "f1a516f71d237ab741213a79997e3fc1edf98ce019d861dda92454934fd21374",
     "MDAAI 2.0: docs/ADOPTION.md": "2e7d10dc769494de9c98041da4e5f57f70c06c137113b934ba9460a24fd1a0a8",
@@ -55,7 +55,8 @@
     "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/GOTCHAS.md": "e18f91b030c63bb43a2bebf867ec84252e26451f6c0aa21b2cb47fd30ed55a86",
     "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/ERROR-CATALOG.md": "a6c114bbb1db3ca83ba0e937782a047e19c549d08a329b1a1f4e58e5d074128c",
     "First-generation template: .template/agent-rules.yaml": "a991fa542005132cb49ee0a6a4f2c4588881d0977b0c9f97197929843fcb59f5",
-    "Public template catalog: templates.json": "f32197aa5dcf0423051735a22c79de8bb99338b9a78e4f20c5d923c59050df15"
+    "Public template catalog: templates.json": "f32197aa5dcf0423051735a22c79de8bb99338b9a78e4f20c5d923c59050df15",
+    "Final approved paper: manuscript v2": "21465519d4a6a196d4d3121b8a0cfde57c19d3ab7dd9a8c821162dd234e31604"
   },
   "assets": {
     "assets/icon-192.png": "f201bc2b313677469128145a4e165e9ba2f5ecdfe80de8988a911106ae0af804",
@@ -116,9 +117,12 @@
     "assets/identity/v3-templates-og-animated.gif": "cdfbc570021912424a03972bfd7887cff04ee5fad54697541a6348fab276a8b0",
     "assets/identity/v3-templates-og-static.png": "75796f1700cabf8d6a1c8a1157be5fc4dab113308b77abae0f6b7a06c532f306",
     "assets/identity/v3-templates-twitter-large.png": "8e731c2e272b6a181caa87206cb6ef459e6395ce1df58da3e7bdccbe2acf8947",
-    "assets/identity/v3-templates-twitter-summary.png": "29d356fb2248329dda1fc980c09d71c5f3fcb8df46a110f4f48288882a72b719"
+    "assets/identity/v3-templates-twitter-summary.png": "29d356fb2248329dda1fc980c09d71c5f3fcb8df46a110f4f48288882a72b719",
+    "assets/paper/mdaai-paper-soft.pdf": "c0477db45c36754ae6491a82557ab4896f617fb4f26bdafbf759102f72043fad",
+    "assets/paper/mdaai-paper-clean.pdf": "fe5bd14356cce9c0a90fdfe71fb6034fb6c8b1dacf105c1b2cf96ba9534bc106"
   },
   "historicalSourceReferences": {
     "MDAAI 2.0: CLAUDE.md": "d830177eb8e9b6cb9d77ca23cc1457e03361ebee774988d3b1b554faa4e02553"
-  }
+  },
+  "paperMetadataSha256": "4da30db39c67c4bc09453de87dac731e1e4bdec705cda9cb94ac3c4116a5f0c1"
 }
