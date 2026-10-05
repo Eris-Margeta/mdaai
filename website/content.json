@@ -617,7 +617,7 @@
       {
         "id": "work-order",
         "title": "A Work Order connects authorization to the change",
-        "text": "A task reference points from the order back to the operator request or Project Elaboration; Related ADR and Depends On link decisions and predecessor work. The template describes reserving a number in WORK-ORDERS/registry.json, opening an order before implementation, recording files/verification, and registering the result with completion/WO links in Project Elaboration. However, root AGENTS.md and WORK-ORDER-PROTOCOL.md also prohibit editing WOs after creation, while work-order-template.md expects active updates. Adopters must reconcile this contradiction with operator authority before executing that workflow; this documentation does not silently choose one rule.",
+        "text": "A task reference points from the order back to the operator request or Project Elaboration; Related ADR and Depends On link decisions and predecessor work. Reserve a number in WORK-ORDERS/registry.json and open the work-order-template.md record before implementation. Pending and active Work Orders may be updated with scope, files and actual verification; close only when acceptance evidence and actual expenditure are recorded. Closed WOs, corrective records and checkpoints remain immutable: later corrections use a linked corrective or superseding record. Register completion and WO links in Project Elaboration. The released template reconciles the prior editing-rule conflict; declarative rules and schemas do not themselves enforce permissions or prove evidence.",
         "code": "AUTHORIZATION\n  Task Reference\n  Related ADR\n  Depends On\nOBJECTIVE\nTECHNICAL SPECIFICATION\nVERIFICATION STEPS\nFILES CHANGED\nVERIFICATION RESULTS\nSTATUS\n  PENDING → IN PROGRESS → COMPLETED (or BLOCKED)",
         "language": "Selected headings from work-order-template.md"
       },
@@ -634,7 +634,7 @@
       {
         "id": "version-note",
         "title": "Source note",
-        "text": "The currently inspected first-generation constitution labels itself Version 1.7, Revision 8. Other template component metadata uses historical governance-document labels. “First generation” here names the template workflow and lineage; it does not assert every retained file is version 1.0 or confuse those labels with the MDAAI 2.0 template family. This is not a pristine 1.0 release. The template also contains legacy reference/casing inconsistencies; its Markdown templates and function contracts should not be treated as one identical schema."
+        "text": "MDAAI 1.0 is a template name; its independent release is 1.0.1. Its constitution internal revision is 1.8, with historical 1.7/header metadata retained as origin history. Neither number is the standalone MDAAI protocol version (1.0.0). The corrected public release permits pending/active work-record updates and protects closed history. Original upstream sources and their historical hashes remain unchanged; 43 historical source-link gaps are documented separately from verified canonical public payloads."
       }
     ],
     "sources": [
@@ -801,7 +801,7 @@
       {
         "id": "source-versions",
         "title": "Versions and export boundaries",
-        "text": "The first-generation family carries VERSION 1.0.0 while AI-INSTRUCTIONS.md identifies Version 1.7; supporting governance documents retain historical version labels. It is not a pristine original 1.0 release. MDAAI 2.0 supplies six portable core files and fresh project-owned Elaboration and TASKS.json scaffolds. Its root contract omits laboratory-specific commands. Original source repositories remain unchanged."
+        "text": "MDAAI protocol release 1.0.0 is independent of the named templates MDAAI 1.0 (release 1.0.1) and MDAAI 2.0 (release 2.0.1). Catalog 0.1.1, schema 1, imports immutable public package revisions through the same reviewed admission path as community templates: 91 and 18 verified literal payloads. The first template constitution internal revision is 1.8; historical document labels are origin metadata, not protocol releases. MDAAI 2.0 supplies six portable core files and project-owned Elaboration and TASKS.json scaffolds. Review and configure either package before adoption. Imported previews and downloads are read-only derivatives, not editable template authority."
       },
       {
         "id": "review",

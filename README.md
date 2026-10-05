@@ -26,8 +26,12 @@ By **Eris Margeta Kurdali** · [Read the protocol](https://www.mdaai.internet.te
 | [Repository structure](https://www.mdaai.internet.technology/repository-structure/) | Required/optional/conditional files and information owners |
 | [How files work together](https://www.mdaai.internet.technology/how-files-work-together/) | Reading order, read/write responsibilities and recovery |
 | [Task lifecycle](https://www.mdaai.internet.technology/task-lifecycle/) | Ordinary task evidence, blocked vs deferred, terminal corrections |
-| [Original MDAAI](https://www.mdaai.internet.technology/mdaai-1/) | Work Orders, corrective records, decisions and the editing-rule conflict |
+| [Original MDAAI](https://www.mdaai.internet.technology/mdaai-1/) | Work Orders, corrective records, decisions and preserved terminal history |
 | [MDAAI 2.0](https://www.mdaai.internet.technology/mdaai-2/) | Smaller portable core, fresh registry and project-by-project adoption |
+
+## Independently versioned protocol and templates
+
+The standalone **MDAAI protocol release is 1.0.0** (`VERSION`). This existing protocol identity is retained: importing external template corrections is not a protocol-version change. **MDAAI 1.0** and **MDAAI 2.0** are template names, released independently as **1.0.1** and **2.0.1**; the template index is catalog **0.1.1**, schema **1**. Constitution/internal component revisions and website Git release identities are separate. Canonical templates live solely in their external repositories; imported previews/downloads are read-only derivatives. First-party templates use the same catalog PR review and website importer as community submissions.
 
 ## Two template families, one protocol
 
@@ -38,7 +42,7 @@ By **Eris Margeta Kurdali** · [Read the protocol](https://www.mdaai.internet.te
 | Work state | Work Orders and their registry | `TASKS.json`, the single canonical task-state owner |
 | Records | WO / CWO / ADR / checkpoint / knowledge artifacts | Durable record when task and evidence alone are insufficient |
 | Completion | Records and expected verification | Actual acceptance evidence; preserve terminal results |
-| Migration | Reconcile original WO editing-rule conflict | Fresh registry, completed history, pilot acceptance and rollback |
+| Migration | Active records editable; closed results immutable | Fresh registry, completed history, pilot acceptance and rollback |
 
 > [!NOTE]
 > MDAAI 2.0 reduces routine paperwork, **not accountability**. Local permissions and stronger inherited rules still apply. A structural checker is not semantic acceptance or proof of live adoption.
@@ -142,7 +146,7 @@ Only generated output is served. The container has a real `/healthz`, genuine un
 
 ### Literal template catalog
 
-[Browse the templates](https://www.mdaai.internet.technology/templates/) · [Public template repository](https://github.com/Eris-Margeta/mdaai-templates). Two initial families, 105 literal files, reviewed before adoption. Template versions and protocol identities are distinct; updates require explicit downstream adoption.
+[Browse the templates](https://www.mdaai.internet.technology/templates/) · [Public template repository](https://github.com/Eris-Margeta/mdaai-templates). Two independently versioned named templates, 109 literal files, reviewed before adoption. Template versions and protocol identities are distinct; updates require explicit downstream adoption.
 
 The default build stays offline. `just templates-sync` explicitly imports the immutable reviewed feed; `just build-with-templates` adds revalidated read-only text previews and downloads from that local cache without network access. `just build` restores the ordinary remote-link publication. [Pin, security bounds and review procedure](docs/publication/templates.md).
 

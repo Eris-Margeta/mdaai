@@ -27,7 +27,10 @@ def header():
 
 
 def footer():
-    return '<footer class="footer"><p>MDAAI · A protocol for AI-assisted development</p><section class="tejl" aria-label="Website creation and TEJL contact"><span>WEB made by</span><a class="tejl-mark" href="https://tejl.hr/" aria-label="TEJL — tejl.hr"><img class="tejl-light" src="/assets/tejl/tejl-logo-off-black.svg" width="68" height="35" alt=""><img class="tejl-dark" src="/assets/tejl/tejl-logo-off-white.svg" width="68" height="35" alt=""></a><span>Web studio contact: <a href="tel:+385998361079">+385 99 836 1079</a></span><span class="tejl-domains"><a href="https://tejl.hr/">tejl.hr</a> · <a href="https://tejl.com/">tejl.com</a></span></section></footer>'
+    version = (ROOT / 'VERSION').read_text().strip()
+    if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+', version):
+        raise ValueError('Invalid standalone protocol version')
+    return '<footer class="footer"><p>MDAAI · Protocol ' + E(version) + ' · A protocol for AI-assisted development</p><section class="tejl" aria-label="Website creation and TEJL contact"><span>WEB made by</span><a class="tejl-mark" href="https://tejl.hr/" aria-label="TEJL — tejl.hr"><img class="tejl-light" src="/assets/tejl/tejl-logo-off-black.svg" width="68" height="35" alt=""><img class="tejl-dark" src="/assets/tejl/tejl-logo-off-white.svg" width="68" height="35" alt=""></a><span>Web studio contact: <a href="tel:+385998361079">+385 99 836 1079</a></span><span class="tejl-domains"><a href="https://tejl.hr/">tejl.hr</a> · <a href="https://tejl.com/">tejl.com</a></span></section></footer>'
 
 
 def shell(title, description, body, cls='', route=None):

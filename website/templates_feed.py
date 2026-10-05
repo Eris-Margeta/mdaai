@@ -59,7 +59,7 @@ def load_catalog(site=SITE):
     if len(raw) > MAX_FILE or sha(raw) != lock['manifestSha256']:
         raise ValueError('Catalog digest mismatch')
     catalog = decode(raw)
-    if catalog['schemaVersion'] != 1 or catalog['catalogVersion'] != '0.1.0' or catalog['repository'] != REPOSITORY:
+    if catalog['schemaVersion'] != 1 or catalog['catalogVersion'] not in ('0.1.0', '0.1.1') or catalog['repository'] != REPOSITORY:
         raise ValueError('Unsupported catalog')
     files = {}
     ids = set()
@@ -72,8 +72,16 @@ def load_catalog(site=SITE):
             raise ValueError('Adoption status needs review')
         if not re.fullmatch('[a-f0-9]{40}', template['source']['revision']):
             raise ValueError('Invalid source revision')
+        if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+', template['templateVersion']):
+            raise ValueError('Invalid independent template version')
+        if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', template['source']['repository']):
+            raise ValueError('Invalid source repository')
+        if not isinstance(template['protocol'].get('identity'), str) or not template['protocol']['identity'].strip():
+            raise ValueError('Missing protocol identity')
         for file in template['files']:
             path = safe_path(file['path'])
+            if 'research-paper' in path.casefold() or path.casefold().endswith('.pdf'):
+                raise ValueError('Private paper payload refused')
             if Path(path).name.casefold() == 'claude.md':
                 raise ValueError('Retired agent pointer payload')
             if not path.startswith('templates/' + ident + '/') or path.casefold() in {p.casefold() for p in files}:
@@ -155,7 +163,7 @@ def check_raw_headers(expanded):
     raise ValueError('Missing archive terminator')
 
 
-def archive_payloads(data, lock, files):
+def archive_payloads(data, lock, files, root=None):
     if len(data) > MAX_COMPRESSED:
         raise ValueError('Compressed size limit')
     with gzip.GzipFile(fileobj=io.BytesIO(data)) as zipped:
@@ -163,7 +171,7 @@ def archive_payloads(data, lock, files):
     if len(expanded) > MAX_EXPANDED:
         raise ValueError('Expanded size limit')
     check_raw_headers(expanded)
-    root = 'mdaai-templates-' + lock['revision']
+    root = root or 'mdaai-templates-' + lock['revision']
     seen, payloads, total = set(), {}, 0
     # Never extract archive paths. Inspect ALL members, including ignored admin files.
     with tarfile.open(fileobj=io.BytesIO(expanded), mode='r:') as archive:
@@ -205,13 +213,43 @@ def no_symlinks(path):
         raise ValueError('Cache symlink refused')
 
 
+def verify_identity(template, payloads):
+    prefix = 'templates/' + template['id'] + '/'
+    identity = decode(payloads[prefix + 'TEMPLATE-IDENTITY.json'])
+    if (identity.get('schemaVersion') != 1 or identity.get('releaseStatus') != 'RELEASE'
+            or identity.get('releaseVersion') != template['templateVersion']
+            or payloads[prefix + 'VERSION'].decode().strip() != template['templateVersion']
+            or identity.get('templateName') != template['title'].split(' — ', 1)[0]
+            or identity.get('protocolVersion') is not None):
+        raise ValueError('Released template identity mismatch')
+
+
+def verify_sources(catalog, payloads, downloader):
+    # Independently compare the catalog copies to canonical immutable packages.
+    # Only listed text payloads are read; fetched scripts are never executed.
+    for template in catalog['templates']:
+        source = template['source']
+        repository, revision = source['repository'], source['revision']
+        prefix = 'templates/' + template['id'] + '/'
+        source_files = {f['path'][len(prefix):]: f for f in template['files']}
+        archive_url = f'https://github.com/{repository}/archive/{revision}.tar.gz'
+        codeload = f'https://codeload.github.com/{repository}/tar.gz/{revision}'
+        actual = archive_payloads(downloader(archive_url, {archive_url, codeload}, MAX_COMPRESSED),
+            source, source_files, root=repository.split('/')[1] + '-' + revision)
+        for path, data in actual.items():
+            if data != payloads[prefix + path]:
+                raise ValueError('Canonical source payload mismatch')
+        verify_identity(template, payloads)
+
+
 def sync(site=SITE, downloader=fetch):
-    lock, _, files = load_catalog(site)
+    lock, catalog, files = load_catalog(site)
     manifest_url, archive_url, codeload_url = urls(lock)
     manifest = downloader(manifest_url, {manifest_url}, MAX_FILE)
     if sha(manifest) != lock['manifestSha256']:
         raise ValueError('Remote manifest digest mismatch')
     payloads = archive_payloads(downloader(archive_url, {archive_url, codeload_url}, MAX_COMPRESSED), lock, files)
+    verify_sources(catalog, payloads, downloader)
     cache = site / '.template-cache'
     no_symlinks(cache)
     cache.mkdir(exist_ok=True)

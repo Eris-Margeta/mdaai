@@ -1,8 +1,8 @@
 {
   "format": 1,
   "reviewedOn": "2026-10-05",
-  "boundary": "Reviewed protocol documentation and template-family examples. Templates supply governance files; agents, coding harnesses and execution tools are separate. Build digests verify reviewed bytes and reference coverage, not runtime enforcement.",
-  "contentSha256": "090a1fa8b299097d64b05c6cb1f36d4b198822dcbf689e184d2b963b3ed68c7f",
+  "boundary": "Independently versioned MDAAI protocol documentation and external named template releases. SourceReferences retain original reviewed historical hashes; current canonical template bytes are verified by the pinned catalog and explicit importer. Agents, harnesses and execution tools remain separate. Digests establish byte integrity, not runtime enforcement.",
+  "contentSha256": "4a7ca0b28890a9a41024e8058a1e029d2002f9707aee4e7e468a26c9b3a9f4f8",
   "sourceReferences": {
     "MDAAI 2.0: AGENTS.md": "f1a516f71d237ab741213a79997e3fc1edf98ce019d861dda92454934fd21374",
     "MDAAI 2.0: docs/ADOPTION.md": "2e7d10dc769494de9c98041da4e5f57f70c06c137113b934ba9460a24fd1a0a8",
@@ -55,7 +55,7 @@
     "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/GOTCHAS.md": "e18f91b030c63bb43a2bebf867ec84252e26451f6c0aa21b2cb47fd30ed55a86",
     "First-generation template: PROJECT-INTERNAL/KNOWLEDGE/ERROR-CATALOG.md": "a6c114bbb1db3ca83ba0e937782a047e19c549d08a329b1a1f4e58e5d074128c",
     "First-generation template: .template/agent-rules.yaml": "a991fa542005132cb49ee0a6a4f2c4588881d0977b0c9f97197929843fcb59f5",
-    "Public template catalog: templates.json": "409fd2ff4159b03b5775c2c24458ef84da8664c38b47b3bfe04e171738321ece"
+    "Public template catalog: templates.json": "f32197aa5dcf0423051735a22c79de8bb99338b9a78e4f20c5d923c59050df15"
   },
   "assets": {
     "assets/icon-192.png": "f201bc2b313677469128145a4e165e9ba2f5ecdfe80de8988a911106ae0af804",

@@ -25,7 +25,7 @@ node_modules/
 /.dircontxtignore
 /.github/dependabot.example
 /.github/workflows/.*.example
-/VERSION
+# VERSION is the independently versioned public protocol identity.
 /docs/index.md
 /eriscode.config.json
 /packages/

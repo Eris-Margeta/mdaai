@@ -246,7 +246,7 @@ class WebsiteTests(unittest.TestCase):
         routes = {p['route']: p for p in self.pages}
         original = json.dumps(routes['/mdaai-1/'])
         successor = json.dumps(routes['/mdaai-2/'])
-        for term in ('WORK-ORDERS/registry.json', 'work-order-template.md', 'CORRECTIVE/CWO-', 'ADR-NNN', 'Version 1.7', 'not a pristine', 'CHECKPOINTS/CP-', 'KNOWLEDGE/AGENTS.md', '.template/agent-rules.yaml', 'reconcile this contradiction'):
+        for term in ('WORK-ORDERS/registry.json', 'work-order-template.md', 'CORRECTIVE/CWO-', 'ADR-NNN', 'internal revision is 1.8', 'independent release is 1.0.1', 'CHECKPOINTS/CP-', 'KNOWLEDGE/AGENTS.md', '.template/agent-rules.yaml', 'Closed WOs'):
             self.assertIn(term, original)
         for term in ('no routine per-edit WO', 'fresh registry', 'not the portable adoption inventory', 'Completed/void records', 'rollback'):
             self.assertIn(term, successor)

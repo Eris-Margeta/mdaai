@@ -39,9 +39,66 @@ class FeedTests(unittest.TestCase):
         return gzip.compress(stream.getvalue())
 
     def test_reviewed_inventory(self):
-        self.assertEqual(len(self.files), 105)
-        self.assertEqual([len(t['files']) for t in self.catalog['templates']], [89, 16])
+        self.assertEqual(len(self.files), 109)
+        self.assertEqual([len(t['files']) for t in self.catalog['templates']], [91, 18])
         self.assertEqual(feed.sha((self.site / 'templates.catalog.json').read_bytes()), self.lock['manifestSha256'])
+
+    def test_additive_provenance_and_paper_rejection(self):
+        original = json.loads((self.site / 'templates.catalog.json').read_bytes())
+        catalog = json.loads(json.dumps(original))
+        metadata = {'historicalRevision': None, 'note': 'Historical origin only'}
+        catalog['templates'][0]['sourceProvenance'] = metadata
+        raw = json.dumps(catalog).encode()
+        (self.site / 'templates.catalog.json').write_bytes(raw)
+        (self.site / 'templates.lock.json').write_text(json.dumps(dict(self.lock, manifestSha256=feed.sha(raw))))
+        self.assertEqual(feed.load_catalog(self.site)[1]['templates'][0]['sourceProvenance'], metadata)
+        for path in ('templates/mdaai-1/research-paper/source.tex', 'templates/mdaai-1/private.pdf'):
+            bad = json.loads(json.dumps(original))
+            bad['templates'][0]['files'][0]['path'] = path
+            raw = json.dumps(bad).encode()
+            (self.site / 'templates.catalog.json').write_bytes(raw)
+            (self.site / 'templates.lock.json').write_text(json.dumps(dict(self.lock, manifestSha256=feed.sha(raw))))
+            with self.subTest(path=path), self.assertRaisesRegex(ValueError, 'Private paper'):
+                feed.load_catalog(self.site)
+
+    def test_independent_released_identity(self):
+        template = self.catalog['templates'][0]
+        prefix = 'templates/' + template['id'] + '/'
+        identity = {'schemaVersion': 1, 'templateName': 'MDAAI 1.0',
+                    'releaseVersion': template['templateVersion'], 'releaseStatus': 'RELEASE',
+                    'protocolVersion': None, 'sourceProvenance': {'historicalRevision': None}}
+        payloads = {prefix + 'VERSION': template['templateVersion'].encode(),
+                    prefix + 'TEMPLATE-IDENTITY.json': json.dumps(identity).encode()}
+        feed.verify_identity(template, payloads)
+        for key, bad in [('releaseVersion', '9.0.0'), ('releaseStatus', 'CANDIDATE'),
+                         ('protocolVersion', template['templateVersion']), ('schemaVersion', 9)]:
+            mutated = dict(identity, **{key: bad})
+            payloads[prefix + 'TEMPLATE-IDENTITY.json'] = json.dumps(mutated).encode()
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, 'identity'):
+                feed.verify_identity(template, payloads)
+
+    def test_canonical_source_failure_precedes_activation(self):
+        template = self.catalog['templates'][0]
+        prefix = 'templates/' + template['id'] + '/'
+        payloads = {f['path']: b'catalog bytes' for f in template['files']}
+        wrong = {f['path'][len(prefix):]: b'wrong bytes' for f in template['files']}
+        with patch.object(feed, 'archive_payloads', return_value=wrong), self.assertRaisesRegex(ValueError, 'source payload'):
+            feed.verify_sources({'templates': [template]}, payloads, lambda *args: b'archive fixture')
+
+    def test_documented_pin_and_privacy(self):
+        if (feed.SITE.parent / 'docs/publication/templates.md').exists():
+            docs = (feed.SITE.parent / 'docs/publication/templates.md').read_text()
+            for value in (self.lock['revision'], self.lock['manifestSha256'], str(self.lock['fileCount'])):
+                self.assertIn(value, docs)
+        if (feed.SITE.parent / '.dockerignore').exists():
+            docker = (feed.SITE.parent / '.dockerignore').read_text()
+            self.assertTrue(docker.startswith('*\n'))
+            self.assertNotIn('!PROJECT-INTERNAL', docker)
+            self.assertNotIn('!research-paper', docker)
+        with patch.object(build, 'OUT', self.site / 'dist'):
+            build.build()
+        paths = [str(p.relative_to(self.site / 'dist')) for p in (self.site / 'dist').rglob('*')]
+        self.assertFalse(any('research-paper' in p or 'PROJECT-INTERNAL' in p or p.endswith('.pdf') for p in paths))
 
     def test_retired_provider_pointer_rejected(self):
         catalog = json.loads((self.site / "templates.catalog.json").read_text())
@@ -145,7 +202,7 @@ class FeedTests(unittest.TestCase):
         payloads = {p: self.data for p in self.files}
         files = {p: dict(f, size=len(self.data), sha256=feed.sha(self.data)) for p, f in self.files.items()}
         manifest = (self.site / 'templates.catalog.json').read_bytes()
-        with patch.object(feed, 'load_catalog', return_value=(self.lock, self.catalog, files)), patch.object(feed, 'archive_payloads', return_value=payloads):
+        with patch.object(feed, 'load_catalog', return_value=(self.lock, self.catalog, files)), patch.object(feed, 'archive_payloads', return_value=payloads), patch.object(feed, 'verify_sources'):
             feed.sync(self.site, lambda url, allowed, limit: manifest)
             pointer = self.site / '.template-cache/current.json'
             before = pointer.read_bytes()

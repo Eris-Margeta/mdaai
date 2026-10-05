@@ -1,24 +1,30 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "0.1.0",
+  "catalogVersion": "0.1.1",
   "repository": "Eris-Margeta/mdaai-templates",
   "templates": [
     {
       "id": "mdaai-1",
       "title": "MDAAI 1.0 \u2014 first-generation family",
       "description": "Work Orders, lifecycle protocols, checkpoints, schemas and blank project scaffolds.",
-      "templateVersion": "1.0.0+ec57688",
+      "templateVersion": "1.0.1",
       "protocol": {
-        "identity": "First-generation MDAAI; AI-INSTRUCTIONS subject 1.7"
+        "identity": "Independent named template MDAAI 1.0; standalone protocol separately versioned; constitution internal revision 1.8"
       },
       "source": {
         "repository": "Eris-Margeta/mdaai-template-1",
-        "revision": "15b1842450919200766ad068fe1ad770bd174143"
+        "revision": "3263e95a30dee5c1699568f9f5bf8e493208d3b1"
       },
       "status": "review-before-adoption",
       "complete": false,
       "entrypoint": "templates/mdaai-1/AGENTS.md",
       "files": [
+        {
+          "path": "templates/mdaai-1/.gitattributes",
+          "sha256": "06e95330e5fabe5da68cce58ac597c955789dfede84e287f120b9d0fd8c0c031",
+          "size": 277,
+          "role": "required"
+        },
         {
           "path": "templates/mdaai-1/.github/dependabot.example",
           "sha256": "03fcb1e13a1ea57e84b4ebc76db876d1bf0a1cd7807e38200b1904cd9b36269a",
@@ -57,8 +63,8 @@
         },
         {
           "path": "templates/mdaai-1/.template/agent-rules.yaml",
-          "sha256": "a991fa542005132cb49ee0a6a4f2c4588881d0977b0c9f97197929843fcb59f5",
-          "size": 13945,
+          "sha256": "3ad8016201968c13aa9d38a135fac596afb63befa499ce7af148977c6e33a997",
+          "size": 15057,
           "role": "required"
         },
         {
@@ -75,20 +81,20 @@
         },
         {
           "path": "templates/mdaai-1/.template/scripts/validate.sh",
-          "sha256": "7236ca6e71f519be3991376583f59b12ce812a096d441c90d245a18e793823ba",
-          "size": 8050,
+          "sha256": "13eb76fc4a46a1fe64e7aa1f9287737b091769e11ca2254b005f760fa594a0a5",
+          "size": 8065,
           "role": "optional"
         },
         {
           "path": "templates/mdaai-1/.template/sync-manifest.yaml",
-          "sha256": "eaf7aac67b32e5be28e01772ce84467474d89f2368ae573896c4430d3c895645",
-          "size": 5488,
+          "sha256": "46bec8bf2c836790bcf3ca635e5d7f64466fb1ab138c3bc6f02fbc732542b87d",
+          "size": 5609,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/AGENTS.md",
-          "sha256": "26d90696832acef61d428f68931f483d5efe1f4ac8095c8329aa4afea388251a",
-          "size": 8068,
+          "sha256": "1f5ad145f5584874c2dcbb0a7fb272ee42de6874de61bdea2c3f2700c51f7fdd",
+          "size": 9235,
           "role": "required"
         },
         {
@@ -117,38 +123,38 @@
         },
         {
           "path": "templates/mdaai-1/NOTICE",
-          "sha256": "f14ad062071a1f15472d715a3e2dcaf8942a518ce08faa8af6a9b23744cc519f",
-          "size": 323,
+          "sha256": "0c3954403e3ff7528f105f583a089acad0fd9c1284dd4ab702877a50cb7eaafa",
+          "size": 1511,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/AGENTS.md",
-          "sha256": "ab8964b710c4adc549d6d5a3867522910c66878684f8a6585d894e038097478b",
-          "size": 3950,
+          "sha256": "65671624f3809be021d3c8bc238110a166542eeb5caa00aad7b83b11b1d2dd32",
+          "size": 5066,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/AI/AGENTS.md",
-          "sha256": "0281eb67bfce2f223f205e1c0cbd02a9a0d20a358bdf15f8bcfa0b2899cd1398",
-          "size": 2439,
+          "sha256": "3e7511add669e3a8a216b6be57f45d68c5cb983594ca9457aed86f50b7677c64",
+          "size": 3663,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/AI/functions/registry.json",
-          "sha256": "26f0830c540d90622037bb32e4a00ff80baa76e74064e065cd22c766c687c09b",
-          "size": 6005,
+          "sha256": "b2422934d0dcb79ad1e48c9b2282ba36124357420c9bbdf3f917a7a23f9aa239",
+          "size": 18176,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/AI/functions/reporting.json",
-          "sha256": "891e8b337dcf8d922e0ed6dafa5d9e6f6b204ef2e78386932cb4b57967e321ff",
-          "size": 7289,
+          "sha256": "c097bb34c2d88d37f4ab00896b3d82b13b9d114b3f1abdf263e5aafaa9ed670d",
+          "size": 8871,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/AI/functions/work-orders.json",
-          "sha256": "4584cc00e85c759be5e9f51fda8df8dbd573f4978ecf3cf61e7788eb8661ad26",
-          "size": 11445,
+          "sha256": "4fd6bf3d25fcc527cc4d9a3e74b25dc3ee9ccbbf34999633d6f12adc17b931a4",
+          "size": 21392,
           "role": "required"
         },
         {
@@ -189,8 +195,8 @@
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/CHECKPOINTS/checkpoint-template.md",
-          "sha256": "7923156d37cfee258e528eddd0d62c2eb24bb12126c359801fcaa2c5c67687dc",
-          "size": 4743,
+          "sha256": "66fcf79b6db3fed16d7f4b5d382a290aa48f7a76c8f637a9cacb5936441d3226",
+          "size": 4742,
           "role": "required"
         },
         {
@@ -201,14 +207,14 @@
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/AGENTS.md",
-          "sha256": "c91e228fd0e3c7e1b7fa45a9d49f28678ea4e7a0636be28f783210576c78dad1",
-          "size": 2037,
+          "sha256": "a6119b1597fc5194894631c8b51d95c9433bcc2c9ae5de18198d98418045d7ef",
+          "size": 3149,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/AI-INSTRUCTIONS.md",
-          "sha256": "f264ce505ec1e31c3f435b6f63164f6b2783dd3f97e254673e6086c97685aa86",
-          "size": 20854,
+          "sha256": "5a8aaf6caf7f90e28023a0b4000ec9a8d05bc8e2945d7ab7910c7359f83a0e72",
+          "size": 20849,
           "role": "required"
         },
         {
@@ -237,14 +243,14 @@
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/MULTI-AGENT-PROTOCOL.md",
-          "sha256": "585cf513bf8efdfd213664844eedde380d9412ce7618cfe402aa638da4be1657",
-          "size": 9854,
+          "sha256": "04dbf6ffc2905482e0b7540e6a1b96fa74f1e1adc4fb8725602c766de3b0fa01",
+          "size": 10389,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/GOVERNANCE/WORK-ORDER-PROTOCOL.md",
-          "sha256": "125708f7c9851f030fc3ac8064e7ecca06b7bf025e8094f882826d1e0d00123b",
-          "size": 8908,
+          "sha256": "9bc902addc3bd35f5087aa9a0b5ed3c2b933d85024040e5c0604cdb9e5cb146d",
+          "size": 7478,
           "role": "required"
         },
         {
@@ -297,8 +303,8 @@
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/GUIDES/RUST-ENTERPRISE-CODE-DOCTRINE.md",
-          "sha256": "e31f04b163c4c4a551e0b71460aef53d5d86501bd4a4af64cd71b80cd6a879e7",
-          "size": 8556,
+          "sha256": "e9f117212b425307363b19c48f27f66129e066e4e4da97439101309eb61c607e",
+          "size": 8553,
           "role": "optional"
         },
         {
@@ -309,8 +315,8 @@
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/KNOWLEDGE/AGENTS.md",
-          "sha256": "31e783759b329d937759750d8ffeee26c25881aabf1376c427a1fa109e127284",
-          "size": 2763,
+          "sha256": "eeadb08e9366c8248d8ad8aefdbf6c7ddd1af30d63af855e3a92c8fe34a1ea4b",
+          "size": 2776,
           "role": "required"
         },
         {
@@ -345,8 +351,8 @@
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/MANAGEMENT/AGENTS.md",
-          "sha256": "f693bade9e7b1713560e88b2ee72c5bcfe1fe46de0a3542be03b27c3685700a6",
-          "size": 2858,
+          "sha256": "cb621bb0de13c87151b6245b1c4446ca4821d97e80f2bd943314e0bfa4de2f3b",
+          "size": 3932,
           "role": "required"
         },
         {
@@ -357,8 +363,8 @@
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/MANAGEMENT/PROJECT-ELABORATION.md",
-          "sha256": "58b5476825e6013856bc33de6658c14473968443a5ab10374a603234b7f050e2",
-          "size": 3429,
+          "sha256": "63cf60d668b7bb41ab484e46e4d91dcd3f24e68fb1cf637d6e70bea58183d368",
+          "size": 3982,
           "role": "required"
         },
         {
@@ -405,38 +411,38 @@
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/WORK-ORDERS/AGENTS.md",
-          "sha256": "4efbdb2094bb580fca1789380918e0de7b9af6ae77a22bff44c2dc8f12db9ebc",
-          "size": 2855,
+          "sha256": "4e5ec7f382eb0fd3394fb9d5738cfb8775cec47874402c51230829a3e847fd50",
+          "size": 2350,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/WORK-ORDERS/CORRECTIVE/corrective-work-order-template.md",
-          "sha256": "fa7c42ef251da7669cd0efdcc62bf29220ebd6d9cd6f48287be4e4dc25141f45",
-          "size": 2663,
+          "sha256": "57093d1269a2ff63d6b6bef6b40ca9b7a09eb31e556f9c7bddb49cb74205a986",
+          "size": 2730,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/WORK-ORDERS/registry.json",
-          "sha256": "804174387aac441e81dfdf306ce2dde9a11fe29d5cc1f9017ca7eebada6447ec",
-          "size": 395,
+          "sha256": "d1dbefa8f32f24e58a8660a62ccbd305f3e786ba3c3e3e69c71c3e9914ac3b52",
+          "size": 641,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/PROJECT-INTERNAL/WORK-ORDERS/work-order-template.md",
-          "sha256": "43112190393fe4bfb34592004d6cccbf1c18f79d278570fe8b2c769585bf9812",
-          "size": 10570,
+          "sha256": "6d2b2a5ad11b17e761e6ae756db72aad0aa7af754733e73486f6a6dddca80ef9",
+          "size": 2429,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/README.md",
-          "sha256": "b608797f7cd530ca6b138abd974fee10e88d4d9afbc972f26d272e87339bf1b7",
-          "size": 1705,
+          "sha256": "5038e8e4a791393f6e873314d8f3880b15a6ec7c4fa94a326951e4cff204c773",
+          "size": 2365,
           "role": "required"
         },
         {
           "path": "templates/mdaai-1/README.source.md",
-          "sha256": "439eba8a31732b688df335cceabbb18f4e8b6f7331bfb3f47d2e35a1e3252f9d",
-          "size": 8427,
+          "sha256": "f239b46de7029f7946268a2fbc3581a07291e6c4cec8b86077e091dca9ed2591",
+          "size": 9883,
           "role": "required"
         },
         {
@@ -446,8 +452,14 @@
           "role": "required"
         },
         {
+          "path": "templates/mdaai-1/TEMPLATE-IDENTITY.json",
+          "sha256": "4a5bcb43f6493cc173ec61b031543d844030b23727df3c23fa7dee0602120bf5",
+          "size": 508,
+          "role": "required"
+        },
+        {
           "path": "templates/mdaai-1/VERSION",
-          "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+          "sha256": "44e161e4495cac2cf7858043e9e6418e9579f0ddcfae826f9a372622968ce066",
           "size": 6,
           "role": "required"
         },
@@ -543,8 +555,8 @@
         },
         {
           "path": "templates/mdaai-1/project-meta.yaml",
-          "sha256": "f34bf31eec1d37b421706bce27a6dc2ec753a4ee78ab6e6f7c7bb9d6462871f2",
-          "size": 1827,
+          "sha256": "f230f045d29ce04772e10ae411ea4537d5fe254dcb08fafa682158dadfab3097",
+          "size": 1910,
           "role": "required"
         },
         {
@@ -565,13 +577,13 @@
       "id": "mdaai-2",
       "title": "MDAAI 2.0",
       "description": "Six-file operating contract, fresh task registry and uninitialized project scope.",
-      "templateVersion": "2.0.0+5395006",
+      "templateVersion": "2.0.1",
       "protocol": {
-        "identity": "MDAAI 2.0 portable operating contract"
+        "identity": "Independent named template MDAAI 2.0; standalone protocol separately versioned"
       },
       "source": {
         "repository": "Eris-Margeta/mdaai-template-2",
-        "revision": "a565beb7542288fbe8091ba30f4c2ffe480a9b67"
+        "revision": "3ae05fb46d92caf93d4ba63f6ddc6b95c04d6ea0"
       },
       "status": "review-before-adoption",
       "complete": false,
@@ -651,8 +663,20 @@
         },
         {
           "path": "templates/mdaai-2/README.md",
-          "sha256": "f6932283072f1dd11070886e9b1372dc3479b940da7ec061ba252a7a4c0d2baf",
-          "size": 1783,
+          "sha256": "c105681c44dc27ec3e348a2421d8ab02f19d357504d60c6d52823c0efa742a67",
+          "size": 2361,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-2/TEMPLATE-IDENTITY.json",
+          "sha256": "30bd0f177b9959375884cb3fb164febb7578a11aa394a1ea72eb048944986fa2",
+          "size": 540,
+          "role": "required"
+        },
+        {
+          "path": "templates/mdaai-2/VERSION",
+          "sha256": "fe840f52fb5578d3f77eb497115eb02c6036601c3a53e60df7995c7276baa77a",
+          "size": 6,
           "role": "required"
         },
         {
