@@ -5,7 +5,7 @@ import html
 import json
 import re
 import base64
-from seo import metadata, video_section, graph, BASE, AUTHOR
+from seo import metadata, video_section, graph, BASE, AUTHOR, page_title
 from templates_feed import load_catalog, read_cache, emit_payloads
 from templates_view import cycle, gallery
 from identity import emit_manifest
@@ -23,15 +23,15 @@ def layer_diagram():
 
 
 def header():
-    return '<a class="skip" href="#main">Skip to content</a><header class="header"><a class="brand" href="/"><img class="brand-logo logo-light" src="/assets/brand/logo-black.svg" width="28" height="28" alt=""><img class="brand-logo logo-dark" src="/assets/brand/logo-white.svg" width="28" height="28" alt="">MDAAI</a><span class="header-note">Repository documentation</span><div class="tools"><a class="templates-repo" href="/templates/">TEMPLATES</a><a class="templates-repo github-repo" href="https://github.com/Eris-Margeta/mdaai" aria-label="MDAAI repository on GitHub (external)"><svg aria-hidden="true" focusable="false" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"/></svg><span>GH</span></a><button class="menu" type="button" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="docs-nav">☰</button></div></header>'
+    return '<a class="skip" href="#main">Skip to content</a><header class="header"><a class="brand" href="/"><img class="brand-logo logo-light" src="/assets/brand/logo-black.svg" width="28" height="28" alt=""><img class="brand-logo logo-dark" src="/assets/brand/logo-white.svg" width="28" height="28" alt="">MDAAI</a><span class="header-note">Protocol documentation</span><div class="tools"><a class="templates-repo" href="/templates/">TEMPLATES</a><a class="templates-repo github-repo" href="https://github.com/Eris-Margeta/mdaai" aria-label="MDAAI repository on GitHub (external)"><svg aria-hidden="true" focusable="false" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"/></svg><span>GH</span></a><button class="menu" type="button" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="docs-nav">☰</button></div></header>'
 
 
 def footer():
-    return '<footer class="footer"><p>MDAAI · Repository operating protocol</p><section class="tejl" aria-label="Website creation and TEJL contact"><span>WEB made by</span><a class="tejl-mark" href="https://tejl.hr/" aria-label="TEJL — tejl.hr"><img class="tejl-light" src="/assets/tejl/tejl-logo-off-black.svg" width="68" height="35" alt=""><img class="tejl-dark" src="/assets/tejl/tejl-logo-off-white.svg" width="68" height="35" alt=""></a><span>Web studio contact: <a href="tel:+385998361079">+385 99 836 1079</a></span><span class="tejl-domains"><a href="https://tejl.hr/">tejl.hr</a> · <a href="https://tejl.com/">tejl.com</a></span></section></footer>'
+    return '<footer class="footer"><p>MDAAI · A protocol for AI-assisted development</p><section class="tejl" aria-label="Website creation and TEJL contact"><span>WEB made by</span><a class="tejl-mark" href="https://tejl.hr/" aria-label="TEJL — tejl.hr"><img class="tejl-light" src="/assets/tejl/tejl-logo-off-black.svg" width="68" height="35" alt=""><img class="tejl-dark" src="/assets/tejl/tejl-logo-off-white.svg" width="68" height="35" alt=""></a><span>Web studio contact: <a href="tel:+385998361079">+385 99 836 1079</a></span><span class="tejl-domains"><a href="https://tejl.hr/">tejl.hr</a> · <a href="https://tejl.com/">tejl.com</a></span></section></footer>'
 
 
 def shell(title, description, body, cls='', route=None):
-    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(title)} · MDAAI</title><meta name="description" content="{E(description)}">{metadata(title, description, route)}<meta name="color-scheme" content="light dark"><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/publication.css"><script src="/assets/app.js" defer></script><script src="/assets/pwa.js" defer></script></head><body class="{cls}">{header()}<nav class="section-bar" aria-label="Page sections"><label for="section-jump">On this page</label><select id="section-jump" aria-label="Jump to section"><option value="">Overview</option></select><button class="search-open" type="button">Search <kbd>⌘ K</kbd></button><button class="theme" type="button" aria-label="Switch color theme">◐</button></nav>{body}<dialog id="search-dialog" aria-labelledby="search-title"><div class="search-heading"><h2 id="search-title">Search documentation</h2><button id="search-close" type="button" aria-label="Close search">×</button></div><label for="search-input">Find a file, relationship or task rule</label><input id="search-input" type="search" autocomplete="off" placeholder="Try TASKS.json or supersession"><p id="search-status" role="status" aria-live="polite">Search runs locally. No query leaves your browser.</p><div id="search-results"></div><small>↑ ↓ move · Enter open · Esc close</small></dialog></body></html>'''
+    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(page_title(title, route))}</title><meta name="description" content="{E(description)}">{metadata(title, description, route)}<meta name="color-scheme" content="light dark"><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/publication.css"><script src="/assets/app.js" defer></script><script src="/assets/pwa.js" defer></script></head><body class="{cls}">{header()}<nav class="section-bar" aria-label="Page sections"><label for="section-jump">On this page</label><select id="section-jump" aria-label="Jump to section"><option value="">Overview</option></select><button class="search-open" type="button">Search <kbd>⌘ K</kbd></button><button class="theme" type="button" aria-label="Switch color theme">◐</button></nav>{body}<dialog id="search-dialog" aria-labelledby="search-title"><div class="search-heading"><h2 id="search-title">Search documentation</h2><button id="search-close" type="button" aria-label="Close search">×</button></div><label for="search-input">Find a file, relationship or task rule</label><input id="search-input" type="search" autocomplete="off" placeholder="Try TASKS.json or supersession"><p id="search-status" role="status" aria-live="polite">Search runs locally. No query leaves your browser.</p><div id="search-results"></div><small>↑ ↓ move · Enter open · Esc close</small></dialog></body></html>'''
 
 
 
@@ -90,7 +90,8 @@ def build(include_templates=False):
     previous_group = None
     for page in pages:
         if page['group'] != previous_group:
-            nav += f'<p class="nav-group">{E(page["group"])}</p>'
+            if page['group'] != page['title']:
+                nav += f'<p class="nav-group">{E(page["group"])}</p>'
             previous_group = page['group']
         nav += f'<a href="{page["route"]}">{E("What it is" if page["route"] == "/" else page["title"])}</a>'
     for i, page in enumerate(pages):
@@ -103,7 +104,9 @@ def build(include_templates=False):
             if not re.fullmatch('[a-z0-9-]+', anchor):
                 raise ValueError('unsafe anchor')
             toc += f'<a href="#{anchor}">{E(section["title"])}</a>'
-            sections += f'<section id="{anchor}"><h2><a class="heading-anchor" href="#{anchor}">{E(section["title"])}</a></h2><p>{E(section["text"])}</p>'
+            sections += f'<section id="{anchor}">' + ('<span id="choose-template" aria-hidden="true"></span><span id="choose" aria-hidden="true"></span>' if anchor == 'catalog' and url == '/templates/' else '') + f'<h2><a class="heading-anchor" href="#{anchor}">{E(section["title"])}</a></h2>'
+            if section['text']:
+                sections += f'<p>{E(section["text"])}</p>'
             if anchor == 'catalog' and url == '/templates/':
                 sections += gallery(lock, catalog, page['catalogPresentation'], include_templates)
             if section.get('diagram'):
@@ -147,7 +150,7 @@ def build(include_templates=False):
         body = f'<div class="docs-layout"><aside id="docs-nav"><nav aria-label="Documentation">{current_nav}</nav></aside><main id="main" tabindex="0" aria-label="Documentation content"><article class="article">{intro}{sections}{video}{source_note}{pagination}</article>{footer()}</main></div>'
         target = OUT / page['route'].strip('/')
         target.mkdir(parents=True, exist_ok=True)
-        (target / 'index.html').write_text(shell(page['title'], page['description'], body, 'docs', url))
+        (target / 'index.html').write_text(shell(page['title'], page['description'], body, 'docs templates-directory' if url == '/templates/' else 'docs', url))
     for entry in search:
         if entry['url'] == '/templates/#catalog':
             entry['text'] += ' ' + ' '.join(catalog_files)

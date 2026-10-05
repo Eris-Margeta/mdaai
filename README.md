@@ -1,27 +1,24 @@
 # MDAAI
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="website/assets/brand/logo-white.svg">
-  <source media="(prefers-color-scheme: light)" srcset="website/assets/brand/logo-black.svg">
-  <img alt="MDAAI original dragon emblem" src="website/assets/brand/logo-black.svg" width="96" height="96">
-</picture>
-
-<p align="center"><img src="website/assets/og.png" width="100%" alt="MDAAI: contracts, one task-state owner, and real evidence"></p>
+<p align="center"><img src="website/assets/identity/v3-mdaai-og-static.png" width="100%" alt="MDAAI — A protocol for AI-assisted development; engraved mythical guardian, credited E.M.K."></p>
 <p align="center">
-<a href="https://github.com/Eris-Margeta/mdaai/actions/workflows/website.yml"><img src="https://github.com/Eris-Margeta/mdaai/actions/workflows/website.yml/badge.svg" alt="Actual website checks status"></a>
-<img src="https://img.shields.io/badge/documentation-7%20pages-23654b" alt="Seven documentation pages">
-<img src="https://img.shields.io/badge/video-91.3%20seconds-23654b" alt="91.3-second explainer">
-<img src="https://img.shields.io/badge/scope-documentation%2C%20not%20enforcement-59675e" alt="Documentation, not automatic enforcement">
+<img src="https://img.shields.io/badge/SCOPE-PROTOCOL-59675e" alt="SCOPE: PROTOCOL">
+<a href="https://github.com/Eris-Margeta/mdaai/actions/workflows/website.yml"><img src="https://github.com/Eris-Margeta/mdaai/actions/workflows/website.yml/badge.svg" alt="Website checks status"></a>
 </p>
 
-**A repository-based operating protocol for human-directed AI development.** Ordinary files define authority, scope, current work, evidence, and recoverable history.
+**MDAAI is a protocol for governing AI-assisted development.**
 
-By **Eris Margeta Kurdali** · [Documentation website](https://www.mdaai.internet.technology) · **[Templates directory](https://www.mdaai.internet.technology/templates/)** · [Watch the explainer](https://www.mdaai.internet.technology/#explainer) · [Rights and inherited notices](LICENSE)
+To apply the protocol, choose and configure a template. A template supplies the concrete governance files; agents, coding harnesses and execution tools are separate layers.
 
-> [!IMPORTANT]
-> This is the curated documentation and website source, **not** the private Onion Governance implementation, a universal installer, or proof that an AI agent obeys instructions. The endpoint task in the documentation is illustrative, not a product implementation claim.
+MDAAI defines rules for authority, scope, evidence, history and review. This repository publishes the protocol documentation—not a coding harness or execution system.
 
-## Read the system
+**[Choose a template](https://www.mdaai.internet.technology/templates/)** · **[GitHub template index](https://github.com/Eris-Margeta/mdaai-templates)** · **[Submit a template](https://github.com/Eris-Margeta/mdaai-templates/blob/main/CONTRIBUTING.md)**
+
+To propose a listing, follow the catalog’s contribution requirements and [submit a pull request to the index](https://github.com/Eris-Margeta/mdaai-templates/pulls). Templates are reviewed before being featured; submitting does not guarantee admission.
+
+By **Eris Margeta Kurdali** · [Read the protocol](https://www.mdaai.internet.technology/) · [Watch the overview](https://www.mdaai.internet.technology/#explainer) · [Rights and inherited notices](LICENSE)
+
+## Read the protocol
 
 | Guide | What it explains |
 |:--|:--|
@@ -32,7 +29,7 @@ By **Eris Margeta Kurdali** · [Documentation website](https://www.mdaai.interne
 | [Original MDAAI](https://www.mdaai.internet.technology/mdaai-1/) | Work Orders, corrective records, decisions and the editing-rule conflict |
 | [MDAAI 2.0](https://www.mdaai.internet.technology/mdaai-2/) | Smaller portable core, fresh registry and project-by-project adoption |
 
-## Two generations, one accountability goal
+## Two template families, one protocol
 
 | | Original MDAAI | MDAAI 2.0 |
 |:--|:--|:--|
@@ -46,28 +43,23 @@ By **Eris Margeta Kurdali** · [Documentation website](https://www.mdaai.interne
 > [!NOTE]
 > MDAAI 2.0 reduces routine paperwork, **not accountability**. Local permissions and stronger inherited rules still apply. A structural checker is not semantic acceptance or proof of live adoption.
 
-## How the files connect
+## From protocol to project governance
 
 ```mermaid
 flowchart TD
-    H[Human-directed task] --> A[AGENTS.md: operating contract]
-    A --> G[Five governance documents]
-    A --> T[TASKS.json: assigned task]
-    T -->|scopeRef| P[PROJECT-ELABORATION.md: scope and sequence]
-    T -->|evidence references| E[Project-selected evidence]
-    O[Single task owner] -->|updates active row| T
-    O --> C[Product code and tests]
-    C --> R[Actual execution results]
-    R --> E
-    T --> D{Durable record needed?}
-    D -->|yes| L[Decision, handoff or corrective record]
-    T --> F[Preserved terminal result]
-    F --> S[Linked superseding correction]
+    P[MDAAI protocol: authority, scope, evidence and review] --> T[Choose and configure a template]
+    T --> G[Project governance files]
+    subgraph X[Separate execution layers]
+        A[Development agents] --> H[Coding harnesses and execution tools]
+        H --> R[Product changes and actual verification]
+    end
+    G -. instructions and constraints .-> A
+    R -. evidence for review .-> G
 ```
 
 ### Portable MDAAI 2.0 core
 
-This is the **documented adoption inventory**, not a claim that this website repository installs those governance files.
+The following inventory belongs to the **MDAAI 2.0 template family**, not to every implementation of the protocol. Configure the selected template for your project before use.
 
 ```text
 AGENTS.md                                      operating contract
@@ -102,11 +94,11 @@ flowchart LR
 
 These are relationships, not invented registry states. Blocked and deferred are different dispositions. An unavailable tool must never be replaced with simulated success.
 
-## Watch the file-map explainer
+## Having difficulty reading? Watch the 91-second overview.
 
 [![MDAAI original and 2.0: play the explainer](website/assets/media/thumbnail.png)](https://www.mdaai.internet.technology/#explainer)
 
-**English narration · 1080 × 1080 · H.264/AAC · 91.3 seconds.** The website has native controls and English captions. GitHub Markdown shows a linked poster, not autoplay.
+Narration and captions offer another way to explore the two template families. In this existing overview, “2.0” refers to the MDAAI 2.0 template family; its file inventory is not a universal requirement of the protocol. The website has native controls and English captions; GitHub shows a linked poster. The existing video is 91.3 seconds.
 
 [MP4](website/assets/media/mdaai-original-and-2.mp4) · [SRT captions](website/assets/media/mdaai-original-and-2.srt) · [WebVTT](website/assets/media/mdaai-original-and-2.vtt) · [Narration script](docs/publication/video-script.md)
 
@@ -129,7 +121,9 @@ Dockerfile / nginx.conf       unprivileged production service
 
 ### Build and verify
 
-The exact development/build/test interpreter is Python 3.13.14, shared with the public template repositories in `.python-version`. The `just` commands use its official Alpine container, so Docker and Node.js 22+ are required; no global Python changes or Python/Node package installs are needed for an ordinary build. Direct script invocation requires that same interpreter. The production runtime is unprivileged Nginx, not Python.
+The exact development/build/test interpreter is Python 3.13.14, shared with the public template repositories in `.python-version`. The `just` commands use its official Alpine container, so Docker is required; `just test` also needs Node.js for the dependency-free JavaScript checks. No Python/Node package installs are needed for an ordinary build. Direct script invocation requires that same interpreter. The production runtime is unprivileged Nginx, not Python.
+
+Browser regressions use the pinned TesterArmy packages in `package-lock.json` and require Node.js 22.12.0 or newer. Install them with `npm ci`, install Chromium with `npx playwright install chromium`, then run `E2E_BASE_URL=http://127.0.0.1:8771 npm run test:e2e` against the production-equivalent container below. These browser-test dependencies are separate from an ordinary static build.
 
 ```sh
 just build

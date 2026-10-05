@@ -3,7 +3,7 @@
 Build integration: emit_manifest(OUT). Copy only files in inventory['assets']
 through the reviewed provenance allowlist. Normal imports need Python stdlib only.
 Regenerate: Python + Pillow==12.1.0, `python3 -B website/identity.py --generate`.
-Pillow's embedded default Aileron font avoids host font dependencies. The approved
+Pinned, embedded DejaVu Serif fonts avoid host font dependencies. The approved
 native cover plate is aspect-fitted deterministically, never replaced by a new animal.
 Generation does not change the approved guardian cover or source SVGs.
 """
@@ -13,17 +13,17 @@ import json
 
 SITE = Path(__file__).resolve().parent
 ASSET_ROOT = 'assets/identity'
-VERSION = 'v2'
+VERSION = 'v3'
 THEME_DARK = '#161b21'
 THEME_LIGHT = '#f8f9fa'
 COVER_SHA256 = 'fee7149b09f5fdc922646a1356026af2bc0747dc586aa579b4842d977d82f22d'
 ROUTES = {
-    '/': ('mdaai', 'MDAAI', 'Repository operating protocol'),
+    '/': ('mdaai', 'MDAAI', 'A protocol for AI-assisted development'),
     '/repository-structure/': ('structure', 'Repository structure', 'Contracts, tasks and evidence'),
     '/how-files-work-together/': ('connections', 'How files work together', 'Instructions to evidence'),
     '/task-lifecycle/': ('lifecycle', 'Task lifecycle', 'Assigned work to verified completion'),
-    '/mdaai-1/': ('mdaai-1', 'First-generation MDAAI', 'The original repository template'),
-    '/mdaai-2/': ('mdaai-2', 'MDAAI 2.0', 'The portable core'),
+    '/mdaai-1/': ('mdaai-1', 'First-generation template', ''),
+    '/mdaai-2/': ('mdaai-2', 'MDAAI 2.0 template', ''),
     '/templates/': ('templates', 'Templates', 'Reviewed repository starting points'),
 }
 
@@ -34,7 +34,7 @@ def social_assets(route):
     prefix = '/' + ASSET_ROOT + '/' + VERSION + '-' + slug + '-'
     return {'static': prefix + 'og-static.png', 'animated': prefix + 'og-animated.gif',
             'large': prefix + 'twitter-large.png', 'summary': prefix + 'twitter-summary.png',
-            'alt': 'MDAAI engraved guardian book-cover artwork — ' + title + '; ' + subtitle}
+            'alt': title + (' — ' + subtitle if route == '/' else ' — MDAAI protocol documentation') + '; engraved guardian artwork, E.M.K.'}
 
 
 def icon_metadata():
@@ -59,7 +59,7 @@ def manifest():
             name = ('icon-maskable-' if purpose == 'maskable' else 'icon-') + str(size) + '.png'
             icons.append({'src': '/' + ASSET_ROOT + '/' + name, 'sizes': f'{size}x{size}', 'type': 'image/png', 'purpose': purpose})
     return {'id': '/', 'name': 'MDAAI Documentation', 'short_name': 'MDAAI',
-            'description': 'Repository operating protocol: contracts, tasks, evidence and reviewed templates.',
+            'description': 'MDAAI is a protocol for governing AI-assisted development. Choose and configure a template to apply it.',
             'lang': 'en', 'start_url': '/', 'scope': '/', 'display': 'standalone',
             'theme_color': THEME_DARK, 'background_color': THEME_DARK,
             'icons': icons,
@@ -106,15 +106,20 @@ def generate_assets():
 
     # Only social assets are regenerated; native icons remain immutable.
     previous = json.loads((output / 'inventory.json').read_text())
-    inventory.update({n: e for n, e in previous['assets'].items() if not n.startswith(('v1-', 'v2-'))})
+    inventory.update({n: e for n, e in previous['assets'].items() if not n.startswith(('v1-', 'v2-', 'v3-'))})
     approved = Image.open(cover).convert('RGB')
     assert approved.size == (1000, 1300)
     plate = approved.crop((270, 405, 735, 1060))
     paper = approved.getpixel((20, 20))
     burgundy = approved.getpixel((20, 100))
 
-    def font(size):
-        return ImageFont.load_default(size=size)
+    font_hashes = {'DejaVuSerif.ttf': '107244956e9962b9e96faccdc551825e0ae0898ae13737133e1b921a2fd35ffa',
+                   'DejaVuSerif-Bold.ttf': 'c3753f2ed6bc673f15846dc45addbeb3b9c872f32fb18fd53a21f1bef1ed7676'}
+    for name, digest in font_hashes.items():
+        assert hashlib.sha256((SITE / 'fonts' / name).read_bytes()).hexdigest() == digest, 'Pinned font changed'
+
+    def font(size, bold=False):
+        return ImageFont.truetype(str(SITE / 'fonts' / ('DejaVuSerif-Bold.ttf' if bold else 'DejaVuSerif.ttf')), size=size)
 
     def lines(text, draw, face, width):
         result, current = [], ''
@@ -129,49 +134,85 @@ def generate_assets():
             result.append(current)
         return result
 
-    def card(route, width, height, phase=0):
-        slug, title, subtitle = ROUTES[route]
+    layouts = {}
+
+    def card(route, width, height, phase=11):
+        _, title, subtitle = ROUTES[route]
+        home = route == '/'
         square = width == height
         image = Image.new('RGB', (width, height), paper)
         d = ImageDraw.Draw(image)
         margin = 36 if square else 60
-        band_top, band_bottom = (30, 225) if square else (36, 250)
-        d.rectangle((0, band_top, width, band_bottom), fill=burgundy)
-        d.text((margin, band_top + 18), 'MDAAI', font=font(38 if square else 44), fill=paper)
-        fs = 40 if square else 58
+        top, bottom = (28, 240) if square else (36, 245)
+        d.rectangle((0, top, width, bottom), fill=burgundy)
+        tokens, boxes = [], []
+
+        def typeset(text, face, y, max_width):
+            wrapped = lines(text, d, face, max_width)
+            ascent, descent = face.getmetrics()
+            advance = ascent + descent + 5
+            for i, line in enumerate(wrapped):
+                box = d.textbbox((0, 0), line, font=face)
+                x0, y0 = margin, y + i * advance
+                # Offset full glyph bounds, including ascenders and descenders.
+                x, baseline = x0 - box[0], y0 - box[1]
+                actual = d.textbbox((x, baseline), line, font=face)
+                assert actual[0] >= margin and actual[2] <= width - margin
+                assert actual[1] >= top and actual[3] <= bottom - 12
+                d.text((x, baseline), line, font=face, fill=paper)
+                boxes.append(list(actual))
+            tokens.append(text)
+            return y + len(wrapped) * advance
+
+        if not home and 'MDAAI' not in title:
+            typeset('MDAAI', font(22 if square else 26), top + 16, width - margin * 2)
+        title_top = top + (32 if home else 60)
+        fs = (72 if square else 86) if home else (43 if square else 60)
         while True:
-            face = font(fs)
-            wrapped = lines(title, d, face, width - 2 * margin)
-            if len(wrapped) <= 2 and all(d.textlength(t, font=face) <= width - 2 * margin for t in wrapped):
+            face = font(fs, bold=True)
+            wrapped = lines(title, d, face, width - margin * 2)
+            ascent, descent = face.getmetrics()
+            reserved = (72 if square else 60) if home else 0
+            if title_top + len(wrapped) * (ascent + descent + 5) + reserved <= bottom - 12:
                 break
             fs -= 1
-            assert fs >= 24, 'Title cannot fit approved band'
-        top = band_top + (72 if square else 83)
-        for index, line in enumerate(wrapped):
-            d.text((margin, top + index * (fs + 8)), line, font=face, fill=paper)
-        assert top + len(wrapped) * (fs + 8) <= band_bottom - 8, 'Title clipping'
+            assert fs >= 30
+        end = typeset(title, face, title_top, width - margin * 2)
+        if home:
+            typeset(subtitle, font(22 if square else 32), end + 2, width - margin * 2)
         stamp = plate.copy()
-        stamp.thumbnail((225, 292) if square else (260, height - band_bottom - 90), Image.Resampling.LANCZOS)
-        x = (width - stamp.width) // 2 if square else width - margin - stamp.width - 65
-        image.paste(stamp, (x, band_bottom + 12))
-        if not square:
-            for index, line in enumerate(lines(subtitle, d, font(30), 620)):
-                d.text((margin, band_bottom + 50 + index * 39), line, font=font(30), fill='#202321')
-            d.text((margin, band_bottom + 154), 'MDAAI DOCUMENTATION', font=font(19), fill='#202321')
-        footer = height - (52 if square else 64)
-        d.line((margin, footer - 12, width - margin, footer - 12), fill='#555853', width=1)
-        d.text((margin, footer), 'E.M.K.', font=font(25 if square else 28), fill='#202321')
-        tick = margin + round(phase / 11 * 66)
-        d.line((tick, height - 14, tick + 12, height - 14), fill=burgundy, width=2)
+        stamp.thumbnail((240, height - bottom - 66) if square else (380, height - bottom - 66), Image.Resampling.LANCZOS)
+        x, y = (width - stamp.width) // 2, bottom + 18
+        assert y + stamp.height <= height - 42 and x >= margin and x + stamp.width <= width - margin
+        # The alternate reveals only the engraving, never text or decorative ticks.
+        # Every frame remains a complete readable cover; the first is 85% visible.
+        if phase < 11:
+            stamp = Image.blend(Image.new('RGB', stamp.size, paper), stamp, .85 + .15 * phase / 11)
+        image.paste(stamp, (x, y))
+        face = font(18 if square else 22)
+        box = d.textbbox((0, 0), 'E.M.K.', font=face)
+        author_y = height - 26 - (box[3] - box[1])
+        d.text((margin - box[0], author_y - box[1]), 'E.M.K.', font=face, fill='#202321')
+        tokens.append('E.M.K.')
+        assert sum(token.count('MDAAI') for token in tokens) == 1
+        layouts[f'{route}:{width}x{height}'] = {'text': tokens, 'textBounds': boxes,
+                                              'artBounds': [x, y, x + stamp.width, y + stamp.height],
+                                              'safeMargin': margin}
         return image
 
     for route in ROUTES:
         assets = social_assets(route)
         for key,w,h in [('static',1200,630),('large',1200,600),('summary',600,600)]:
             record(Path(assets[key]).name,card(route,w,h),'image/png',key,format='PNG',compress_level=9)
-        frames = [card(route,1200,630,phase=i).quantize(colors=128,method=Image.Quantize.MEDIANCUT,dither=Image.Dither.NONE) for i in range(12)]
-        record(Path(assets['animated']).name,frames[0],'image/gif','animated alternate',format='GIF',save_all=True,append_images=frames[1:],duration=140,loop=0,disposal=1,optimize=False)
-    document = {'version':VERSION,'generator':{'pillow':'12.1.0','font':'Pillow embedded Aileron default','svgSha256':hashlib.sha256(source.read_bytes()).hexdigest(),'algorithm':'Approved native cover plate crop (270,405,735,1060); aspect-fit Lanczos; ivory paper and burgundy measured title band; bounded footer tick'},'coverSha256':COVER_SHA256,'assets':inventory,'routes':{route:social_assets(route) for route in ROUTES},'limitations':['Animated GIF is an alternate; platform playback and crawler cache behavior are not verified locally.','Installation, offline and update acceptance require the separately integrated service worker and browser tests.']}
+        palette = card(route,1200,630).quantize(colors=128,method=Image.Quantize.MEDIANCUT,dither=Image.Dither.NONE)
+        frames = [card(route,1200,630,phase=i).quantize(palette=palette,dither=Image.Dither.NONE) for i in range(12)]
+        record(Path(assets['animated']).name,frames[0],'image/gif','animated alternate',format='GIF',save_all=True,append_images=frames[1:],duration=[90] * 11 + [2500],loop=0,disposal=1,optimize=False)
+    document = {'version':VERSION,'generator':{'pillow':'12.1.0','font':'Embedded DejaVu Serif regular/bold; unmodified, licensed in licenses/DejaVu-fonts.txt',
+                'fontSha256':font_hashes,'svgSha256':hashlib.sha256(source.read_bytes()).hexdigest(),
+                'algorithm':'Approved engraving aspect-fit; measured full-glyph serif typography; no duplicated labels; engraving-only reveal'},
+                'layouts':layouts,'coverSha256':COVER_SHA256,'assets':inventory,'routes':{route:social_assets(route) for route in ROUTES},
+                'limitations':['Animated GIF is an engraving-reveal alternate; platform playback and crawler cache behavior are not verified locally.',
+                               'Installation, offline and update acceptance require the separately integrated service worker and browser tests.']}
     (output / 'inventory.json').write_text(json.dumps(document,sort_keys=True,indent=2)+'\n')
     print(f'Generated {len(inventory)} identity assets; approved cover unchanged.')
 

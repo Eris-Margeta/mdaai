@@ -93,6 +93,24 @@
     block.querySelector('.copy-status').textContent = ok ? 'Copied to clipboard.' : 'Copy unavailable. Select the code and copy manually.';
     button.textContent = ok ? 'Copied' : 'Copy';
   }));
+  const templateSearch = document.getElementById('template-search');
+  if (templateSearch) {
+    const cards = Array.from(document.querySelectorAll('[data-template-search]'));
+    const filterTemplates = () => {
+      const query = templateSearch.value.toLowerCase().trim().replace(/\s+/g, ' ');
+      const terms = query ? [query] : [];
+      let count = 0;
+      cards.forEach(card => {
+        const match = terms.every(term => card.dataset.templateSearch.toLowerCase().includes(term));
+        card.hidden = !match;
+        if (match) count += 1;
+      });
+      document.getElementById('template-status').textContent = `${count} ${count === 1 ? 'template' : 'templates'}${terms.length ? ' match' : ''}`;
+      document.getElementById('template-empty').hidden = count !== 0;
+    };
+    templateSearch.addEventListener('input', filterTemplates);
+    filterTemplates();
+  }
   const main = document.getElementById('main');
   const jump = document.getElementById('section-jump');
   const sections = Array.from(main.querySelectorAll('.article section[id]'));

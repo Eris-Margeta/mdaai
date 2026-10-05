@@ -3,18 +3,22 @@
     "slug": "mdaai",
     "route": "/",
     "videoIntro": {
-      "heading": "Have Trouble Reading?",
-      "supportingLine": "Here's MDAAI in 91 seconds."
+      "heading": "Having difficulty reading? Watch the 91-second overview.",
+      "supportingLine": "Narration and captions offer another way to explore the two template families."
     },
     "title": "MDAAI",
-    "description": "MDAAI is a repository-based operating protocol for human-directed AI development. It puts instructions, project scope, tasks, decisions and verification evidence in files so an agent can know what it may change, what is current and what supports a result.",
+    "description": "MDAAI is a protocol for governing AI-assisted development. Choose and configure a template to apply its rules for authority, scope, evidence and review.",
     "group": "Documentation",
     "sections": [
       {
         "id": "what-it-is",
-        "title": "A protocol kept with the project",
-        "text": "The repository carries the working agreement between its operator and development agents. Instructions define constraints; the project plan defines scope; task records preserve current work and evidence. These are ordinary Markdown and JSON files, read and maintained alongside code—not a replacement for the application or its tests.",
+        "title": "Apply the protocol with a template",
+        "text": "To apply the protocol, choose and configure a template. A template supplies the concrete governance files; agents, coding harnesses and execution tools are separate layers. The protocol defines a method for authority, scope, evidence, history and review—not an executor. The templates documented here put that method in Markdown and JSON files alongside your project.",
         "links": [
+          [
+            "Choose a template",
+            "templates"
+          ],
           [
             "See the files",
             "structure"
@@ -39,7 +43,7 @@
       {
         "id": "what-it-adds",
         "title": "What adoption adds—and does not add",
-        "text": "The portable 2.0 core is a root AGENTS.md, five governance documents, project-owned Project Elaboration and a fresh TASKS.json. For any agent system, point its entry instructions to the nearest AGENTS.md. Applicable parent and scoped governance files are cumulative. Adoption is an explicitly authorized, project-by-project merge and migration, not a universal installer. The source package’s research code, dashboards, studies and existing task history are not copied into every adopted repository.",
+        "text": "The MDAAI 2.0 template family supplies a root AGENTS.md, five governance documents, project-owned Project Elaboration and a fresh TASKS.json. For any agent system, point its entry instructions to the nearest AGENTS.md. Applicable parent and scoped governance files are cumulative. Adoption is an explicitly authorized, project-by-project merge and migration, not a universal installer. The source package’s research code, dashboards, studies and existing task history are not copied into every adopted repository.",
         "links": [
           [
             "Exact 2.0 adoption boundary",
@@ -50,22 +54,22 @@
       {
         "id": "generations",
         "title": "Two initial template families",
-        "text": "The first-generation template uses an elaborated project plan, Work Orders, a work-order registry, corrective records and architecture decisions. MDAAI 2.0 concentrates routine work in one task registry and adds separate records only when they carry necessary context. A migration reconciles contradictory instructions and preserves completed history; it does not simply add a second protocol on top. These are concrete template families implementing MDAAI, not the whole protocol. Template versions and protocol identities are distinct.",
+        "text": "The first-generation template uses an elaborated project plan, Work Orders, a work-order registry, corrective records and architecture decisions. MDAAI 2.0 concentrates routine work in one task registry and adds separate records only when they carry necessary context. A migration reconciles contradictory instructions and preserves completed history; it does not layer another active template over unreconciled rules. These are concrete template families implementing MDAAI, not the whole protocol. Template versions and protocol identities are distinct.",
         "links": [
           [
-            "First-generation MDAAI",
+            "First-generation template",
             "mdaai-1"
           ],
           [
-            "MDAAI 2.0",
+            "MDAAI 2.0 template",
             "mdaai-2"
           ]
         ]
       },
       {
         "id": "onion",
-        "title": "Where Onion fits",
-        "text": "In this repository, Onion Governance is the broader governance system; MDAAI 2.0 is its repository and coding-governance layer. That relationship is this project’s declared scope, not an extra file all MDAAI adopters must install. The Onion implementation and its laboratory evidence are distinct from the portable instructions documented here."
+        "title": "Protocol, templates and execution",
+        "text": "MDAAI defines the governance method. Versioned templates supply project files that apply it. Your selected agents, coding harnesses and execution tools read those files and perform authorized work. Permissions, tests and runtime checks belong to those separate execution layers; choosing a template does not install or activate them."
       },
       {
         "id": "enforcement",
@@ -91,27 +95,27 @@
       "text": "The protocol governs how work is authorized, reviewed and evidenced. A template gives that method a concrete home in project files. Improve those files through reviewed work; adopt a new version explicitly. The protocol can itself be revised through its own authorized process.",
       "steps": [
         "Stable protocol",
-        "Literal template files",
-        "Your project",
+        "Choose and configure a template",
+        "Project governance files",
         "Review and improve",
         "Versioned template",
         "Explicit adoption"
       ],
       "note": "Review may be manual or agent-assisted. Publication does not activate a template or update your project.",
-      "link": "Explore the template files"
+      "link": "Choose a template"
     }
   },
   {
     "slug": "structure",
     "route": "/repository-structure/",
     "title": "Repository structure",
-    "description": "The minimal MDAAI 2.0 adoption map. Required means part of the portable contract, not every file required by the source laboratory’s own validator.",
+    "description": "The MDAAI 2.0 template family’s governance files: entry instructions, authority, scope, task state and evidence ownership.",
     "group": "Documentation",
     "sections": [
       {
         "id": "file-map",
         "title": "Files and information owners",
-        "text": "At adoption, merge the governance instructions and author the two management files for the target project. The map below uses exact core paths. Conditional pattern rows describe record categories, not files an installer creates. Each core file has an explanatory section linked below.",
+        "text": "This map describes the MDAAI 2.0 template family, not a universal file inventory required by the protocol. Required means required by this template contract. At adoption, merge the governance instructions and author the two management files for the target project. The map below uses exact core paths. Conditional pattern rows describe record categories, not files an installer creates. Each core file has an explanatory section linked below.",
         "code": "AGENTS.md                                  [required core]\nPROJECT-INTERNAL/\n├── GOVERNANCE/                            [required core]\n│   ├── AUTHORITY.md\n│   ├── ENGINEERING.md\n│   ├── EVIDENCE.md\n│   ├── REASONING.md\n│   └── RECORDS.md\n├── MANAGEMENT/                            [required project-owned]\n│   ├── PROJECT-ELABORATION.md\n│   └── TASKS.json\n├── ARCHITECTURE/                           [conditional decisions]\n│   └── project-selected ADR files\n└── RECORDS/                                [conditional example location]\n    └── project-selected durable records\n\nEvidence lives at project-selected paths; no universal evidence folder.",
         "language": "Repository tree",
         "table": {
@@ -309,7 +313,7 @@
     "slug": "connections",
     "route": "/how-files-work-together/",
     "title": "How files work together",
-    "description": "One owner for each kind of information; links connect the owners instead of copying their contents.",
+    "description": "How the MDAAI 2.0 template family connects instructions, project scope, task records and evidence without duplicating state.",
     "group": "Documentation",
     "sections": [
       {
@@ -400,7 +404,7 @@
     "slug": "lifecycle",
     "route": "/task-lifecycle/",
     "title": "Task lifecycle",
-    "description": "A demonstrative endpoint task in MDAAI 2.0. These records are examples of the source schema, not claims that an endpoint or its tests were executed.",
+    "description": "An illustrative task in the MDAAI 2.0 template family, from authorized scope through verification, recorded evidence and later correction.",
     "group": "Documentation",
     "sections": [
       {
@@ -487,8 +491,8 @@
   {
     "slug": "mdaai-1",
     "route": "/mdaai-1/",
-    "title": "First-generation MDAAI",
-    "description": "A template-centered workflow: project plan → authorized Work Order → implementation and verification → registered result. The inspected template is first-generation lineage, not a pristine protocol 1.0 snapshot.",
+    "title": "First-generation template",
+    "description": "The first-generation MDAAI template family uses Work Orders, corrective records, architecture decisions and checkpoints to govern project work.",
     "group": "Documentation",
     "sections": [
       {
@@ -630,7 +634,7 @@
       {
         "id": "version-note",
         "title": "Source note",
-        "text": "The currently inspected first-generation constitution labels itself Version 1.7, Revision 8. Other template component metadata uses different protocol labels. “First generation” here names the template workflow and lineage; it does not assert every retained file is version 1.0 or confuse those labels with the separate MDAAI 2.0 package. The template also contains legacy reference/casing inconsistencies; its Markdown templates and function contracts should not be treated as one identical schema."
+        "text": "The currently inspected first-generation constitution labels itself Version 1.7, Revision 8. Other template component metadata uses historical governance-document labels. “First generation” here names the template workflow and lineage; it does not assert every retained file is version 1.0 or confuse those labels with the MDAAI 2.0 template family. This is not a pristine 1.0 release. The template also contains legacy reference/casing inconsistencies; its Markdown templates and function contracts should not be treated as one identical schema."
       }
     ],
     "sources": [
@@ -679,8 +683,8 @@
   {
     "slug": "mdaai-2",
     "route": "/mdaai-2/",
-    "title": "MDAAI 2.0",
-    "description": "The MDAAI 2.0 template family implements a portable operating contract with explicit authority, engineering obligations, evidence and recoverable task history.",
+    "title": "MDAAI 2.0 template",
+    "description": "The MDAAI 2.0 template family uses a portable governance contract, one task registry and evidence-backed history. Adoption is project-specific.",
     "group": "Documentation",
     "sections": [
       {
@@ -709,7 +713,7 @@
           "headers": [
             "Concern",
             "First-generation template",
-            "MDAAI 2.0 portable contract"
+            "MDAAI 2.0 template contract"
           ],
           "rows": [
             [
@@ -763,7 +767,7 @@
       {
         "id": "implementation",
         "title": "Protocol and software are separate",
-        "text": "MDAAI 2.0’s source repository also implements research and governance-revision/publication software. That code is not installed merely by adopting the portable contract. This documentation describes the repository operating files, not a promise of automatic enforcement, autonomous migration or universal containment. Checks certify structure only to the extent actually tested."
+        "text": "The inspected MDAAI 2.0 source package also contains research and governance-revision software. That software is separate from the MDAAI protocol and is not installed by adopting this template. Agents, coding harnesses and execution tools remain independently selected and configured. Structural checks do not prove that an agent follows the rules or that a product works."
       }
     ],
     "sources": [
@@ -784,30 +788,25 @@
     "route": "/templates/",
     "group": "Templates",
     "title": "Templates",
-    "description": "Explore 105 literal governance files in two versioned MDAAI template families. Inspect their sources, choose applicable files and review before explicit adoption.",
+    "description": "Choose a template to apply the MDAAI protocol. Configure its governance files for your project; agents and execution tools are separate layers.",
     "sources": [
       "Public template catalog: templates.json"
     ],
     "sections": [
       {
-        "id": "choose",
-        "title": "Choose files with a known origin",
-        "text": "A template is a concrete implementation of the protocol in files. This reviewed catalog contains 84 first-generation files and 9 MDAAI 2.0 files. Required files belong to the selected contract; conditional files apply when their governing condition is met; optional files add compatibility or tooling. Selecting a role does not waive stronger project rules."
-      },
-      {
         "id": "catalog",
-        "title": "The literal file gallery",
-        "text": "Inspect the pinned entry point and each file before use. Catalog 0.1.0, template version and protocol identity describe different things. Source references identify provenance; the public export can be read without access to the original source repositories."
+        "title": "Browse templates",
+        "text": ""
       },
       {
         "id": "source-versions",
         "title": "Versions and export boundaries",
-        "text": "The first-generation family carries VERSION 1.0.0 while AI-INSTRUCTIONS.md identifies Version 1.7; supporting protocols have their own labels. It is not a pristine original 1.0 release. MDAAI 2.0 supplies six portable core files and fresh project-owned Elaboration and TASKS.json scaffolds. Its root contract omits laboratory-specific commands. Original source repositories remain unchanged."
+        "text": "The first-generation family carries VERSION 1.0.0 while AI-INSTRUCTIONS.md identifies Version 1.7; supporting governance documents retain historical version labels. It is not a pristine original 1.0 release. MDAAI 2.0 supplies six portable core files and fresh project-owned Elaboration and TASKS.json scaffolds. Its root contract omits laboratory-specific commands. Original source repositories remain unchanged."
       },
       {
         "id": "review",
         "title": "Review before adoption",
-        "text": "Both bundles are marked review-before-adoption and complete: false. All 105 listed files are exported; this status describes uninitialized downstream scaffolds, adoption review and known literal link gaps, not missing export files. First-generation references to PROJECT-DEVELOPMENT-ELABORATION.md and GUIDES/CHECKPOINT-PROTOCOL.md need reconciliation with the supplied owners. Review the export manifest, license scopes and known link-gap inventory. Back up the target, choose one active profile, reconcile existing rules, fill project identity and actual commands, then exercise a real task and resumption. No installer, automatic activation or guaranteed self-improvement is provided."
+        "text": "Both bundles are marked review-before-adoption and complete: false. All 105 listed files are exported; this status describes uninitialized downstream scaffolds, adoption review and known literal link gaps, not missing export files. First-generation references to PROJECT-DEVELOPMENT-ELABORATION.md and GUIDES/CHECKPOINT-PROTOCOL.md need reconciliation with the supplied owners. Review the export manifest, license scopes and known link-gap inventory. Back up the target, choose one active governance template configuration, reconcile existing rules, fill project identity and actual commands, then exercise a real task and resumption. No installer, automatic activation or guaranteed self-improvement is provided."
       },
       {
         "id": "evolution",

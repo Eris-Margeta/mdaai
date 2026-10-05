@@ -148,8 +148,8 @@ class WebsiteTests(unittest.TestCase):
     def test_template_panel_order_and_header(self):
         home = self.documents['/'].text
         self.assertRegex(home, r'</video><p>English narration.*?</p></section><section id="template-cycle"')
-        self.assertIn('Have Trouble Reading?', home)
-        self.assertIn('Here&#x27;s MDAAI in 91 seconds.', home)
+        self.assertIn('Having difficulty reading? Watch the 91-second overview.', home)
+        self.assertIn('Narration and captions offer another way to explore the two template families.', home)
         for route, doc in self.documents.items():
             if route == '/offline.html':
                 continue
@@ -182,7 +182,7 @@ class WebsiteTests(unittest.TestCase):
         self.assertEqual({p['route'] for p in self.pages}, {'/', '/repository-structure/', '/how-files-work-together/', '/task-lifecycle/', '/mdaai-1/', '/mdaai-2/', '/templates/'})
         home = (build.OUT / 'index.html').read_text()
         self.assertIn('<h1>MDAAI</h1>', home)
-        self.assertIn('repository-based operating protocol', home)
+        self.assertIn('MDAAI is a protocol for governing AI-assisted development.', home)
         self.assertIn('Project Elaboration owns scope and sequence', home)
 
     def test_rejected_content_is_not_served(self):
@@ -287,11 +287,12 @@ class WebsiteTests(unittest.TestCase):
                         else:
                             self.assertNotIn(key, metas)
                             metas[key] = attrs.get('content')
-                title = page['title'] + ' · MDAAI'
+                title = build.page_title(page['title'], route)
                 self.assertIn('<title>' + build.E(title) + '</title>', doc.text)
+                self.assertEqual(title.count('MDAAI'), 1)
                 titles.append(title)
                 descriptions.append(metas['description'])
-                expected = {'author': author, 'description': page['description'], 'og:title': title, 'twitter:title': title, 'og:description': page['description'], 'twitter:description': page['description'], 'og:url': base + route, 'og:type': 'website' if route == '/' else 'article', 'og:site_name': 'MDAAI', 'og:locale': 'en_US', 'og:image': base + social_assets(route)['static'], 'twitter:image': base + social_assets(route)['large'], 'og:image:type': 'image/png', 'og:image:width': '1200', 'og:image:height': '630', 'twitter:card': 'summary_large_image'}
+                expected = {'author': author, 'description': page['description'], 'og:title': title, 'twitter:title': title, 'og:description': page['description'], 'twitter:description': page['description'], 'og:url': base + route, 'og:type': 'website' if route in ('/', '/templates/') else 'article', 'og:site_name': 'MDAAI', 'og:locale': 'en_US', 'og:image': base + social_assets(route)['static'], 'twitter:image': base + social_assets(route)['large'], 'og:image:type': 'image/png', 'og:image:width': '1200', 'og:image:height': '630', 'twitter:card': 'summary_large_image'}
                 for key, value in expected.items():
                     self.assertEqual(metas[key], value, key)
                 self.assertTrue(metas['og:image:alt'].strip())
@@ -305,7 +306,7 @@ class WebsiteTests(unittest.TestCase):
                 nodes = graph['@graph']
                 by_id = {n['@id']: n for n in nodes}
                 self.assertEqual(len(by_id), len(nodes))
-                self.assertEqual({n['@type'] for n in nodes}, {'Person', 'Organization', 'Brand', 'WebSite', 'BreadcrumbList', 'WebPage' if route == '/' else 'TechArticle'} | ({'VideoObject'} if route == '/' else set()))
+                self.assertEqual({n['@type'] for n in nodes}, {'Person', 'Organization', 'Brand', 'WebSite', 'BreadcrumbList', 'CollectionPage' if route == '/templates/' else 'WebPage' if route == '/' else 'TechArticle'} | ({'VideoObject'} if route == '/' else {'ItemList'} if route == '/templates/' else set()))
                 def refs(value):
                     if isinstance(value, dict):
                         if set(value) == {'@id'}:
@@ -330,6 +331,16 @@ class WebsiteTests(unittest.TestCase):
                 self.assertEqual(crumbs[-1]['item'], base + route)
                 if route != '/':
                     self.assertEqual(crumbs[-1]['name'], page['title'])
+                if route == '/templates/':
+                    _, catalog, _ = build.load_catalog(build.SITE)
+                    listing = by_id[base + route + '#templates']
+                    self.assertEqual(node['mainEntity'], {'@id': listing['@id']})
+                    self.assertEqual(listing['@type'], 'ItemList')
+                    self.assertEqual(listing['itemListElement'], [
+                        {'@type': 'ListItem', 'position': i, 'name': t['title'],
+                         'url': 'https://github.com/' + t['source']['repository']}
+                        for i, t in enumerate(catalog['templates'], 1)])
+                    self.assertNotIn('Product', {n['@type'] for n in nodes})
                 videos = [n for n in nodes if n['@type'] == 'VideoObject']
                 self.assertEqual(len(videos), int(route == '/'))
                 if videos:
@@ -360,15 +371,14 @@ class WebsiteTests(unittest.TestCase):
         self.assertIsNotNone(match)
         assert match is not None
         section = match.group(1)
-        expected = '<h2><a class="heading-anchor" href="#explainer">Have Trouble Reading?</a></h2><p>Here&#x27;s MDAAI in 91 seconds.</p><video '
+        expected = '<h2><a class="heading-anchor" href="#explainer">Having difficulty reading? Watch the 91-second overview.</a></h2><p>Narration and captions offer another way to explore the two template families.</p><video '
         self.assertIn(expected, section)
-        explanation = 'A technical overview of the original template and MDAAI 2.0. The endpoint example is illustrative, not a product implementation claim.'
-        self.assertTrue(section.startswith('<p>' + explanation + '</p>'))
+        self.assertTrue(section.startswith(expected))
         intro = next(p for p in self.pages if p['route'] == '/').get('videoIntro')
-        self.assertEqual(intro, {'heading': 'Have Trouble Reading?', 'supportingLine': "Here's MDAAI in 91 seconds."})
+        self.assertEqual(intro, {'heading': 'Having difficulty reading? Watch the 91-second overview.', 'supportingLine': 'Narration and captions offer another way to explore the two template families.'})
         for route, doc in self.documents.items():
             if route != '/':
-                self.assertNotIn('Have Trouble Reading?', doc.text)
+                self.assertNotIn('Having difficulty reading? Watch the 91-second overview.', doc.text)
 
     def test_images_video_captions_and_manifest(self):
         def png_size(path):

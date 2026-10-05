@@ -19,7 +19,7 @@ test('served origin: real worker scope, cached reading, offline fallback and rec
     expect(response.status()).toBe(200);expect(response.headers()['content-type']).toContain('javascript');expect(response.headers()['cache-control']).toContain('no-cache');expect(response.headers()['x-content-type-options']).toBe('nosniff');
     await context.setOffline(true);
     await page.reload();
-    expect(await page.title()).toBe('Repository structure · MDAAI');
+    expect(await page.title()).toBe('Repository structure | MDAAI');
     expect(await page.evaluate(()=>getComputedStyle(document.querySelector('#main')!).overflowY)).toBe('auto');
     expect(await page.evaluate(()=>scrollY)).toBe(0);
     await page.goto(base+'/never-saved-public-page/');

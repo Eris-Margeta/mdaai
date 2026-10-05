@@ -106,10 +106,10 @@
       "purpose": "maskable",
       "sha256": "f6a1382641419ed1b11d722a36a4db45d0650ac317e433717a5da4f5a1cad002"
     },
-    "v2-connections-og-animated.gif": {
+    "v3-connections-og-animated.gif": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 43459,
+      "bytes": 332812,
       "dimensions": [
         1200,
         630
@@ -117,48 +117,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "46568a0c1f97541fa2ae623f092aa3e5d7e0db23bb073e25cd2f48f7c15503bc"
+      "sha256": "b24f80d1dd04520bfb0532bde38c098ca3cf997cc048209e41546a4981a3d016"
     },
-    "v2-connections-og-static.png": {
+    "v3-connections-og-static.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 83628,
+      "bytes": 87493,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "96e709fb6fcee6671fe0609dabc3ad2ada7f3a0b4246c5564e2b41a6ce3372f6"
+      "sha256": "cf228f35a3af3d5dc115abb3386827049ae229aad53241e35c22ac3727edde26"
     },
-    "v2-connections-twitter-large.png": {
+    "v3-connections-twitter-large.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 72529,
+      "bytes": 75667,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "c69c7061d9ae7c921e74fa2185990a2bdf44e629a71488967296d779249afa57"
+      "sha256": "729679e2a7c8c8f63fb959ad8cca0e1c2b381f178aeb0b43320f16e0e3283039"
     },
-    "v2-connections-twitter-summary.png": {
+    "v3-connections-twitter-summary.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 71830,
+      "bytes": 73344,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "eba17b3a54c057d405deab1205ddbd30096313c180fad1aa9e33717056bd2bb4"
+      "sha256": "cf333ed56282aabb21b5bc6c0355957711a7741298f555f665876f2e06f55fc8"
     },
-    "v2-lifecycle-og-animated.gif": {
+    "v3-lifecycle-og-animated.gif": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 42636,
+      "bytes": 330369,
       "dimensions": [
         1200,
         630
@@ -166,48 +166,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "d787d5f546a8e44000ac996f5af7854a5ad1268d29c1b934ecaf6f59245f7921"
+      "sha256": "512dbf6066b20144067ebd872fbe891eaa3610e05da33538d17b5531cff2917f"
     },
-    "v2-lifecycle-og-static.png": {
+    "v3-lifecycle-og-static.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 84636,
+      "bytes": 85574,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "9cd81b039536da913bcf8e0d3aa06d50184f05603fc46ad34353dc7100f96df2"
+      "sha256": "576d1889a56513c2e7c83992b140ea53c15adf46aa0bfb5ab033a81ccfb3229c"
     },
-    "v2-lifecycle-twitter-large.png": {
+    "v3-lifecycle-twitter-large.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 73558,
+      "bytes": 73748,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "598cd04d4de416dc040573a5657a198bdf6f1ef892bf160aeb4a86b07d546682"
+      "sha256": "aabf9621c989369fc181458e43877fb2e7f1dd49d222b1c7548431135ccf3dc0"
     },
-    "v2-lifecycle-twitter-summary.png": {
+    "v3-lifecycle-twitter-summary.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 70625,
+      "bytes": 70566,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "0f833e45746c9fd2102905555e194f423939925f41d327aa5b88467c0424a967"
+      "sha256": "42dd43385d4411a675246c53080c80d3648088f2d016f3089961f04f98869e0c"
     },
-    "v2-mdaai-1-og-animated.gif": {
+    "v3-mdaai-1-og-animated.gif": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 44126,
+      "bytes": 330325,
       "dimensions": [
         1200,
         630
@@ -215,48 +215,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "d8fbff580adeaaa02d2613a9d860de6af560226198eff4cc87c8fb72380596e3"
+      "sha256": "d17048fd15865e301b653c5ef9c319b9863cdb9b73ef0a9761203cdfb73faf8e"
     },
-    "v2-mdaai-1-og-static.png": {
+    "v3-mdaai-1-og-static.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 86168,
+      "bytes": 87672,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "f5de63304d0991a85bcfd719139d2a9704d3670771867494e857a48e511c9b9f"
+      "sha256": "b79586e1d2f8ec04418d39d936ba13ad5af94603487a133928728466f20b1433"
     },
-    "v2-mdaai-1-twitter-large.png": {
+    "v3-mdaai-1-twitter-large.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 75061,
+      "bytes": 75835,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "ac843e88a8cae46b406b95f0faa0f0fde1d5fa7517bb3a7c0605822e204ca5db"
+      "sha256": "de5941f7e2904a95501b8a5753eb349173d8f46581b8f01be557599b658f5944"
     },
-    "v2-mdaai-1-twitter-summary.png": {
+    "v3-mdaai-1-twitter-summary.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 72644,
+      "bytes": 73284,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "8f4fc98dd314ab9a9bf5fef2d69ad08e5c0daa4d33c574654951af8f02fa3df7"
+      "sha256": "2ebd9b8a9b087669d3c163a710e4aad0e8279b9ac8058e5cbf639f6cc194070f"
     },
-    "v2-mdaai-2-og-animated.gif": {
+    "v3-mdaai-2-og-animated.gif": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 40564,
+      "bytes": 330409,
       "dimensions": [
         1200,
         630
@@ -264,48 +264,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "c10f559e8ae429bde1e44802919da26bd8850cca10776931e599912ce327b953"
+      "sha256": "cbe95dbd3077ac7f3398641d8ed7900fa54c851874b5065e7c37bb163cef4554"
     },
-    "v2-mdaai-2-og-static.png": {
+    "v3-mdaai-2-og-static.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 79832,
+      "bytes": 87139,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "130b9d94ceaabc43344f4cea24f29942f1b21879de4223046b9f6888fed7a7ab"
+      "sha256": "ca1732184d30f5663b65e43ead30a468e2de8d18c3d63ac830ebae8d29d4e39b"
     },
-    "v2-mdaai-2-twitter-large.png": {
+    "v3-mdaai-2-twitter-large.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 68712,
+      "bytes": 75302,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "48c130eb1d62288d561ea4f7bec60eb53c633d4d3bf778d072290cd14576016e"
+      "sha256": "6d23aa4741c7b7739db4c39d6542d9b5ef19d462770bc380835b57c3c8f732f8"
     },
-    "v2-mdaai-2-twitter-summary.png": {
+    "v3-mdaai-2-twitter-summary.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 69655,
+      "bytes": 71528,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "c0aac20ef0cd6466a2a02b6a3f78fafd44986fb905fef6a97163d6f4e12f1a1a"
+      "sha256": "3fa364d294ab6d5e75149c78dc65fc3b0a0e47ff9e38e7d97f960e5b964fb12f"
     },
-    "v2-mdaai-og-animated.gif": {
+    "v3-mdaai-og-animated.gif": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 40832,
+      "bytes": 329923,
       "dimensions": [
         1200,
         630
@@ -313,48 +313,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "5edfc6b276c35edb0bd9a308b9b8e1bf9d8fd2fd0032ebe35dceb9993830037a"
+      "sha256": "0de3feba4a442d6681b496dfd2f4ff92cee888dcb6d5cca08d18f7fbe3c2d019"
     },
-    "v2-mdaai-og-static.png": {
+    "v3-mdaai-og-static.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 80067,
+      "bytes": 88086,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "8780a268bb7bbcb8d363fb7d4badd1a0b89a08b2398a92a4b9648a69eb2c5381"
+      "sha256": "d75ec59ffe1e82fd7e4cd6f49fc3e7e42036e94de5f4fdd2272fe291749baa06"
     },
-    "v2-mdaai-twitter-large.png": {
+    "v3-mdaai-twitter-large.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 68869,
+      "bytes": 76242,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "93d670ab47212990c9f51c51d87df0205682f7d8b6f5d9b752c0391c5c5c5dcb"
+      "sha256": "f7b7addf30a270aad97bfb97f9f84f3e851dd67dd56cb1625b67b2ec53ce94cb"
     },
-    "v2-mdaai-twitter-summary.png": {
+    "v3-mdaai-twitter-summary.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 68133,
+      "bytes": 72342,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "2f42182c3a6386c0fb883717437380c5ed380f1162af26759f25f7cb52e18967"
+      "sha256": "e483acf50e49949df0dc6c6fa9523ee079e078114ddd65006a929c8b4805e366"
     },
-    "v2-structure-og-animated.gif": {
+    "v3-structure-og-animated.gif": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 43082,
+      "bytes": 331617,
       "dimensions": [
         1200,
         630
@@ -362,48 +362,48 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "96e58e58e3a9bfd8a034d5c60cfce095bc01f25f4f2156f2f6dbc1f23ae76fef"
+      "sha256": "817e2f7e7dffc8f8c9db17de7c5d53dafc36edde75090bf79182158d2ab1965b"
     },
-    "v2-structure-og-static.png": {
+    "v3-structure-og-static.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 85220,
+      "bytes": 87671,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "80d95f7d881c1f4a8e850acded2801453472c7ab38e5eaa601635afc84721890"
+      "sha256": "b89935a4a77ae242041def70fe518026272dd9dcda0840166718bc664e4b3673"
     },
-    "v2-structure-twitter-large.png": {
+    "v3-structure-twitter-large.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 74083,
+      "bytes": 75838,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "60f240ddf017480ba5a91b1574d0bcc543cec729d9eed11f7326d15febafa35f"
+      "sha256": "7d7aa52d513897c6e3883c0b7064064f964870776252a15afe90f5271f0c955a"
     },
-    "v2-structure-twitter-summary.png": {
+    "v3-structure-twitter-summary.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 71786,
+      "bytes": 71951,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "1b5a152a6b1a776e2a45167ddb116a2e4e75b358a8eb79fdea0d657a37f82cf8"
+      "sha256": "d5352bb68461b58b564665d159da21bcddfc099c7a95e6e6459b197b8325cfce"
     },
-    "v2-templates-og-animated.gif": {
+    "v3-templates-og-animated.gif": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 42103,
+      "bytes": 332211,
       "dimensions": [
         1200,
         630
@@ -411,106 +411,691 @@
       "frames": 12,
       "mime": "image/gif",
       "purpose": "animated alternate",
-      "sha256": "7800548ad384d0a99ebbbe70dc3ee9c383d19f6de1470f6d5d5656fca8ce9641"
+      "sha256": "cdfbc570021912424a03972bfd7887cff04ee5fad54697541a6348fab276a8b0"
     },
-    "v2-templates-og-static.png": {
+    "v3-templates-og-static.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 82860,
+      "bytes": 84134,
       "dimensions": [
         1200,
         630
       ],
       "mime": "image/png",
       "purpose": "static",
-      "sha256": "90996eab1b12810ac321002db2bb4db5b828933ae696e088805a87ad348bfd2d"
+      "sha256": "75796f1700cabf8d6a1c8a1157be5fc4dab113308b77abae0f6b7a06c532f306"
     },
-    "v2-templates-twitter-large.png": {
+    "v3-templates-twitter-large.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 71761,
+      "bytes": 72304,
       "dimensions": [
         1200,
         600
       ],
       "mime": "image/png",
       "purpose": "large",
-      "sha256": "43a1506b912756924d4aee58ee5ef0538510784958ca10be34269fd85663b154"
+      "sha256": "8e731c2e272b6a181caa87206cb6ef459e6395ce1df58da3e7bdccbe2acf8947"
     },
-    "v2-templates-twitter-summary.png": {
+    "v3-templates-twitter-summary.png": {
       "alpha": false,
       "backdrop": "#f4f1e8",
-      "bytes": 69644,
+      "bytes": 69552,
       "dimensions": [
         600,
         600
       ],
       "mime": "image/png",
       "purpose": "summary",
-      "sha256": "e2819273b069848008eb99dd6476b9a6688c0e63cf2a1367b63396532e738e16"
+      "sha256": "29d356fb2248329dda1fc980c09d71c5f3fcb8df46a110f4f48288882a72b719"
     }
   },
   "coverSha256": "fee7149b09f5fdc922646a1356026af2bc0747dc586aa579b4842d977d82f22d",
   "generator": {
-    "algorithm": "Approved native cover plate crop (270,405,735,1060); aspect-fit Lanczos; ivory paper and burgundy measured title band; bounded footer tick",
-    "font": "Pillow embedded Aileron default",
+    "algorithm": "Approved engraving aspect-fit; measured full-glyph serif typography; no duplicated labels; engraving-only reveal",
+    "font": "Embedded DejaVu Serif regular/bold; unmodified, licensed in licenses/DejaVu-fonts.txt",
+    "fontSha256": {
+      "DejaVuSerif-Bold.ttf": "c3753f2ed6bc673f15846dc45addbeb3b9c872f32fb18fd53a21f1bef1ed7676",
+      "DejaVuSerif.ttf": "107244956e9962b9e96faccdc551825e0ae0898ae13737133e1b921a2fd35ffa"
+    },
     "pillow": "12.1.0",
     "svgSha256": "11af95fd5bfcfae955139d6b44aff606798bcf99dc0e2147bc2c1d852c700b8d"
   },
+  "layouts": {
+    "/:1200x600": {
+      "artBounds": [
+        497,
+        263,
+        702,
+        552
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "A protocol for AI-assisted development",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          68,
+          395,
+          129
+        ],
+        [
+          60,
+          174,
+          687,
+          205
+        ]
+      ]
+    },
+    "/:1200x630": {
+      "artBounds": [
+        487,
+        263,
+        713,
+        582
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "A protocol for AI-assisted development",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          68,
+          395,
+          129
+        ],
+        [
+          60,
+          174,
+          687,
+          205
+        ]
+      ]
+    },
+    "/:600x600": {
+      "artBounds": [
+        195,
+        258,
+        404,
+        552
+      ],
+      "safeMargin": 36,
+      "text": [
+        "MDAAI",
+        "A protocol for AI-assisted development",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          36,
+          60,
+          324,
+          112
+        ],
+        [
+          36,
+          152,
+          469,
+          174
+        ]
+      ]
+    },
+    "/how-files-work-together/:1200x600": {
+      "artBounds": [
+        497,
+        263,
+        702,
+        552
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "How files work together",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          52,
+          156,
+          71
+        ],
+        [
+          60,
+          96,
+          873,
+          155
+        ]
+      ]
+    },
+    "/how-files-work-together/:1200x630": {
+      "artBounds": [
+        487,
+        263,
+        713,
+        582
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "How files work together",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          52,
+          156,
+          71
+        ],
+        [
+          60,
+          96,
+          873,
+          155
+        ]
+      ]
+    },
+    "/how-files-work-together/:600x600": {
+      "artBounds": [
+        195,
+        258,
+        404,
+        552
+      ],
+      "safeMargin": 36,
+      "text": [
+        "MDAAI",
+        "How files work together",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          36,
+          44,
+          118,
+          60
+        ],
+        [
+          36,
+          88,
+          395,
+          121
+        ],
+        [
+          36,
+          145,
+          244,
+          187
+        ]
+      ]
+    },
+    "/mdaai-1/:1200x600": {
+      "artBounds": [
+        497,
+        263,
+        702,
+        552
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "First-generation template",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          52,
+          156,
+          71
+        ],
+        [
+          60,
+          96,
+          933,
+          155
+        ]
+      ]
+    },
+    "/mdaai-1/:1200x630": {
+      "artBounds": [
+        487,
+        263,
+        713,
+        582
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "First-generation template",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          52,
+          156,
+          71
+        ],
+        [
+          60,
+          96,
+          933,
+          155
+        ]
+      ]
+    },
+    "/mdaai-1/:600x600": {
+      "artBounds": [
+        195,
+        258,
+        404,
+        552
+      ],
+      "safeMargin": 36,
+      "text": [
+        "MDAAI",
+        "First-generation template",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          36,
+          44,
+          118,
+          60
+        ],
+        [
+          36,
+          88,
+          430,
+          128
+        ],
+        [
+          36,
+          145,
+          250,
+          187
+        ]
+      ]
+    },
+    "/mdaai-2/:1200x600": {
+      "artBounds": [
+        497,
+        263,
+        702,
+        552
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI 2.0 template",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          96,
+          746,
+          154
+        ]
+      ]
+    },
+    "/mdaai-2/:1200x630": {
+      "artBounds": [
+        487,
+        263,
+        713,
+        582
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI 2.0 template",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          96,
+          746,
+          154
+        ]
+      ]
+    },
+    "/mdaai-2/:600x600": {
+      "artBounds": [
+        195,
+        258,
+        404,
+        552
+      ],
+      "safeMargin": 36,
+      "text": [
+        "MDAAI 2.0 template",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          36,
+          88,
+          526,
+          130
+        ]
+      ]
+    },
+    "/repository-structure/:1200x600": {
+      "artBounds": [
+        497,
+        263,
+        702,
+        552
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "Repository structure",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          52,
+          156,
+          71
+        ],
+        [
+          60,
+          96,
+          760,
+          154
+        ]
+      ]
+    },
+    "/repository-structure/:1200x630": {
+      "artBounds": [
+        487,
+        263,
+        713,
+        582
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "Repository structure",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          52,
+          156,
+          71
+        ],
+        [
+          60,
+          96,
+          760,
+          154
+        ]
+      ]
+    },
+    "/repository-structure/:600x600": {
+      "artBounds": [
+        195,
+        258,
+        404,
+        552
+      ],
+      "safeMargin": 36,
+      "text": [
+        "MDAAI",
+        "Repository structure",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          36,
+          44,
+          118,
+          60
+        ],
+        [
+          36,
+          88,
+          535,
+          128
+        ]
+      ]
+    },
+    "/task-lifecycle/:1200x600": {
+      "artBounds": [
+        497,
+        263,
+        702,
+        552
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "Task lifecycle",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          52,
+          156,
+          71
+        ],
+        [
+          60,
+          96,
+          521,
+          155
+        ]
+      ]
+    },
+    "/task-lifecycle/:1200x630": {
+      "artBounds": [
+        487,
+        263,
+        713,
+        582
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "Task lifecycle",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          52,
+          156,
+          71
+        ],
+        [
+          60,
+          96,
+          521,
+          155
+        ]
+      ]
+    },
+    "/task-lifecycle/:600x600": {
+      "artBounds": [
+        195,
+        258,
+        404,
+        552
+      ],
+      "safeMargin": 36,
+      "text": [
+        "MDAAI",
+        "Task lifecycle",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          36,
+          44,
+          118,
+          60
+        ],
+        [
+          36,
+          88,
+          363,
+          130
+        ]
+      ]
+    },
+    "/templates/:1200x600": {
+      "artBounds": [
+        497,
+        263,
+        702,
+        552
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "Templates",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          52,
+          156,
+          71
+        ],
+        [
+          60,
+          96,
+          410,
+          154
+        ]
+      ]
+    },
+    "/templates/:1200x630": {
+      "artBounds": [
+        487,
+        263,
+        713,
+        582
+      ],
+      "safeMargin": 60,
+      "text": [
+        "MDAAI",
+        "Templates",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          60,
+          52,
+          156,
+          71
+        ],
+        [
+          60,
+          96,
+          410,
+          154
+        ]
+      ]
+    },
+    "/templates/:600x600": {
+      "artBounds": [
+        195,
+        258,
+        404,
+        552
+      ],
+      "safeMargin": 36,
+      "text": [
+        "MDAAI",
+        "Templates",
+        "E.M.K."
+      ],
+      "textBounds": [
+        [
+          36,
+          44,
+          118,
+          60
+        ],
+        [
+          36,
+          88,
+          286,
+          130
+        ]
+      ]
+    }
+  },
   "limitations": [
-    "Animated GIF is an alternate; platform playback and crawler cache behavior are not verified locally.",
+    "Animated GIF is an engraving-reveal alternate; platform playback and crawler cache behavior are not verified locally.",
     "Installation, offline and update acceptance require the separately integrated service worker and browser tests."
   ],
   "routes": {
     "/": {
-      "alt": "MDAAI engraved guardian book-cover artwork \u2014 MDAAI; Repository operating protocol",
-      "animated": "/assets/identity/v2-mdaai-og-animated.gif",
-      "large": "/assets/identity/v2-mdaai-twitter-large.png",
-      "static": "/assets/identity/v2-mdaai-og-static.png",
-      "summary": "/assets/identity/v2-mdaai-twitter-summary.png"
+      "alt": "MDAAI \u2014 A protocol for AI-assisted development; engraved guardian artwork, E.M.K.",
+      "animated": "/assets/identity/v3-mdaai-og-animated.gif",
+      "large": "/assets/identity/v3-mdaai-twitter-large.png",
+      "static": "/assets/identity/v3-mdaai-og-static.png",
+      "summary": "/assets/identity/v3-mdaai-twitter-summary.png"
     },
     "/how-files-work-together/": {
-      "alt": "MDAAI engraved guardian book-cover artwork \u2014 How files work together; Instructions to evidence",
-      "animated": "/assets/identity/v2-connections-og-animated.gif",
-      "large": "/assets/identity/v2-connections-twitter-large.png",
-      "static": "/assets/identity/v2-connections-og-static.png",
-      "summary": "/assets/identity/v2-connections-twitter-summary.png"
+      "alt": "How files work together \u2014 MDAAI protocol documentation; engraved guardian artwork, E.M.K.",
+      "animated": "/assets/identity/v3-connections-og-animated.gif",
+      "large": "/assets/identity/v3-connections-twitter-large.png",
+      "static": "/assets/identity/v3-connections-og-static.png",
+      "summary": "/assets/identity/v3-connections-twitter-summary.png"
     },
     "/mdaai-1/": {
-      "alt": "MDAAI engraved guardian book-cover artwork \u2014 First-generation MDAAI; The original repository template",
-      "animated": "/assets/identity/v2-mdaai-1-og-animated.gif",
-      "large": "/assets/identity/v2-mdaai-1-twitter-large.png",
-      "static": "/assets/identity/v2-mdaai-1-og-static.png",
-      "summary": "/assets/identity/v2-mdaai-1-twitter-summary.png"
+      "alt": "First-generation template \u2014 MDAAI protocol documentation; engraved guardian artwork, E.M.K.",
+      "animated": "/assets/identity/v3-mdaai-1-og-animated.gif",
+      "large": "/assets/identity/v3-mdaai-1-twitter-large.png",
+      "static": "/assets/identity/v3-mdaai-1-og-static.png",
+      "summary": "/assets/identity/v3-mdaai-1-twitter-summary.png"
     },
     "/mdaai-2/": {
-      "alt": "MDAAI engraved guardian book-cover artwork \u2014 MDAAI 2.0; The portable core",
-      "animated": "/assets/identity/v2-mdaai-2-og-animated.gif",
-      "large": "/assets/identity/v2-mdaai-2-twitter-large.png",
-      "static": "/assets/identity/v2-mdaai-2-og-static.png",
-      "summary": "/assets/identity/v2-mdaai-2-twitter-summary.png"
+      "alt": "MDAAI 2.0 template \u2014 MDAAI protocol documentation; engraved guardian artwork, E.M.K.",
+      "animated": "/assets/identity/v3-mdaai-2-og-animated.gif",
+      "large": "/assets/identity/v3-mdaai-2-twitter-large.png",
+      "static": "/assets/identity/v3-mdaai-2-og-static.png",
+      "summary": "/assets/identity/v3-mdaai-2-twitter-summary.png"
     },
     "/repository-structure/": {
-      "alt": "MDAAI engraved guardian book-cover artwork \u2014 Repository structure; Contracts, tasks and evidence",
-      "animated": "/assets/identity/v2-structure-og-animated.gif",
-      "large": "/assets/identity/v2-structure-twitter-large.png",
-      "static": "/assets/identity/v2-structure-og-static.png",
-      "summary": "/assets/identity/v2-structure-twitter-summary.png"
+      "alt": "Repository structure \u2014 MDAAI protocol documentation; engraved guardian artwork, E.M.K.",
+      "animated": "/assets/identity/v3-structure-og-animated.gif",
+      "large": "/assets/identity/v3-structure-twitter-large.png",
+      "static": "/assets/identity/v3-structure-og-static.png",
+      "summary": "/assets/identity/v3-structure-twitter-summary.png"
     },
     "/task-lifecycle/": {
-      "alt": "MDAAI engraved guardian book-cover artwork \u2014 Task lifecycle; Assigned work to verified completion",
-      "animated": "/assets/identity/v2-lifecycle-og-animated.gif",
-      "large": "/assets/identity/v2-lifecycle-twitter-large.png",
-      "static": "/assets/identity/v2-lifecycle-og-static.png",
-      "summary": "/assets/identity/v2-lifecycle-twitter-summary.png"
+      "alt": "Task lifecycle \u2014 MDAAI protocol documentation; engraved guardian artwork, E.M.K.",
+      "animated": "/assets/identity/v3-lifecycle-og-animated.gif",
+      "large": "/assets/identity/v3-lifecycle-twitter-large.png",
+      "static": "/assets/identity/v3-lifecycle-og-static.png",
+      "summary": "/assets/identity/v3-lifecycle-twitter-summary.png"
     },
     "/templates/": {
-      "alt": "MDAAI engraved guardian book-cover artwork \u2014 Templates; Reviewed repository starting points",
-      "animated": "/assets/identity/v2-templates-og-animated.gif",
-      "large": "/assets/identity/v2-templates-twitter-large.png",
-      "static": "/assets/identity/v2-templates-og-static.png",
-      "summary": "/assets/identity/v2-templates-twitter-summary.png"
+      "alt": "Templates \u2014 MDAAI protocol documentation; engraved guardian artwork, E.M.K.",
+      "animated": "/assets/identity/v3-templates-og-animated.gif",
+      "large": "/assets/identity/v3-templates-twitter-large.png",
+      "static": "/assets/identity/v3-templates-og-static.png",
+      "summary": "/assets/identity/v3-templates-twitter-summary.png"
     }
   },
-  "version": "v2"
+  "version": "v3"
 }

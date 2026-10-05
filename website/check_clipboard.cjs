@@ -16,7 +16,7 @@ async function check(mode) {
   const document = {
     fonts:{ready:Promise.resolve()},documentElement:element(),body:{...element(),append(){}},
     querySelector:s=>{if(!nodes.has(s))nodes.set(s,element());return nodes.get(s);},
-    getElementById:s=>{if(!nodes.has(s))nodes.set(s,element());return nodes.get(s);},
+    getElementById:s=>{if(s === 'template-search')return null;if(!nodes.has(s))nodes.set(s,element());return nodes.get(s);},
     querySelectorAll:s=>s === '.copy' ? [button] : [],
     addEventListener(){},createElement:element,
     execCommand:()=>{fallbackCalls++;return false;}

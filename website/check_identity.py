@@ -44,7 +44,7 @@ class Head(HTMLParser):
 
 def check_identity(site=SITE, dist=None, decode=False):
     from identity import manifest, social_assets, ASSET_ROOT, COVER_SHA256, ROUTES, VERSION
-    from seo import metadata, BASE, AUTHOR
+    from seo import metadata, page_title, BASE, AUTHOR
     site = Path(site)
     pages = json.loads((site / 'content.json').read_text())
     assert len(pages) == 7, 'Seven reviewed routes required'
@@ -60,6 +60,22 @@ def check_identity(site=SITE, dist=None, decode=False):
     content = json.loads((site / 'content.json').read_text())
     assert {p['route']: p['title'] for p in content} == {route: values[1] for route, values in ROUTES.items()}, 'Social titles must match actual published titles'
     assert inventory['generator']['pillow'] == '12.1.0'
+    assert inventory['version'] == 'v3'
+    assert len(inventory['layouts']) == 21
+    for key, layout in inventory['layouts'].items():
+        width, height = map(int, key.rsplit(':', 1)[1].split('x'))
+        tokens = layout['text']
+        assert sum(token.count('MDAAI') for token in tokens) == 1, (key, tokens)
+        assert tokens.count('E.M.K.') == 1
+        assert not any('DOCUMENTATION' in token for token in tokens)
+        if key.startswith('/:'):
+            assert tokens == ['MDAAI', 'A protocol for AI-assisted development', 'E.M.K.']
+        margin = layout['safeMargin']
+        for x0, y0, x1, y1 in layout['textBounds'] + [layout['artBounds']]:
+            assert margin <= x0 < x1 <= width - margin
+            assert 0 < y0 < y1 < height
+    for name, digest in inventory['generator']['fontSha256'].items():
+        assert hashlib.sha256((site / 'fonts' / name).read_bytes()).hexdigest() == digest
     assert hashlib.sha256((site / 'assets/brand/mdaai-guardian-cover.webp').read_bytes()).hexdigest() == COVER_SHA256, 'Approved cover changed'
     for name, entry in inventory['assets'].items():
         data = (site / ASSET_ROOT / name).read_bytes()
@@ -152,8 +168,8 @@ def check_identity(site=SITE, dist=None, decode=False):
         one('og:url', BASE + route)
         one('og:site_name', 'MDAAI')
         one('og:locale', 'en_US')
-        one('og:type', 'website' if route == '/' else 'article')
-        one('og:title', page['title'] + ' · MDAAI')
+        one('og:type', 'website' if route in ('/', '/templates/') else 'article')
+        one('og:title', page_title(page['title'], route))
         one('og:description', page['description'])
         assert h.meta['og:image'] == [BASE + selection['static'], BASE + selection['animated']]
         assert h.meta['og:image:type'] == ['image/png', 'image/gif']
@@ -163,7 +179,7 @@ def check_identity(site=SITE, dist=None, decode=False):
         one('twitter:card', 'summary_large_image')
         one('twitter:image', BASE + selection['large'])
         one('twitter:image:alt', selection['alt'])
-        one('twitter:title', page['title'] + ' · MDAAI')
+        one('twitter:title', page_title(page['title'], route))
         one('twitter:description', page['description'])
         assert 'twitter:site' not in h.meta and 'twitter:creator' not in h.meta
         assert [x['href'] for x in h.links if x['rel'] == 'canonical'] == [BASE + route]
@@ -238,13 +254,16 @@ def check_identity(site=SITE, dist=None, decode=False):
                     image.load()
                     assert image.size == (1200,630)
                     rgb = image.convert('RGB')
-                    # Motion is confined to the footer tick; art and title are complete
-                    # on frame zero and must remain exactly stable in every frame.
-                    upper = rgb.crop((0, 0, 1200, 600)).tobytes()
+                    # Meaningful reveal is confined to the approved engraving.
+                    # Text and the entire surrounding cover stay pixel-stable.
+                    route = next(route for route in ROUTES if name == Path(social_assets(route)['animated']).name)
+                    x0, y0, x1, y1 = inventory['layouts'][route + ':1200x630']['artBounds']
+                    surround = rgb.copy()
+                    surround.paste((0, 0, 0), (x0, y0, x1, y1))
                     if stable is None:
-                        stable = upper
-                    assert upper == stable, (name, 'Animated title/art changed')
-                    assert image.info['duration'] == 140
+                        stable = surround.tobytes()
+                    assert surround.tobytes() == stable, (name, 'Animation outside engraving')
+                    assert image.info['duration'] == (2500 if i == 11 else 90)
                     frames.append(hashlib.sha256(rgb.tobytes()).hexdigest())
                 assert len(set(frames)) > 1
             if name.startswith(VERSION + '-') and image.format == 'PNG':
@@ -253,11 +272,12 @@ def check_identity(site=SITE, dist=None, decode=False):
                 assert rgb.getpixel((0, 0)) == cover.getpixel((20, 20)), (name, 'Ivory paper')
                 assert rgb.getpixel((0, 100)) == cover.getpixel((20, 100)), (name, 'Burgundy band')
                 square = image.width == image.height
-                band_bottom = 225 if square else 250
+                band_bottom = 240 if square else 245
                 plate = cover.crop((270, 405, 735, 1060))
-                plate.thumbnail((225, 292) if square else (260, image.height - band_bottom - 90), Image.Resampling.LANCZOS)
-                x = (image.width - plate.width) // 2 if square else image.width - 60 - plate.width - 65
-                assert rgb.crop((x, band_bottom + 12, x + plate.width, band_bottom + 12 + plate.height)).tobytes() == plate.tobytes(), (name, 'Approved plate must be intact and aspect-fitted')
+                plate.thumbnail((240, image.height - band_bottom - 66) if square else (380, image.height - band_bottom - 66), Image.Resampling.LANCZOS)
+                x = (image.width - plate.width) // 2
+                y = band_bottom + 18
+                assert rgb.crop((x, y, x + plate.width, y + plate.height)).tobytes() == plate.tobytes(), (name, 'Approved plate must be intact and aspect-fitted')
             if 'maskable' in name:
                 rgb = image.convert('RGB')
                 w, h = rgb.size
