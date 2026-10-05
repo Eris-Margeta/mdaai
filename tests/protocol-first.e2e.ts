@@ -53,7 +53,7 @@ for(const width of [320,375,768,1440]) for(const theme of ['light','dark']) {
    expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)).toBe(false);
    expect(await page.evaluate(()=>document.documentElement.dataset.theme)).toBe(theme);
    if(width===1440){
-    const layout=await page.evaluate(()=>{let m=document.querySelector('#main')!.getBoundingClientRect(),a=document.querySelector('.article')!.getBoundingClientRect();return {right:a.right,mainRight:m.right,width:a.width,mainWidth:m.width,aside:getComputedStyle(document.querySelector('aside')!).display,toc:document.querySelectorAll('.toc,.right-toc').length};});
+    const layout=await page.evaluate(()=>{let m=document.querySelector('#main')!.getBoundingClientRect(),a=document.querySelector('.article')!.getBoundingClientRect();return {right:a.right,mainRight:m.left+document.querySelector('#main')!.clientWidth,width:a.width,mainWidth:document.querySelector('#main')!.clientWidth,aside:getComputedStyle(document.querySelector('aside')!).display,toc:document.querySelectorAll('.toc,.right-toc').length};});
     expect(layout.right).toBe(layout.mainRight);expect(layout.width).toBe(layout.mainWidth);expect(layout.aside).toBe('block');expect(layout.toc).toBe(0);
    }
    const search=page.locator('#template-search');
