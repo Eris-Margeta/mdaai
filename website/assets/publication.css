@@ -64,5 +64,8 @@ html,body{height:100%;overflow:hidden}body{height:100vh;height:100dvh;display:gr
 @media(max-width:800px){.nav-backdrop{position:absolute;inset:0;z-index:1;background:rgb(0 0 0 / .58)}body.nav-open .nav-backdrop{display:block}#docs-nav{z-index:2}.flow-row{flex-direction:column}.flow-row span:not(.direction-icon){width:100%}.flow-row .direction-icon{transform:rotate(90deg)}}
 @media(hover:none),(pointer:coarse){.anchorable-heading .heading-anchor,.heading-copy{opacity:1;width:44px;min-width:44px;height:44px}}
 @media print{.heading-copy,.heading-anchor,.heading-copy-status,.nav-backdrop{display:none}.anchorable-heading{display:block}}
+.paper-downloads{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;margin:1rem 0}
+#paper .button.primary,#downloads .button.primary{padding:.7rem 1rem;border:1px solid var(--accent);border-radius:6px;background:var(--soft);color:var(--accent);text-decoration:none;white-space:normal;max-width:100%}
+#paper .button.primary:hover,#downloads .button.primary:hover{background:var(--surface)}
 .brand-logo{vertical-align:middle;flex-shrink:0}.logo-dark{display:none}[data-theme="dark"] .logo-light{display:none}[data-theme="dark"] .logo-dark{display:inline-block}[data-theme="light"] .logo-light{display:inline-block}[data-theme="light"] .logo-dark{display:none}
 @media(prefers-color-scheme:dark){html:not([data-theme="light"]) .logo-light{display:none}html:not([data-theme="light"]) .logo-dark{display:inline-block}}

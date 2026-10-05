@@ -28,7 +28,7 @@ def downloads(site=None, home=False):
     note = '<p>Three pages · Preprint / documentary design paper · ' + html.escape(data['author']) + ' · Published ' + data['datePublished'] + '. Soft edition: simulated print finish, not a genuine scan.</p>'
     if home:
         return '<section id="paper"><h2><a class="heading-anchor" href="#paper">Read the paper</a></h2><p>' + html.escape(data['title']) + '</p>' + primary + '<p><a href="/paper/">Abstract, author and both PDF editions →</a></p>' + note + '</section>'
-    return primary + secondary + note
+    return '<div class="paper-downloads">' + primary + secondary + '</div>' + note
 
 
 def article(base):
